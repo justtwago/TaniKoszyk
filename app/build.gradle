@@ -28,18 +28,20 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    implementation "com.android.support:design:$versions.supportLibrary"
+    implementation "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
 
-    implementation 'pl.droidsonroids:jspoon:1.3.2'
-    implementation 'pl.droidsonroids.retrofit2:converter-jspoon:1.3.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    implementation "pl.droidsonroids:jspoon:$versions.jspoon"
+    implementation "pl.droidsonroids.retrofit2:converter-jspoon:$versions.jspoon"
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+    implementation "com.github.franmontiel:PersistentCookieJar:$versions.cookie"
+    implementation "org.koin:koin-android:$versions.koin"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
 }
