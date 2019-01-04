@@ -8,11 +8,11 @@ import io.reactivex.schedulers.Schedulers
 
 
 interface KauflandRepository {
-    fun getProducts(context: Context, searchQuery: String): Single<KauflandProductPage>
+    fun getProducts(searchQuery: String): Single<KauflandProductPage>
 }
 
-class KauflandRepositoryImpl : KauflandRepository {
-    override fun getProducts(context: Context, searchQuery: String): Single<KauflandProductPage> {
+class KauflandRepositoryImpl(private val context: Context) : KauflandRepository {
+    override fun getProducts(searchQuery: String): Single<KauflandProductPage> {
         return createRetrofit(context, "https://www.kaufland.pl/")
             .create(KauflandService::class.java)
             .getProducts(searchQuery)

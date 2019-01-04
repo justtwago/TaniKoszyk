@@ -8,12 +8,12 @@ import io.reactivex.schedulers.Schedulers
 
 
 interface AuchanRepository {
-    fun getProducts(context: Context, searchQuery: String): Single<AuchanProductPage>
+    fun getProducts(searchQuery: String): Single<AuchanProductPage>
 }
 
-class AuchanRepositoryImpl : AuchanRepository {
+class AuchanRepositoryImpl(private val context: Context) : AuchanRepository {
 
-    override fun getProducts(context: Context, searchQuery: String): Single<AuchanProductPage> {
+    override fun getProducts(searchQuery: String): Single<AuchanProductPage> {
         return createRetrofit(context, "https://www.auchandirect.pl/")
             .create(AuchanService::class.java)
             .getProducts(searchQuery)

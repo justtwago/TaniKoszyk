@@ -3,12 +3,13 @@ package com.github.justtwago.tanikoszyk
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.github.justtwago.tanikoszyk.services.auchan.AuchanRepositoryImpl
-import java.net.URL
-import java.net.HttpURLConnection
+import com.github.justtwago.tanikoszyk.services.auchan.AuchanRepository
+import org.koin.android.ext.android.inject
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val auchanRepository: AuchanRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +18,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun find() {
-        val kauflandRepository = AuchanRepositoryImpl()
         val query = "cukier"
-        kauflandRepository.getProducts(this, query)
+        auchanRepository.getProducts(query)
             .subscribe { page ->
                 page.products.forEach {
                     Log.d(
