@@ -6,7 +6,9 @@ import com.github.justtwago.tanikoszyk.services.base.BaseRepository
 import com.github.justtwago.tanikoszyk.services.base.BaseRepositoryImpl
 import com.github.justtwago.tanikoszyk.services.kaufland.KauflandRepository
 import com.github.justtwago.tanikoszyk.services.kaufland.KauflandRepositoryImpl
+import com.github.justtwago.tanikoszyk.ui.MainViewModel
 import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 
@@ -15,4 +17,5 @@ val appModule = module {
     single { KauflandRepositoryImpl(androidApplication()) as KauflandRepository }
     single { BaseRepositoryImpl(auchanRepository = get(), kauflandRepository = get()) as BaseRepository }
 
+    viewModel { MainViewModel(baseRepository = get()) }
 }
