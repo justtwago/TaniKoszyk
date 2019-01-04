@@ -4,12 +4,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.github.justtwago.tanikoszyk.services.auchan.AuchanRepository
+import com.github.justtwago.tanikoszyk.services.base.BaseRepository
 import org.koin.android.ext.android.inject
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val auchanRepository: AuchanRepository by inject()
+    private val baseRepository: BaseRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,15 +20,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun find() {
         val query = "cukier"
-        auchanRepository.getProducts(query)
+        baseRepository.getProducts(query)
             .subscribe { page ->
-                page.products.forEach {
+                page.forEach {
                     Log.d(
                         "BLOGPOST",
-                        "${it.subtitle}, ${it.title}, ${it.imageUrl}, ${it.priceZloty}, ${it.priceCents}, ${it.quanity}"
+                        "${it.subtitle}, ${it.title}, ${it.imageUrl}, ${it.oldPrice}, ${it.price}, ${it.quantity}, ${it.market.name}"
                     )
                 }
-                Log.d("BLOGPOST", "count: ${page.products.size}")
+                Log.d("BLOGPOST", "count: ${page.size}")
             }
     }
 }

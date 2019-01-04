@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.model
+package com.github.justtwago.tanikoszyk.model.domain
 
 
 data class Product(
@@ -6,7 +6,7 @@ data class Product(
         val title: String,
         val oldPrice: String,
         val price: String,
-        val imageUrl: List<String>,
+        val imageUrl: String,
         val quantity: String,
         val market: Market
 )

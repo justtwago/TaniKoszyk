@@ -9,7 +9,7 @@ data class KauflandProduct(
         @Selector(".a-pricetag__price") var price: String = "",
         @Selector(
             ".m-offer-tile__image > figure > img",
-            attr = "data-src"
+            attr = "data-srcset"
         ) var imageUrl: String = "",
-        @Selector(".m-offer-tile__quantity") var quanity: String = ""
+        @Selector(".m-offer-tile__quantity") var quantity: String = ""
 )

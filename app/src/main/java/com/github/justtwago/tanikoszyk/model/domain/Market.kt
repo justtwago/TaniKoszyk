@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.model
+package com.github.justtwago.tanikoszyk.model.domain
 
 
 enum class Market {
