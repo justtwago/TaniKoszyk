@@ -1,19 +1,19 @@
-package com.github.justtwago.tanikoszyk.ui
+package com.github.justtwago.tanikoszyk.ui.search
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.observe
 import com.github.justtwago.tanikoszyk.databinding.ActivityMainBinding
+import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
 
-    private val mainViewModel by viewModel<MainViewModel>()
+    private val mainViewModel by viewModel<SearchViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +29,14 @@ class MainActivity : AppCompatActivity() {
             val searchProductAdapter = SearchProductAdapter()
             adapter = searchProductAdapter
             layoutManager = LinearLayoutManager(context)
-            mainViewModel.getSearchProductViewModelsLiveData().observe(this@MainActivity) {
+            mainViewModel.getSearchProductViewModelsLiveData().observe(this@SearchActivity) {
                 searchProductAdapter.setData(it)
             }
         }
     }
 
     private fun ActivityMainBinding.setupViewModel() {
-        setLifecycleOwner(this@MainActivity)
+        setLifecycleOwner(this@SearchActivity)
         viewModel = mainViewModel
         mainViewModel.onCreated()
     }

@@ -8,7 +8,7 @@ import com.github.justtwago.tanikoszyk.services.kaufland.KauflandRepository
 import com.github.justtwago.tanikoszyk.services.kaufland.KauflandRepositoryImpl
 import com.github.justtwago.tanikoszyk.services.tesco.TescoRepository
 import com.github.justtwago.tanikoszyk.services.tesco.TescoRepositoryImpl
-import com.github.justtwago.tanikoszyk.ui.MainViewModel
+import com.github.justtwago.tanikoszyk.ui.search.SearchViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -26,5 +26,5 @@ val appModule = module {
         ) as BaseRepository
     }
 
-    viewModel { MainViewModel(baseRepository = get()) }
+    viewModel { SearchViewModel(baseRepository = get()) }
 }

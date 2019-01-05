@@ -7,7 +7,7 @@ import com.github.justtwago.tanikoszyk.model.kaufland.KauflandProductPage
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProduct
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProductPage
 import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_BASE_URL
-import com.github.justtwago.tanikoszyk.ui.SearchProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 
 
 fun AuchanProductPage.mapToDomain(): List<Product> {
@@ -68,4 +68,6 @@ private fun TescoProduct.mapQuantity(): String {
     } else "${quantity ?: 0} szt"
 }
 
-fun Product.toViewModel() = SearchProductItemViewModel(this)
+fun Product.toViewModel() = SearchProductItemViewModel(
+    this
+)

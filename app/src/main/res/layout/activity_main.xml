@@ -6,14 +6,14 @@
 
         <variable
             name="viewModel"
-            type="com.github.justtwago.tanikoszyk.ui.MainViewModel" />
+            type="com.github.justtwago.tanikoszyk.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.search.SearchActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productsRecyclerView"

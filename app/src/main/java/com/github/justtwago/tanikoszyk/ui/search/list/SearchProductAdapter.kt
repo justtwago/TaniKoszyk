@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui
+package com.github.justtwago.tanikoszyk.ui.search.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

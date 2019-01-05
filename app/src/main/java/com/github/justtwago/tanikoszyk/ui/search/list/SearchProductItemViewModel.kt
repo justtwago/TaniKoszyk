@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui
+package com.github.justtwago.tanikoszyk.ui.search.list
 
 import com.github.justtwago.tanikoszyk.model.domain.Product
 

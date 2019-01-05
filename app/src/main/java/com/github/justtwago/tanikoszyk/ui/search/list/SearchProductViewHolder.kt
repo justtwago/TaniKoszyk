@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui
+package com.github.justtwago.tanikoszyk.ui.search.list
 
 import androidx.recyclerview.widget.RecyclerView
 import com.github.justtwago.tanikoszyk.databinding.ItemProductBinding
