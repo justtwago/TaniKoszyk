@@ -16,7 +16,7 @@ class KauflandRepositoryImpl(private val context: Context) : KauflandRepository 
     override fun getProducts(searchQuery: String): Single<KauflandProductPage> {
         return createRetrofit(context, KAUFLAND_BASE_URL)
             .create(KauflandService::class.java)
-            .getProducts(searchQuery)
+            .getProducts(searchQuery = searchQuery)
             .subscribeOn(Schedulers.io())
     }
 }

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.justtwago.tanikoszyk.R
-import com.github.justtwago.tanikoszyk.common.observe
+import com.github.justtwago.tanikoszyk.common.extensions.observe
 import com.github.justtwago.tanikoszyk.databinding.ActivityMainBinding
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductAdapter
 import kotlinx.android.synthetic.main.activity_main.*

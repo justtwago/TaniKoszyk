@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.justtwago.tanikoszyk.common.extensions.Ignored
+import com.github.justtwago.tanikoszyk.model.domain.Product
 import com.github.justtwago.tanikoszyk.model.domain.toViewModel
 import com.github.justtwago.tanikoszyk.services.base.BaseRepository
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
@@ -17,29 +19,32 @@ class SearchViewModel(private val baseRepository: BaseRepository) : ViewModel() 
     private val searchProductViewModelsLiveData = MutableLiveData<List<SearchProductItemViewModel>>()
 
     fun onCreated() {
-        getProducts("cukier")
+        getProducts("cola")
     }
 
     private fun getProducts(query: String) {
         disposable = baseRepository.getProducts(query)
             .subscribeBy(
-                onNext = { page ->
-                    page.map { Log.d("BLOGPOST", it.toString()) }
-                    Log.d("BLOGPOST", "count: ${page.size}")
-
-                    val newList = mutableListOf<SearchProductItemViewModel>()
-                    newList.addAll(searchProductViewModelsLiveData.value ?: emptyList())
-                    newList.addAll(page.map { it.toViewModel() })
-                    searchProductViewModelsLiveData.postValue(newList.toList())
-                }
-                , onError = {}
+                onNext = ::saveProducts,
+                onError = { Ignored }
             )
     }
 
-    fun getSearchProductViewModelsLiveData(): LiveData<List<SearchProductItemViewModel>> = searchProductViewModelsLiveData
+    private fun saveProducts(page: List<Product>) {
+        page.forEach {
+            Log.d("ID_PRODUCT", it.id.toString())
+        }
+        mutableListOf<SearchProductItemViewModel>().apply {
+            addAll(searchProductViewModelsLiveData.value ?: emptyList())
+            addAll(page.map { it.toViewModel() })
+            searchProductViewModelsLiveData.postValue(toList())
+        }
+    }
 
     override fun onCleared() {
         disposable.dispose()
         super.onCleared()
     }
+
+    fun getSearchProductViewModelsLiveData(): LiveData<List<SearchProductItemViewModel>> = searchProductViewModelsLiveData
 }

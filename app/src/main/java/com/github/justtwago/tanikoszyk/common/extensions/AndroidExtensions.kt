@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.common
+package com.github.justtwago.tanikoszyk.common.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

@@ -11,12 +11,12 @@ import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 
 
 fun AuchanProductPage.mapToDomain(): List<Product> {
-    return products?.map { it.mapToDomain() }.orEmpty()
+    return products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty()
 }
 
 fun AuchanProduct.mapToDomain(): Product {
     return Product(
-        id = toString(), //TODO: get ids from tesco
+        id = toString().hashCode(), //TODO: get ids from tesco
         subtitle = subtitle.orEmpty(),
         title = title?.substringAfter("$subtitle - ").orEmpty(),
         oldPrice = "",
@@ -28,12 +28,12 @@ fun AuchanProduct.mapToDomain(): Product {
 }
 
 fun KauflandProductPage.mapToDomain(): List<Product> {
-    return products?.map { it.mapToDomain() }.orEmpty()
+    return products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty()
 }
 
 fun KauflandProduct.mapToDomain(): Product {
     return Product(
-        id = toString(), //TODO: get ids from tesco
+        id = toString().hashCode(), //TODO: get ids from tesco
         subtitle = subtitle.orEmpty(),
         title = title.orEmpty(),
         oldPrice = oldPrice.orEmpty(),
@@ -45,13 +45,13 @@ fun KauflandProduct.mapToDomain(): Product {
 }
 
 fun TescoProductPage.mapToDomain(): List<Product> {
-    return products?.map { it.mapToDomain() }.orEmpty()
+    return products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty()
 }
 
 fun TescoProduct.mapToDomain(): Product {
     val title = title?.split(" ")
     return Product(
-        id = toString(), //TODO: get ids from tesco
+        id = toString().hashCode(), //TODO: get ids from tesco
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
         oldPrice = "",
@@ -68,6 +68,4 @@ private fun TescoProduct.mapQuantity(): String {
     } else "${quantity ?: 0} szt"
 }
 
-fun Product.toViewModel() = SearchProductItemViewModel(
-    this
-)
+fun Product.toViewModel() = SearchProductItemViewModel(this)

@@ -2,7 +2,7 @@ package com.github.justtwago.tanikoszyk.model.domain
 
 
 data class Product(
-        val id: String,
+        val id: Int,
         val subtitle: String,
         val title: String,
         val oldPrice: String,
@@ -19,5 +19,12 @@ data class Product(
                 "Price: $price\n" +
                 "Quantity: $quantity\n" +
                 "Market: ${market.name}"
+    }
+
+    fun isNotEmpty(): Boolean {
+        return subtitle.isNotEmpty()
+                && title.isNotEmpty()
+                && quantity.isNotEmpty()
+                && imageUrl.isNotEmpty()
     }
 }
