@@ -55,7 +55,7 @@ fun TescoProduct.mapToDomain(): Product {
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
         oldPrice = "",
-        price = price.orEmpty(),
+        price = "${price ?: 0} zł",
         imageUrl = imageUrl.orEmpty(),
         quantity = mapQuantity(),
         market = Market.TESCO
