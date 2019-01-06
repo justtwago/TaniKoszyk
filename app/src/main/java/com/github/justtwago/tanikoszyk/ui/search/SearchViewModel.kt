@@ -12,22 +12,23 @@ import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 
 class SearchViewModel(private val baseRepository: BaseRepository) : ViewModel() {
     private val searchProductViewModelsLiveData = MutableLiveData<List<SearchProductItemViewModel>>()
+    private var query: String = ""
     val isLoaderVisible = MutableLiveData<Boolean>()
 
-    suspend fun onCreated() {
-        isLoaderVisible.postValue(true)
-        getProducts("cukier")
-        isLoaderVisible.postValue(false)
+    suspend fun onSearchClicked(query: String) {
+        this.query = query
+        getProducts(query)
     }
 
     private suspend fun getProducts(query: String) {
-        saveProducts(baseRepository.getProducts(query))
+        isLoaderVisible.postValue(true)
+        saveProducts(baseRepository.getProducts(query), resetList = true)
+        isLoaderVisible.postValue(false)
     }
 
-    private fun saveProducts(page: ProductPage) {
-        Log.d("PAGES", "Market: ${page.products.first().market.name}, Pages: ${page.pageCount}")
+    private fun saveProducts(page: ProductPage, resetList: Boolean) {
         mutableListOf<SearchProductItemViewModel>().apply {
-            addAll(searchProductViewModelsLiveData.value ?: emptyList())
+            if (!resetList) addAll(searchProductViewModelsLiveData.value ?: emptyList())
             addAll(page.products.map { it.toViewModel() })
             searchProductViewModelsLiveData.postValue(toList())
         }

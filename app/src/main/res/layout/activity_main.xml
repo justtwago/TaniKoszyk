@@ -16,6 +16,25 @@
         android:background="@color/white"
         tools:context=".ui.search.SearchActivity">
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/product_item_background"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/searchDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/greyAlpha20"
+            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productsRecyclerView"
             android:layout_width="0dp"
@@ -23,18 +42,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchDivider"
             tools:listitem="@layout/item_product" />
 
         <FrameLayout
-            android:visibility="@{viewModel.isLoaderVisible}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/white"
+            android:visibility="@{viewModel.isLoaderVisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/searchDivider">
 
             <ProgressBar
                 android:id="@+id/progressBar"

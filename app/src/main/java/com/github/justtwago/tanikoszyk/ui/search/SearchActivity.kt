@@ -2,10 +2,12 @@ package com.github.justtwago.tanikoszyk.ui.search
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.observe
+import com.github.justtwago.tanikoszyk.common.extensions.setOnQueryTextSubmitListener
 import com.github.justtwago.tanikoszyk.databinding.ActivityMainBinding
 import com.github.justtwago.tanikoszyk.ui.base.BaseActivity
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductAdapter
@@ -25,7 +27,13 @@ class SearchActivity : BaseActivity() {
             .setupViewModel()
 
         setupRecyclerView()
-        launch { mainViewModel.onCreated() }
+        setupSearchView()
+    }
+
+    private fun setupSearchView() {
+        searchView.setOnQueryTextSubmitListener {
+            launch { mainViewModel.onSearchClicked(query = it) }
+        }
     }
 
     private fun setupRecyclerView() {
