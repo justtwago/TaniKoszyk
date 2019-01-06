@@ -45,10 +45,8 @@ dependencies {
     implementation "pl.droidsonroids:jspoon:$versions.jspoon"
     implementation "pl.droidsonroids.retrofit2:converter-jspoon:$versions.jspoon"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
     implementation "com.github.franmontiel:PersistentCookieJar:$versions.cookie"
 
-    implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin"
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
 

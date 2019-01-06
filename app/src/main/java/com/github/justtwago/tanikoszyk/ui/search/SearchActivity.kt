@@ -9,6 +9,8 @@ import com.github.justtwago.tanikoszyk.common.extensions.observe
 import com.github.justtwago.tanikoszyk.databinding.ActivityMainBinding
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
@@ -38,6 +40,6 @@ class SearchActivity : AppCompatActivity() {
     private fun ActivityMainBinding.setupViewModel() {
         setLifecycleOwner(this@SearchActivity)
         viewModel = mainViewModel
-        mainViewModel.onCreated()
+        GlobalScope.launch { mainViewModel.onCreated() }
     }
 }
