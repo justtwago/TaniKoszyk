@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.1.0-alpha01'
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
     implementation "pl.droidsonroids:jspoon:$versions.jspoon"
     implementation "pl.droidsonroids.retrofit2:converter-jspoon:$versions.jspoon"
