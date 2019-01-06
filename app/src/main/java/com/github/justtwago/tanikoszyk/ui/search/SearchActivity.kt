@@ -23,10 +23,8 @@ class SearchActivity : BaseActivity() {
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .setupViewModel()
 
-        mainViewModel.initialize()
         setupRecyclerView()
         setupListeners()
-        setupObservers()
     }
 
     private fun ActivityMainBinding.setupViewModel() {
@@ -50,15 +48,6 @@ class SearchActivity : BaseActivity() {
         }
         mainLayout.setOnClickListener {
             searchView.requestSearchFocus()
-        }
-    }
-
-    private fun setupObservers() {
-        mainViewModel.getPagedProductViewModels().observe(this) {
-            searchProductAdapter.submitList(it)
-        }
-        mainViewModel.getNextPageLoaderVisibleLiveData().observe(this) {
-            searchProductAdapter.setLoaderVisibility(it)
         }
     }
 }

@@ -15,13 +15,13 @@ import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 class SearchViewModel(
         private val productDataSourceFactory: ProductDataSourceFactory
 ) : ViewModel() {
-    private lateinit var pagedProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    private val isNextPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     private var query = ""
 
+    var pagedProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
+    val isNextPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     val isLoaderVisibleLiveData = MutableLiveData<Boolean>()
 
-    fun initialize() {
+    init {
         productDataSourceFactory.initialize(query, isLoaderVisibleLiveData, isNextPageLoaderVisibleLiveData)
 
         val config = PagedList.Config.Builder()
@@ -39,7 +39,4 @@ class SearchViewModel(
         productDataSourceFactory.initialize(query, isLoaderVisibleLiveData, isNextPageLoaderVisibleLiveData)
         productDataSourceFactory.dataSource?.invalidate()
     }
-
-    fun getPagedProductViewModels(): LiveData<PagedList<SearchProductItemViewModel>> = pagedProductViewModelsLiveData
-    fun getNextPageLoaderVisibleLiveData(): LiveData<Boolean> = isNextPageLoaderVisibleLiveData
 }

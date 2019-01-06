@@ -22,14 +22,20 @@ class ProductDataSource(
             params: LoadInitialParams<Int>,
             callback: LoadInitialCallback<Int, SearchProductItemViewModel>
     ) {
-        GlobalScope.launch {
-            isInitialLoaderVisibleLiveData.postValue(true)
-            val products = repository.getProducts(query)
-            pageCount = products.pageCount
-            val nextPage = if (pageCount == 1) null else 2
-            val previousPageKey = null
-            callback.onResult(products.products.map { it.toViewModel() }, previousPageKey, nextPage)
-            isInitialLoaderVisibleLiveData.postValue(false)
+        if (query.trim().length > 2) {
+            GlobalScope.launch {
+                isInitialLoaderVisibleLiveData.postValue(true)
+                val products = repository.getProducts(query)
+                pageCount = products.pageCount
+                val nextPage = if (pageCount == 1) null else 2
+                val previousPageKey = null
+                callback.onResult(
+                    products.products.map { it.toViewModel() },
+                    previousPageKey,
+                    nextPage
+                )
+                isInitialLoaderVisibleLiveData.postValue(false)
+            }
         }
     }
 
