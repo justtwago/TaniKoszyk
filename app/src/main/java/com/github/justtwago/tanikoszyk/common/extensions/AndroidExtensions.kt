@@ -1,5 +1,9 @@
 package com.github.justtwago.tanikoszyk.common.extensions
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -11,3 +15,7 @@ inline fun <reified T> LiveData<T>.observe(
 ) {
     observe(lifecycleOwner, Observer { observer(it!!) })
 }
+
+fun ViewGroup.inflateChild(@LayoutRes layout: Int, attachToRoot: Boolean = true): View = LayoutInflater.from(
+    context
+).inflate(layout, this, attachToRoot)
