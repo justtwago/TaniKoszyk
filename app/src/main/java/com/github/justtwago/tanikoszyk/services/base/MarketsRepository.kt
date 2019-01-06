@@ -13,36 +13,35 @@ import com.github.justtwago.tanikoszyk.services.tesco.TescoRepository
 import kotlin.math.max
 
 
-interface BaseRepository {
-    suspend fun getProducts(searchQuery: String): ProductPage
+interface MarketsRepository {
+    suspend fun getProducts(searchQuery: String, page: Int = 1): ProductPage
 }
 
-class BaseRepositoryImpl(
+class MarketsRepositoryImpl(
         private val auchanRepository: AuchanRepository,
         private val kauflandRepository: KauflandRepository,
         private val tescoRepository: TescoRepository
-) : BaseRepository {
+) : MarketsRepository {
 
+    override suspend fun getProducts(searchQuery: String, page: Int): ProductPage {
+        val auchanResponse = if (page == 1) {
+            auchanRepository.getProducts(searchQuery)
+        } else null // TODO: There is no possibility to get next pages from Auchan yet
 
-    override suspend fun getProducts(searchQuery: String): ProductPage {
-        val auchanResponse: Response<AuchanProductPage> = auchanRepository.getProducts(searchQuery)
-        val kauflandResponse: Response<KauflandProductPage> = kauflandRepository.getProducts(
-            searchQuery,
-            1
-        )
-        val tescoResponse: Response<TescoProductPage> = tescoRepository.getProducts(searchQuery, 1)
+        val kauflandResponse = kauflandRepository.getProducts(searchQuery, page)
+        val tescoResponse = tescoRepository.getProducts(searchQuery, page)
 
-        val auchanProducts: ProductPage? = when (auchanResponse) {
+        val auchanProducts = when (auchanResponse) {
             is Response.Success.WithBody -> auchanResponse.body.mapToDomain()
             else -> null
         }
 
-        val kauflandProducts: ProductPage? = when (kauflandResponse) {
+        val kauflandProducts = when (kauflandResponse) {
             is Response.Success.WithBody -> kauflandResponse.body.mapToDomain()
             else -> null
         }
 
-        val tescoProducts: ProductPage? = when (tescoResponse) {
+        val tescoProducts = when (tescoResponse) {
             is Response.Success.WithBody -> tescoResponse.body.mapToDomain()
             else -> null
         }
@@ -55,11 +54,11 @@ class BaseRepositoryImpl(
 
         return ProductPage(
             products = allProductsList,
-            pageSize = 1,
-            pageCount = max(
-                max(auchanProducts?.pageCount ?: 0, kauflandProducts?.pageCount ?: 0),
-                tescoProducts?.pageCount ?: 0
-            )
+            pageCount = getMaxPageCount(auchanProducts, kauflandProducts, tescoProducts)
         )
+    }
+
+    private fun getMaxPageCount(vararg productPage: ProductPage?): Int {
+        return productPage.map { it?.pageCount ?: 1 }.max() ?: 1
     }
 }

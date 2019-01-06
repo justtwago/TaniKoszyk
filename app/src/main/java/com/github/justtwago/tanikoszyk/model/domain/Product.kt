@@ -23,14 +23,12 @@ data class Product(
 
     fun isNotEmpty(): Boolean {
         return subtitle.isNotEmpty()
-                && title.isNotEmpty()
-                && quantity.isNotEmpty()
                 && imageUrl.isNotEmpty()
+                && price != "0 zł"
     }
 }
 
 data class ProductPage(
         val products: List<Product>,
-        val pageSize: Int,
         val pageCount: Int
 )

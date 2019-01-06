@@ -15,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchActivity : BaseActivity() {
 
     private val mainViewModel by viewModel<SearchViewModel>()
+    private lateinit var searchProductAdapter: SearchProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +23,23 @@ class SearchActivity : BaseActivity() {
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .setupViewModel()
 
+        mainViewModel.initialize()
         setupRecyclerView()
         setupListeners()
+        setupObservers()
+    }
+
+    private fun ActivityMainBinding.setupViewModel() {
+        setLifecycleOwner(this@SearchActivity)
+        viewModel = mainViewModel
+    }
+
+    private fun setupRecyclerView() {
+        with(productsRecyclerView) {
+            searchProductAdapter = SearchProductAdapter()
+            adapter = searchProductAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun setupListeners() {
@@ -37,19 +53,9 @@ class SearchActivity : BaseActivity() {
         }
     }
 
-    private fun setupRecyclerView() {
-        with(productsRecyclerView) {
-            val searchProductAdapter = SearchProductAdapter()
-            adapter = searchProductAdapter
-            layoutManager = LinearLayoutManager(context)
-            mainViewModel.getSearchProductViewModelsLiveData().observe(this@SearchActivity) {
-                searchProductAdapter.setData(it)
-            }
+    private fun setupObservers() {
+        mainViewModel.getPagedProductViewModels().observe(this@SearchActivity) {
+            searchProductAdapter.submitList(it)
         }
-    }
-
-    private fun ActivityMainBinding.setupViewModel() {
-        setLifecycleOwner(this@SearchActivity)
-        viewModel = mainViewModel
     }
 }

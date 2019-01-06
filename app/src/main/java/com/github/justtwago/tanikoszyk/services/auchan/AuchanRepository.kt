@@ -7,6 +7,7 @@ import com.github.justtwago.tanikoszyk.common.extensions.createRetrofit
 import com.github.justtwago.tanikoszyk.common.extensions.executeSafely
 
 const val AUCHAN_BASE_URL = "https://www.auchandirect.pl/"
+const val AUCHAN_PAGE_SIZE = 50
 
 interface AuchanRepository {
     suspend fun getProducts(searchQuery: String): Response<AuchanProductPage>

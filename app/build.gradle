@@ -37,9 +37,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.androidx"
-    implementation 'com.google.android.material:material:1.1.0-alpha02'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.1.0-alpha01'
+    implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.viewmodel"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
+    implementation "androidx.paging:paging-runtime:$versions.paging"
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 

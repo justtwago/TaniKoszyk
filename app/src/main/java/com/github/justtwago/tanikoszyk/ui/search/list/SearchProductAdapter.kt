@@ -2,13 +2,15 @@ package com.github.justtwago.tanikoszyk.ui.search.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.justtwago.tanikoszyk.databinding.ItemProductBinding
 
 
-class SearchProductAdapter : RecyclerView.Adapter<SearchProductViewHolder>() {
-    private var searchSearchProductItemViewModels: List<SearchProductItemViewModel> = emptyList()
+class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, SearchProductViewHolder>(
+    DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -16,37 +18,22 @@ class SearchProductAdapter : RecyclerView.Adapter<SearchProductViewHolder>() {
         return SearchProductViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = searchSearchProductItemViewModels.size
-
     override fun onBindViewHolder(holder: SearchProductViewHolder, position: Int) {
-        holder.bind(searchSearchProductItemViewModels[position])
+        getItem(position)?.let(holder::bind)
     }
 
-    fun setData(newSearchProductItemViewModels: List<SearchProductItemViewModel>) {
-        val diffCallback = SearchProductItemDiffCallback(
-            searchSearchProductItemViewModels,
-            newSearchProductItemViewModels
-        )
-        val diff = DiffUtil.calculateDiff(diffCallback)
-        searchSearchProductItemViewModels = newSearchProductItemViewModels
-        diff.dispatchUpdatesTo(this)
-    }
+    companion object {
+        private val DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<SearchProductItemViewModel>() {
+            override fun areItemsTheSame(
+                    oldConcert: SearchProductItemViewModel,
+                    newConcert: SearchProductItemViewModel
+            ): Boolean = oldConcert.product.id == newConcert.product.id
 
-
-    class SearchProductItemDiffCallback(
-            private val oldList: List<SearchProductItemViewModel>,
-            private val newList: List<SearchProductItemViewModel>
-    ) : DiffUtil.Callback() {
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].product.id == newList[newItemPosition].product.id
-        }
-
-        override fun getOldListSize() = oldList.size
-
-        override fun getNewListSize() = newList.size
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition]
+            override fun areContentsTheSame(
+                    oldConcert: SearchProductItemViewModel,
+                    newConcert: SearchProductItemViewModel
+            ): Boolean = oldConcert == newConcert
         }
     }
 }

@@ -15,8 +15,7 @@ import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 fun AuchanProductPage.mapToDomain(): ProductPage {
     return ProductPage(
         products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
-        pageCount = 1,
-        pageSize = Int.MAX_VALUE
+        pageCount = 1
     )
 }
 
@@ -36,7 +35,6 @@ fun AuchanProduct.mapToDomain(): Product {
 fun KauflandProductPage.mapToDomain(): ProductPage {
     return ProductPage(
         products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
-        pageSize = KAUFLAND_PAGE_SIZE,
         pageCount = size?.mapToKauflandPageCountDomain() ?: 0
     )
 }
@@ -64,7 +62,6 @@ fun String.mapToKauflandPageCountDomain(): Int {
 fun TescoProductPage.mapToDomain(): ProductPage {
     return ProductPage(
         products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
-        pageSize = TESCO_PAGE_SIZE,
         pageCount = size?.mapToTescoPageCountDomain() ?: 0
     )
 }
