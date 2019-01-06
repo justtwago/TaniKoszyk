@@ -1,35 +1,35 @@
 package com.github.justtwago.tanikoszyk.services.base
 
 import com.github.justtwago.tanikoszyk.model.domain.Product
+import com.github.justtwago.tanikoszyk.model.domain.ProductPage
 import com.github.justtwago.tanikoszyk.model.domain.mapToDomain
 import com.github.justtwago.tanikoszyk.services.auchan.AuchanRepository
 import com.github.justtwago.tanikoszyk.services.kaufland.KauflandRepository
 import com.github.justtwago.tanikoszyk.services.tesco.TescoRepository
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 
 
 interface BaseRepository {
-    fun getProducts(searchQuery: String): Observable<List<Product>>
+    fun getProducts(searchQuery: String): Observable<ProductPage>
 }
 
 class BaseRepositoryImpl(
-    private val auchanRepository: AuchanRepository,
-    private val kauflandRepository: KauflandRepository,
-    private val tescoRepository: TescoRepository
+        private val auchanRepository: AuchanRepository,
+        private val kauflandRepository: KauflandRepository,
+        private val tescoRepository: TescoRepository
 ) : BaseRepository {
-    override fun getProducts(searchQuery: String): Observable<List<Product>> {
+
+
+    override fun getProducts(searchQuery: String): Observable<ProductPage> {
         val auchanProductsSingle = auchanRepository.getProducts(searchQuery)
             .map { it.mapToDomain() }
             .toObservable()
 
-        val kauflandProductsSingle = kauflandRepository.getProducts(searchQuery)
+        val kauflandProductsSingle = kauflandRepository.getProducts(searchQuery, page = 1)
             .map { it.mapToDomain() }
             .toObservable()
 
-        val tescoProductsSingle = tescoRepository.getProducts(searchQuery)
+        val tescoProductsSingle = tescoRepository.getProducts(searchQuery, page = 1)
             .map { it.mapToDomain() }
             .toObservable()
 

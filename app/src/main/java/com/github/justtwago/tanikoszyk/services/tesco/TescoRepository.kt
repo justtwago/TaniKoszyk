@@ -7,16 +7,17 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 const val TESCO_BASE_URL = "https://ezakupy.tesco.pl/"
+const val TESCO_PAGE_SIZE = 24
 
 interface TescoRepository {
-    fun getProducts(searchQuery: String): Single<TescoProductPage>
+    fun getProducts(searchQuery: String, page: Int): Single<TescoProductPage>
 }
 
 class TescoRepositoryImpl(private val context: Context) : TescoRepository {
-    override fun getProducts(searchQuery: String): Single<TescoProductPage> {
+    override fun getProducts(searchQuery: String, page: Int): Single<TescoProductPage> {
         return createRetrofit(context, TESCO_BASE_URL)
             .create(TescoService::class.java)
-            .getProducts(searchQuery)
+            .getProducts(searchQuery = searchQuery, page = page)
             .subscribeOn(Schedulers.io())
     }
 }

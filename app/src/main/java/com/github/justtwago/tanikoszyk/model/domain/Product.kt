@@ -28,3 +28,9 @@ data class Product(
                 && imageUrl.isNotEmpty()
     }
 }
+
+data class ProductPage(
+        val products: List<Product>,
+        val pageSize: Int,
+        val pageCount: Int
+)

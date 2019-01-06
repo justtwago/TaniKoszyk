@@ -7,11 +7,17 @@ import com.github.justtwago.tanikoszyk.model.kaufland.KauflandProductPage
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProduct
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProductPage
 import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_BASE_URL
+import com.github.justtwago.tanikoszyk.services.kaufland.KAUFLAND_PAGE_SIZE
+import com.github.justtwago.tanikoszyk.services.tesco.TESCO_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 
 
-fun AuchanProductPage.mapToDomain(): List<Product> {
-    return products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty()
+fun AuchanProductPage.mapToDomain(): ProductPage {
+    return ProductPage(
+        products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
+        pageCount = 1,
+        pageSize = Int.MAX_VALUE
+    )
 }
 
 fun AuchanProduct.mapToDomain(): Product {
@@ -27,8 +33,12 @@ fun AuchanProduct.mapToDomain(): Product {
     )
 }
 
-fun KauflandProductPage.mapToDomain(): List<Product> {
-    return products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty()
+fun KauflandProductPage.mapToDomain(): ProductPage {
+    return ProductPage(
+        products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
+        pageSize = KAUFLAND_PAGE_SIZE,
+        pageCount = size?.mapToKauflandPageCountDomain() ?: 0
+    )
 }
 
 fun KauflandProduct.mapToDomain(): Product {
@@ -44,8 +54,19 @@ fun KauflandProduct.mapToDomain(): Product {
     )
 }
 
-fun TescoProductPage.mapToDomain(): List<Product> {
-    return products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty()
+fun String.mapToKauflandPageCountDomain(): Int {
+    val productCount = substringAfter("(").substringBefore(")").toInt()
+    var pageCount = productCount / KAUFLAND_PAGE_SIZE
+    if (productCount % KAUFLAND_PAGE_SIZE != 0) pageCount++
+    return pageCount
+}
+
+fun TescoProductPage.mapToDomain(): ProductPage {
+    return ProductPage(
+        products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
+        pageSize = TESCO_PAGE_SIZE,
+        pageCount = size?.mapToTescoPageCountDomain() ?: 0
+    )
 }
 
 fun TescoProduct.mapToDomain(): Product {
@@ -60,6 +81,13 @@ fun TescoProduct.mapToDomain(): Product {
         quantity = mapQuantity(),
         market = Market.TESCO
     )
+}
+
+fun String.mapToTescoPageCountDomain(): Int {
+    val productCount = substringBefore(" szt").toInt()
+    var pageCount = productCount / TESCO_PAGE_SIZE
+    if (productCount % TESCO_PAGE_SIZE != 0) pageCount++
+    return pageCount
 }
 
 private fun TescoProduct.mapQuantity(): String {

@@ -9,5 +9,5 @@ import retrofit2.http.Query
 
 interface KauflandService {
     @GET("wyszukiwarka.specialOfferSearch=1.pageIndex={page}.html")
-    fun getProducts(@Path("page") page: String = "0", @Query("q") searchQuery: String): Single<KauflandProductPage>
+    fun getProducts(@Path("page") page: Int = 0, @Query("q") searchQuery: String): Single<KauflandProductPage>
 }
