@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 class ProductDataSource(
         private val repository: MarketsRepository,
         private val query: String,
-        private val isLoaderVisibleLiveData: MutableLiveData<Boolean>
+        private val isInitialLoaderVisibleLiveData: MutableLiveData<Boolean>,
+        private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
 ) : PageKeyedDataSource<Int, SearchProductItemViewModel>() {
 
     private var pageCount = 0
@@ -22,13 +23,13 @@ class ProductDataSource(
             callback: LoadInitialCallback<Int, SearchProductItemViewModel>
     ) {
         GlobalScope.launch {
-            isLoaderVisibleLiveData.postValue(true)
+            isInitialLoaderVisibleLiveData.postValue(true)
             val products = repository.getProducts(query)
             pageCount = products.pageCount
             val nextPage = if (pageCount == 1) null else 2
             val previousPageKey = null
             callback.onResult(products.products.map { it.toViewModel() }, previousPageKey, nextPage)
-            isLoaderVisibleLiveData.postValue(false)
+            isInitialLoaderVisibleLiveData.postValue(false)
         }
     }
 
@@ -37,10 +38,12 @@ class ProductDataSource(
             callback: LoadCallback<Int, SearchProductItemViewModel>
     ) {
         GlobalScope.launch {
+            isNextPageLoaderVisibleLiveData.postValue(true)
             val products = repository.getProducts(query, params.key)
             pageCount = products.pageCount
             val nextPage = if (pageCount == params.key) null else params.key + 1
             callback.onResult(products.products.map { it.toViewModel() }, nextPage)
+            isNextPageLoaderVisibleLiveData.postValue(false)
         }
     }
 

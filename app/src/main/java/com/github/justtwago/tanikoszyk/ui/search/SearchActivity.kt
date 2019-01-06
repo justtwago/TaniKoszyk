@@ -54,8 +54,11 @@ class SearchActivity : BaseActivity() {
     }
 
     private fun setupObservers() {
-        mainViewModel.getPagedProductViewModels().observe(this@SearchActivity) {
+        mainViewModel.getPagedProductViewModels().observe(this) {
             searchProductAdapter.submitList(it)
+        }
+        mainViewModel.getNextPageLoaderVisibleLiveData().observe(this) {
+            searchProductAdapter.setLoaderVisibility(it)
         }
     }
 }

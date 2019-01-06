@@ -16,12 +16,13 @@ class SearchViewModel(
         private val productDataSourceFactory: ProductDataSourceFactory
 ) : ViewModel() {
     private lateinit var pagedProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
+    private val isNextPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     private var query = ""
 
     val isLoaderVisibleLiveData = MutableLiveData<Boolean>()
 
-    fun initialize(){
-        productDataSourceFactory.initialize(query, isLoaderVisibleLiveData)
+    fun initialize() {
+        productDataSourceFactory.initialize(query, isLoaderVisibleLiveData, isNextPageLoaderVisibleLiveData)
 
         val config = PagedList.Config.Builder()
             .setPageSize(KAUFLAND_PAGE_SIZE + TESCO_PAGE_SIZE + AUCHAN_PAGE_SIZE)
@@ -35,9 +36,10 @@ class SearchViewModel(
 
     fun onSearchClicked(query: String) {
         this.query = query
-        productDataSourceFactory.initialize(query, isLoaderVisibleLiveData)
+        productDataSourceFactory.initialize(query, isLoaderVisibleLiveData, isNextPageLoaderVisibleLiveData)
         productDataSourceFactory.dataSource?.invalidate()
     }
 
     fun getPagedProductViewModels(): LiveData<PagedList<SearchProductItemViewModel>> = pagedProductViewModelsLiveData
+    fun getNextPageLoaderVisibleLiveData(): LiveData<Boolean> = isNextPageLoaderVisibleLiveData
 }

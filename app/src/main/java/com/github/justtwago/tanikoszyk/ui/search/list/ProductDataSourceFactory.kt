@@ -10,21 +10,24 @@ class ProductDataSourceFactory(
         private val repository: MarketsRepository
 ) : DataSource.Factory<Int, SearchProductItemViewModel>() {
 
-    private lateinit var isLoaderVisibleLiveData: MutableLiveData<Boolean>
+    private lateinit var isInitialLoaderVisibleLiveData: MutableLiveData<Boolean>
+    private lateinit var isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
     private lateinit var query: String
     var dataSource: PageKeyedDataSource<Int, SearchProductItemViewModel>? = null
         private set
 
     fun initialize(
             query: String,
-            isLoaderVisibleLiveData: MutableLiveData<Boolean>
+            isInitialLoaderVisibleLiveData: MutableLiveData<Boolean>,
+            isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
     ) {
         this.query = query
-        this.isLoaderVisibleLiveData = isLoaderVisibleLiveData
+        this.isInitialLoaderVisibleLiveData = isInitialLoaderVisibleLiveData
+        this.isNextPageLoaderVisibleLiveData = isNextPageLoaderVisibleLiveData
     }
 
     override fun create(): DataSource<Int, SearchProductItemViewModel> {
-        return ProductDataSource(repository, query, isLoaderVisibleLiveData).apply {
+        return ProductDataSource(repository, query, isInitialLoaderVisibleLiveData, isNextPageLoaderVisibleLiveData).apply {
             dataSource = this
         }
     }
