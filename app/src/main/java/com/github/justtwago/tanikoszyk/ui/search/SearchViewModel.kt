@@ -12,9 +12,12 @@ import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 
 class SearchViewModel(private val baseRepository: BaseRepository) : ViewModel() {
     private val searchProductViewModelsLiveData = MutableLiveData<List<SearchProductItemViewModel>>()
+    val isLoaderVisible = MutableLiveData<Boolean>()
 
     suspend fun onCreated() {
+        isLoaderVisible.postValue(true)
         getProducts("cukier")
+        isLoaderVisible.postValue(false)
     }
 
     private suspend fun getProducts(query: String) {
