@@ -6,7 +6,7 @@ import com.github.justtwago.tanikoszyk.model.auchan.AuchanProductPage
 import com.github.justtwago.tanikoszyk.common.extensions.createRetrofit
 import com.github.justtwago.tanikoszyk.common.extensions.executeSafely
 
-const val AUCHAN_BASE_URL = "https://www.auchandirect.pl"
+const val AUCHAN_BASE_URL = "https://www.auchandirect.pl/"
 const val AUCHAN_PAGE_SIZE = 50
 
 interface AuchanRepository {
@@ -16,7 +16,7 @@ interface AuchanRepository {
 class AuchanRepositoryImpl(private val context: Context) : AuchanRepository {
 
     override suspend fun getProducts(searchQuery: String, page: Int): Response<AuchanProductPage> {
-        return createRetrofit(context, "$AUCHAN_BASE_URL/")
+        return createRetrofit(context, "$AUCHAN_BASE_URL")
             .create(AuchanService::class.java)
             .getProducts(searchQuery, page = page - 1)
             .executeSafely()

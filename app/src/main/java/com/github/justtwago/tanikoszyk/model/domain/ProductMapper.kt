@@ -27,7 +27,7 @@ fun AuchanProduct.mapToDomain(): Product {
         title = title?.substringAfter("$subtitle - ").orEmpty(),
         oldPrice = "",
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
-        imageUrl = "$AUCHAN_BASE_URL${imageUrl.orEmpty()}",
+        imageUrl = "$AUCHAN_BASE_URL${imageUrl?.substring(1, imageUrl?.length ?: 0).orEmpty()}",
         quantity = quanity.orEmpty(),
         market = Market.AUCHAN
     )
