@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 
 interface AuchanService {
-    @GET("search")
-    fun getProducts(@Query("text") searchQuery: String): Call<AuchanProductPage>
+    @GET("search/dynamic")
+    fun getProducts(@Query("q") searchQuery: String, @Query("page") page: Int): Call<AuchanProductPage>
 }

@@ -4,5 +4,6 @@ import pl.droidsonroids.jspoon.annotation.Selector
 
 
 data class AuchanProductPage(
-        @Selector(".product-list > .product") var products: List<AuchanProduct>? = null
+        @Selector(".product") var products: List<AuchanProduct>? = null,
+        @Selector("#loadMoreProductsButton", attr = "data-maxPage") var size: String? = null
 )

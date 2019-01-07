@@ -7,6 +7,7 @@ import com.github.justtwago.tanikoszyk.model.kaufland.KauflandProductPage
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProduct
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProductPage
 import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_BASE_URL
+import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.services.kaufland.KAUFLAND_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.services.tesco.TESCO_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
@@ -15,7 +16,7 @@ import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
 fun AuchanProductPage.mapToDomain(): ProductPage {
     return ProductPage(
         products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
-        pageCount = 1
+        pageCount = size?.toInt() ?: 0
     )
 }
 
@@ -26,7 +27,7 @@ fun AuchanProduct.mapToDomain(): Product {
         title = title?.substringAfter("$subtitle - ").orEmpty(),
         oldPrice = "",
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
-        imageUrl = "$AUCHAN_BASE_URL${imageUrl?.substring(1, imageUrl?.length ?: 0).orEmpty()}",
+        imageUrl = "$AUCHAN_BASE_URL${imageUrl.orEmpty()}",
         quantity = quanity.orEmpty(),
         market = Market.AUCHAN
     )

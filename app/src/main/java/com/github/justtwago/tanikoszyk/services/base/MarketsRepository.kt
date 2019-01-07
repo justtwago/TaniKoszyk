@@ -24,10 +24,7 @@ class MarketsRepositoryImpl(
 ) : MarketsRepository {
 
     override suspend fun getProducts(searchQuery: String, page: Int): ProductPage {
-        val auchanResponse = if (page == 1) {
-            auchanRepository.getProducts(searchQuery)
-        } else null // TODO: There is no possibility to get next pages from Auchan yet
-
+        val auchanResponse = auchanRepository.getProducts(searchQuery, page)
         val kauflandResponse = kauflandRepository.getProducts(searchQuery, page)
         val tescoResponse = tescoRepository.getProducts(searchQuery, page)
 
