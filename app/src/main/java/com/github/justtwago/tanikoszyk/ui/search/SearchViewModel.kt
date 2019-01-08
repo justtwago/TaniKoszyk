@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_PAGE_SIZE
+import com.github.justtwago.tanikoszyk.services.biedronka.BIEDRONKA_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.services.kaufland.KAUFLAND_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.services.tesco.TESCO_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.ui.search.list.ProductDataSourceFactory
@@ -25,7 +26,7 @@ class SearchViewModel(
         productDataSourceFactory.initialize(query, isLoaderVisibleLiveData, isNextPageLoaderVisibleLiveData)
 
         val config = PagedList.Config.Builder()
-            .setPageSize(KAUFLAND_PAGE_SIZE + TESCO_PAGE_SIZE + AUCHAN_PAGE_SIZE)
+            .setPageSize(KAUFLAND_PAGE_SIZE + TESCO_PAGE_SIZE + AUCHAN_PAGE_SIZE + BIEDRONKA_PAGE_SIZE)
             .setPrefetchDistance(20)
             .build()
         pagedProductViewModelsLiveData = LivePagedListBuilder<Int, SearchProductItemViewModel>(

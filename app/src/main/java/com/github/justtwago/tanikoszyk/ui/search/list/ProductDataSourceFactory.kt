@@ -3,7 +3,7 @@ package com.github.justtwago.tanikoszyk.ui.search.list
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.github.justtwago.tanikoszyk.services.base.MarketsRepository
+import com.github.justtwago.tanikoszyk.services.MarketsRepository
 
 
 class ProductDataSourceFactory(

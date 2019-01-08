@@ -54,6 +54,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
 
     implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation 'com.squareup.picasso:picasso:2.71828'
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
     testImplementation "junit:junit:$versions.junit"

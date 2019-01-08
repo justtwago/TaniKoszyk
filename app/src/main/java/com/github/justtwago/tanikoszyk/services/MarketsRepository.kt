@@ -1,16 +1,14 @@
-package com.github.justtwago.tanikoszyk.services.base
+package com.github.justtwago.tanikoszyk.services
 
 import com.github.justtwago.tanikoszyk.common.extensions.Response
-import com.github.justtwago.tanikoszyk.model.auchan.AuchanProductPage
+import com.github.justtwago.tanikoszyk.model.biedronka.BiedronkaProduct
 import com.github.justtwago.tanikoszyk.model.domain.Product
 import com.github.justtwago.tanikoszyk.model.domain.ProductPage
 import com.github.justtwago.tanikoszyk.model.domain.mapToDomain
-import com.github.justtwago.tanikoszyk.model.kaufland.KauflandProductPage
-import com.github.justtwago.tanikoszyk.model.tesco.TescoProductPage
 import com.github.justtwago.tanikoszyk.services.auchan.AuchanRepository
+import com.github.justtwago.tanikoszyk.services.biedronka.BiedronkaRepository
 import com.github.justtwago.tanikoszyk.services.kaufland.KauflandRepository
 import com.github.justtwago.tanikoszyk.services.tesco.TescoRepository
-import kotlin.math.max
 
 
 interface MarketsRepository {
@@ -20,13 +18,31 @@ interface MarketsRepository {
 class MarketsRepositoryImpl(
         private val auchanRepository: AuchanRepository,
         private val kauflandRepository: KauflandRepository,
-        private val tescoRepository: TescoRepository
+        private val tescoRepository: TescoRepository,
+        private val biedronkaRepository: BiedronkaRepository
 ) : MarketsRepository {
 
     override suspend fun getProducts(searchQuery: String, page: Int): ProductPage {
+        val biedronkaResponse = biedronkaRepository.getProducts(searchQuery, page)
         val auchanResponse = auchanRepository.getProducts(searchQuery, page)
         val kauflandResponse = kauflandRepository.getProducts(searchQuery, page)
         val tescoResponse = tescoRepository.getProducts(searchQuery, page)
+
+        val biedronkaProducts = when (biedronkaResponse) {
+            is Response.Success.WithBody -> {
+                val productLinks = biedronkaResponse.body.mapToDomain()
+                ProductPage(
+                    products = productLinks.productIdList.mapNotNull {
+                        val productResponse = biedronkaRepository.getProduct(it)
+                        if (productResponse is Response.Success.WithBody) {
+                            productResponse.body.mapToDomain()
+                        } else null
+                    }.filter { it.isNotEmpty() },
+                    pageCount = productLinks.pageCount
+                )
+            }
+            else -> null
+        }
 
         val auchanProducts = when (auchanResponse) {
             is Response.Success.WithBody -> auchanResponse.body.mapToDomain()
@@ -44,6 +60,7 @@ class MarketsRepositoryImpl(
         }
 
         val allProductsList = mutableListOf<Product>().apply {
+            addAll(biedronkaProducts?.products.orEmpty())
             addAll(auchanProducts?.products.orEmpty())
             addAll(kauflandProducts?.products.orEmpty())
             addAll(tescoProducts?.products.orEmpty())
@@ -51,7 +68,12 @@ class MarketsRepositoryImpl(
 
         return ProductPage(
             products = allProductsList,
-            pageCount = getMaxPageCount(auchanProducts, kauflandProducts, tescoProducts)
+            pageCount = getMaxPageCount(
+                biedronkaProducts,
+                auchanProducts,
+                kauflandProducts,
+                tescoProducts
+            )
         )
     }
 

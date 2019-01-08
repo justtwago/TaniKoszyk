@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
 import com.github.justtwago.tanikoszyk.model.domain.toViewModel
-import com.github.justtwago.tanikoszyk.services.base.MarketsRepository
+import com.github.justtwago.tanikoszyk.services.MarketsRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

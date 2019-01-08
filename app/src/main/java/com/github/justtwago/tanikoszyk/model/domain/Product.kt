@@ -25,10 +25,16 @@ data class Product(
         return subtitle.isNotEmpty()
                 && imageUrl.isNotEmpty()
                 && price != "0 zł"
+                && price != "0,0 zł"
     }
 }
 
 data class ProductPage(
         val products: List<Product>,
+        val pageCount: Int
+)
+
+data class ProductIdPage(
+        val productIdList: List<String>,
         val pageCount: Int
 )

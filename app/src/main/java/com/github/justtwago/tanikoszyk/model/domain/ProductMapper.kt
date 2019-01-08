@@ -2,12 +2,13 @@ package com.github.justtwago.tanikoszyk.model.domain
 
 import com.github.justtwago.tanikoszyk.model.auchan.AuchanProduct
 import com.github.justtwago.tanikoszyk.model.auchan.AuchanProductPage
+import com.github.justtwago.tanikoszyk.model.biedronka.BiedronkaProduct
+import com.github.justtwago.tanikoszyk.model.biedronka.BiedronkaProductIdPage
 import com.github.justtwago.tanikoszyk.model.kaufland.KauflandProduct
 import com.github.justtwago.tanikoszyk.model.kaufland.KauflandProductPage
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProduct
 import com.github.justtwago.tanikoszyk.model.tesco.TescoProductPage
 import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_BASE_URL
-import com.github.justtwago.tanikoszyk.services.auchan.AUCHAN_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.services.kaufland.KAUFLAND_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.services.tesco.TESCO_PAGE_SIZE
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
@@ -92,6 +93,30 @@ private fun TescoProduct.mapQuantity(): String {
     return if (quantity.orEmpty().isEmpty()) {
         "${weight ?: 0}"
     } else "${quantity ?: 0} szt"
+}
+
+fun BiedronkaProductIdPage.mapToDomain(): ProductIdPage {
+    return ProductIdPage(
+        productIdList = productIdList?.map {
+            it.substringAfter("id,")
+                .substringBefore(",name")
+        } ?: emptyList(),
+        pageCount = pages?.last()?.toInt() ?: 0
+    )
+}
+
+fun BiedronkaProduct.mapToDomain(): Product {
+    val title = title?.split(" ")
+    return Product(
+        id = toString().hashCode(),
+        subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
+        title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
+        oldPrice = "",
+        price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
+        imageUrl = imageUrl?.replace("4x2", "1x1").orEmpty(),
+        quantity = quantity?.substringAfter("/").orEmpty(),
+        market = Market.BIEDRONKA
+    )
 }
 
 fun Product.toViewModel() = SearchProductItemViewModel(this)
