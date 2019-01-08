@@ -101,7 +101,7 @@ fun BiedronkaProductIdPage.mapToDomain(): ProductIdPage {
             it.substringAfter("id,")
                 .substringBefore(",name")
         } ?: emptyList(),
-        pageCount = pages?.last()?.toInt() ?: 0
+        pageCount = pages?.last()?.toInt() ?: 1
     )
 }
 

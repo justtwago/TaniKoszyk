@@ -31,15 +31,17 @@ class MarketsRepositoryImpl(
         val biedronkaProducts = when (biedronkaResponse) {
             is Response.Success.WithBody -> {
                 val productLinks = biedronkaResponse.body.mapToDomain()
-                ProductPage(
-                    products = productLinks.productIdList.mapNotNull {
-                        val productResponse = biedronkaRepository.getProduct(it)
-                        if (productResponse is Response.Success.WithBody) {
-                            productResponse.body.mapToDomain()
-                        } else null
-                    }.filter { it.isNotEmpty() },
-                    pageCount = productLinks.pageCount
-                )
+                if (productLinks.pageCount >= page) {
+                    ProductPage(
+                        products = productLinks.productIdList.mapNotNull {
+                            val productResponse = biedronkaRepository.getProduct(it)
+                            if (productResponse is Response.Success.WithBody) {
+                                productResponse.body.mapToDomain()
+                            } else null
+                        }.filter { it.isNotEmpty() },
+                        pageCount = productLinks.pageCount
+                    )
+                } else null
             }
             else -> null
         }
