@@ -8,5 +8,5 @@ data class AuchanProduct(
         @Selector(".p-nb") var priceZloty: String? = null,
         @Selector(".p-cents") var priceCents: String? = null,
         @Selector(".picture > img", attr = "data-src") var imageUrl: String ? = null,
-        @Selector(".packaging > strong") var quanity: String? = null
+        @Selector(".packaging > strong") var quantity: String? = null
 )

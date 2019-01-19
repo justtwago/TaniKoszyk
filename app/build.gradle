@@ -35,10 +35,10 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.androidx"
     implementation "com.google.android.material:material:$versions.material"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.viewmodel"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "androidx.paging:paging-runtime:$versions.paging"
 
@@ -58,6 +58,15 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
     testImplementation "junit:junit:$versions.junit"
+    testImplementation "org.assertj:assertj-core:$versions.assertj"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitokotlin"
+    testImplementation "org.mockito:mockito-core:$versions.mockitocore"
+    testImplementation 'org.koin:koin-test:1.0.2'
+    testImplementation("android.arch.core:core-testing:$versions.lifecycleExtensions", {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
     androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
 }

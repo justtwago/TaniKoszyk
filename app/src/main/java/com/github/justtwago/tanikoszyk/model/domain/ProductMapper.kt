@@ -29,7 +29,7 @@ fun AuchanProduct.mapToDomain(): Product {
         oldPrice = "",
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
         imageUrl = "$AUCHAN_BASE_URL${imageUrl?.substring(1, imageUrl?.length ?: 0).orEmpty()}",
-        quantity = quanity.orEmpty(),
+        quantity = quantity.orEmpty(),
         market = Market.AUCHAN
     )
 }
@@ -47,7 +47,7 @@ fun KauflandProduct.mapToDomain(): Product {
         subtitle = subtitle.orEmpty(),
         title = title.orEmpty(),
         oldPrice = oldPrice.orEmpty(),
-        price = "${price ?: 0} zł",
+        price = "${price ?: 0} zł".replace('.', ','),
         imageUrl = imageUrl?.split(", ")?.last()?.substringBefore(" ").orEmpty(),
         quantity = quantity.orEmpty(),
         market = Market.KAUFLAND
@@ -75,7 +75,7 @@ fun TescoProduct.mapToDomain(): Product {
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
         oldPrice = "",
-        price = "${price ?: 0} zł",
+        price = "${price ?: 0} zł".replace('.', ','),
         imageUrl = imageUrl.orEmpty(),
         quantity = mapQuantity(),
         market = Market.TESCO
