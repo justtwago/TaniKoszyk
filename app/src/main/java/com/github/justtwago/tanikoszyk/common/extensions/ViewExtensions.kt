@@ -1,13 +1,22 @@
 package com.github.justtwago.tanikoszyk.common.extensions
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.github.justtwago.tanikoszyk.R
+import kotlinx.android.synthetic.main.layout_custom_toolbar.view.*
 
 fun View.requestFocusAndShowKeyboard() {
     requestFocus()
@@ -64,3 +73,77 @@ fun View.setVisible() {
 fun View.setInvisible() {
     visibility = View.INVISIBLE
 }
+
+fun View.onGlobalLayoutListenerOnce(action: () -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            action()
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+        }
+    })
+}
+
+fun View.setupCustomToolbar(
+        @StringRes titleResId: Int? = null,
+        title: String? = null,
+        @ColorRes textColorResId: Int = R.color.white,
+        @ColorRes backgroundColorResId: Int = R.color.colorPrimary,
+        showNavigationButton: Boolean = true,
+        @DrawableRes navigationButtonResId: Int = R.drawable.ic_back,
+        showElevation: Boolean = true
+) {
+    findViewById<Toolbar>(R.id.customToolbar)
+        .setup(
+            titleResId,
+            title,
+            textColorResId,
+            backgroundColorResId,
+            showNavigationButton,
+            navigationButtonResId,
+            showElevation
+        )
+}
+
+fun Toolbar.setup(
+        @StringRes titleResId: Int? = null,
+        title: String? = null,
+        @ColorRes textColorResId: Int = R.color.white,
+        @ColorRes backgroundColorResId: Int = R.color.colorPrimary,
+        showNavigationButton: Boolean = true,
+        @DrawableRes navigationButtonResId: Int = R.drawable.ic_back,
+        showElevation: Boolean = true
+) {
+
+    val activity = getActivity()
+    activity.setSupportActionBar(this)
+
+    val textColor = resColor(textColorResId)
+    val backgroundColor = resColor(backgroundColorResId)
+    customTitleTextView.setTextColor(textColor)
+    setBackgroundColor(backgroundColor)
+    customTitle = title ?: titleResId?.let { resString(it) } ?: ""
+    activity.supportActionBar?.displayOptions = 0
+    elevation = if (showElevation) resDimen(R.dimen.custom_toolbar_elevation) else 0f
+
+    if (showNavigationButton) {
+        setNavigationIcon(navigationButtonResId)
+        navigationIcon!!.setTint(textColor)
+        setNavigationOnClickListener { activity.onBackPressed() }
+    }
+}
+
+fun View.getActivity(): AppCompatActivity {
+    return if (context is AppCompatActivity) {
+        context as AppCompatActivity
+    } else {
+        (context as ContextWrapper).baseContext as AppCompatActivity
+    }
+}
+
+
+
+var Toolbar.customTitle: String
+    get() = customTitleTextView.text.toString()
+    set(value) {
+        customTitleTextView.text = value
+    }

@@ -1,5 +1,6 @@
 package com.github.justtwago.tanikoszyk.common.extensions
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,3 +20,15 @@ inline fun <reified T> LiveData<T>.observe(
 fun ViewGroup.inflateChild(@LayoutRes layout: Int, attachToRoot: Boolean = true): View = LayoutInflater.from(
     context
 ).inflate(layout, this, attachToRoot)
+
+
+
+val Int.dp: Int
+    get() {
+        return (this * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
+val Float.dp: Int
+    get() {
+        return (this * Resources.getSystem().displayMetrics.density).toInt()
+    }

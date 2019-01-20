@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.justtwago.tanikoszyk.R
+import com.github.justtwago.tanikoszyk.common.extensions.setupCustomToolbar
 import com.github.justtwago.tanikoszyk.databinding.FragmentHomeBinding
 import com.github.justtwago.tanikoszyk.ui.base.BaseFragment
 import com.github.justtwago.tanikoszyk.ui.home.list.SearchProductAdapter
@@ -20,8 +21,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = mainViewModel
+        setupCustomToolbar(view)
         setupMarketRecyclerViews()
         setupListeners()
+    }
+
+    private fun setupCustomToolbar(view: View) {
+        view.setupCustomToolbar(
+            titleResId = R.string.title_products,
+            showNavigationButton = false,
+            showElevation = false
+        )
     }
 
     private fun setupMarketRecyclerViews() {

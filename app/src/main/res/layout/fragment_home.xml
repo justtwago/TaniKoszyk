@@ -17,19 +17,34 @@
         android:background="@color/white"
         tools:context=".ui.home.HomeFragment">
 
+        <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
+            android:id="@+id/customToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/customToolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/searchDivider"/>
+
         <com.github.justtwago.tanikoszyk.ui.views.SearchView
             android:id="@+id/searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/customToolbar" />
 
         <View
             android:id="@+id/searchDivider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/greyAlpha20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
