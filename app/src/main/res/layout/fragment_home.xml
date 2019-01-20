@@ -14,7 +14,7 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/greyAlpha20"
         tools:context=".ui.home.HomeFragment">
 
         <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
@@ -66,6 +66,8 @@
                     android:id="@+id/auchanProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="8dp"
+                    android:clipToPadding="false"
                     app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
                     app:products="@{viewModel.auchanPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
@@ -74,6 +76,8 @@
                     android:id="@+id/biedronkaProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="8dp"
+                    android:clipToPadding="false"
                     app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
                     app:products="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
@@ -82,6 +86,8 @@
                     android:id="@+id/kauflandProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="8dp"
+                    android:clipToPadding="false"
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
                     app:products="@{viewModel.kauflandPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
@@ -90,6 +96,8 @@
                     android:id="@+id/tescoProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="8dp"
+                    android:clipToPadding="false"
                     app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
                     app:products="@{viewModel.tescoPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
