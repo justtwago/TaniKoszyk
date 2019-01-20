@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductAdapter
-import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
@@ -13,7 +13,7 @@ fun View.setVisibility(isVisible: Boolean) {
 }
 
 @BindingAdapter("products")
-fun RecyclerView.setProducts(products: PagedList<SearchProductItemViewModel>?){
+fun RecyclerView.setProducts(products: PagedList<ProductItemViewModel>?){
     (adapter as? SearchProductAdapter)?.submitList(products)
 }
 

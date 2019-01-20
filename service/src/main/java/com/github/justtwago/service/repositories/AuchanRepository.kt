@@ -19,7 +19,7 @@ class AuchanRepositoryImpl(private val context: Context) : AuchanRepository {
     override suspend fun getProducts(searchQuery: String, page: Int): Response<AuchanProductPage> {
         return createRetrofit(context, AUCHAN_BASE_URL)
             .create(AuchanService::class.java)
-            .getProducts(searchQuery, page = page - 1)
+            .getProducts(searchQuery = searchQuery, page = page - 1)
             .executeSafely()
     }
 }

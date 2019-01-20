@@ -3,7 +3,7 @@ package com.github.justtwago.tanikoszyk.ui.search.list
 import com.github.justtwago.service.model.domain.Market
 
 
-class SearchProductItemViewModel(
+class ProductItemViewModel(
         val id: Int,
         val subtitle: String,
         val title: String,

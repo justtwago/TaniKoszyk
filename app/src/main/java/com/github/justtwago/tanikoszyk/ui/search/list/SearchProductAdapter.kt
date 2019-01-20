@@ -6,12 +6,12 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.inflateChild
-import com.github.justtwago.tanikoszyk.databinding.ItemProductBinding
+import com.github.justtwago.tanikoszyk.databinding.ItemProductGridBinding
 
 private const val PRODUCT_TYPE = 0
 private const val LOADER_TYPE = 1
 
-class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BaseProductViewHolder>(
+class SearchProductAdapter : PagedListAdapter<ProductItemViewModel, BaseProductViewHolder>(
     DIFF_CALLBACK
 ) {
     private var isProductsLoading: Boolean? = null
@@ -20,7 +20,7 @@ class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BasePr
         return when (viewType) {
             PRODUCT_TYPE -> {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding = ItemProductBinding.inflate(inflater, parent, false)
+                val binding = ItemProductGridBinding.inflate(inflater, parent, false)
                 SearchProductViewHolder(binding)
             }
             LOADER_TYPE -> {
@@ -65,15 +65,15 @@ class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BasePr
 
     companion object {
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<SearchProductItemViewModel>() {
+            DiffUtil.ItemCallback<ProductItemViewModel>() {
             override fun areItemsTheSame(
-                    oldConcert: SearchProductItemViewModel,
-                    newConcert: SearchProductItemViewModel
+                    oldConcert: ProductItemViewModel,
+                    newConcert: ProductItemViewModel
             ): Boolean = oldConcert.id == newConcert.id
 
             override fun areContentsTheSame(
-                    oldConcert: SearchProductItemViewModel,
-                    newConcert: SearchProductItemViewModel
+                    oldConcert: ProductItemViewModel,
+                    newConcert: ProductItemViewModel
             ): Boolean = oldConcert == newConcert
         }
     }

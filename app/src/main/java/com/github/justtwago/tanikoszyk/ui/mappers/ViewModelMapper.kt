@@ -1,10 +1,10 @@
 package com.github.justtwago.tanikoszyk.ui.mappers
 
 import com.github.justtwago.service.model.domain.Product
-import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
 
 
-fun Product.toViewModel() = SearchProductItemViewModel(
+fun Product.toViewModel() = ProductItemViewModel(
     id = id,
     subtitle = subtitle,
     title = title,

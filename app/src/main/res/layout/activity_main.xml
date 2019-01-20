@@ -34,23 +34,58 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productsRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchDivider"
-            app:loadingItemVisibility="@{viewModel.isNextPageLoaderVisibleLiveData}"
-            app:products="@{viewModel.pagedProductViewModelsLiveData}"
-            tools:listitem="@layout/item_product" />
+            app:layout_constraintTop_toBottomOf="@+id/searchDivider">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/auchanProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
+                    app:products="@{viewModel.auchanPagedProductViewModelsLiveData}"
+                    tools:listitem="@layout/item_product_grid" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/biedronkaProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
+                    app:products="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
+                    tools:listitem="@layout/item_product_grid" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/kauflandProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
+                    app:products="@{viewModel.kauflandPagedProductViewModelsLiveData}"
+                    tools:listitem="@layout/item_product_grid" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tescoProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
+                    app:products="@{viewModel.tescoPagedProductViewModelsLiveData}"
+                    tools:listitem="@layout/item_product_grid" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/white"
-            android:visibility="@{viewModel.isLoaderVisibleLiveData}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
