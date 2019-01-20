@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui.search.list.paging.tesco
+package com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.github.justtwago.service.repositories.TESCO_PAGE_SIZE
 import com.github.justtwago.service.repositories.TescoRepository
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 
 
 class TescoProductDataSourceFactory(

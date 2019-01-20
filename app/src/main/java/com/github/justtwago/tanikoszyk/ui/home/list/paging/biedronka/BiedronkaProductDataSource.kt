@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui.search.list.paging.biedronka
+package com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
@@ -9,7 +9,7 @@ import com.github.justtwago.service.model.domain.mapToDomain
 import com.github.justtwago.service.repositories.BiedronkaRepository
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
 import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

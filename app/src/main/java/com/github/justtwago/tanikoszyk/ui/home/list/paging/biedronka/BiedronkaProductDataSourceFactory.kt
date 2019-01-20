@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui.search.list.paging.biedronka
+package com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.github.justtwago.service.repositories.BIEDRONKA_PAGE_SIZE
 import com.github.justtwago.service.repositories.BiedronkaRepository
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 
 
 class BiedronkaProductDataSourceFactory(

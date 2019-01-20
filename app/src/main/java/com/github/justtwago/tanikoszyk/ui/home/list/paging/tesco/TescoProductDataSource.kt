@@ -1,15 +1,13 @@
-package com.github.justtwago.tanikoszyk.ui.search.list.paging.tesco
+package com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.github.justtwago.service.common.Response
 import com.github.justtwago.service.model.domain.mapToDomain
-import com.github.justtwago.service.repositories.AuchanRepository
-import com.github.justtwago.service.repositories.KauflandRepository
 import com.github.justtwago.service.repositories.TescoRepository
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
 import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

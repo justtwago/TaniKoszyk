@@ -4,8 +4,8 @@ import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
-import com.github.justtwago.tanikoszyk.ui.search.list.SearchProductAdapter
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.SearchProductAdapter
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {

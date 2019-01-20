@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui.search.list.paging.auchan
+package com.github.justtwago.tanikoszyk.ui.home.list.paging.auchan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.github.justtwago.service.repositories.AUCHAN_PAGE_SIZE
 import com.github.justtwago.service.repositories.AuchanRepository
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 
 
 class AuchanProductDataSourceFactory(

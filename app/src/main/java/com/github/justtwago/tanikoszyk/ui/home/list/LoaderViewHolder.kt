@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui.search.list
+package com.github.justtwago.tanikoszyk.ui.home.list
 
 import android.view.View
 

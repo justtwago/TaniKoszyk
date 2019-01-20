@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel" />
+            type="com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Tani Koszyk</string>
     <string name="product_search">Szukaj produktów</string>
+    <string name="home">Główna</string>
+    <string name="cart">Koszyk</string>
+    <string name="profile">Profil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty">W krótce!</string>
 </resources>

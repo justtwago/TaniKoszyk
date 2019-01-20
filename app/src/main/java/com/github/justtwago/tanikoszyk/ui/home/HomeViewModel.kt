@@ -1,17 +1,17 @@
-package com.github.justtwago.tanikoszyk.ui.search
+package com.github.justtwago.tanikoszyk.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.github.justtwago.tanikoszyk.ui.search.list.ProductItemViewModel
-import com.github.justtwago.tanikoszyk.ui.search.list.paging.auchan.AuchanProductDataSourceFactory
-import com.github.justtwago.tanikoszyk.ui.search.list.paging.biedronka.BiedronkaProductDataSourceFactory
-import com.github.justtwago.tanikoszyk.ui.search.list.paging.kaufland.KauflandProductDataSourceFactory
-import com.github.justtwago.tanikoszyk.ui.search.list.paging.tesco.TescoProductDataSourceFactory
+import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
+import com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
+import com.github.justtwago.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
+import com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 
 
-class SearchViewModel(
+class HomeViewModel(
         private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
         private val biedronkaProductDataSourceFactory: BiedronkaProductDataSourceFactory,
         private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory,
