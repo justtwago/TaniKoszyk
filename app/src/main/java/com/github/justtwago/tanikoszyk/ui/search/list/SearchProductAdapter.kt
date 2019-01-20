@@ -69,7 +69,7 @@ class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BasePr
             override fun areItemsTheSame(
                     oldConcert: SearchProductItemViewModel,
                     newConcert: SearchProductItemViewModel
-            ): Boolean = oldConcert.product.id == newConcert.product.id
+            ): Boolean = oldConcert.id == newConcert.id
 
             override fun areContentsTheSame(
                     oldConcert: SearchProductItemViewModel,

@@ -18,6 +18,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {}
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -35,6 +36,8 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':service')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.androidx"
     implementation "com.google.android.material:material:$versions.material"
@@ -44,11 +47,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
-
-    implementation "pl.droidsonroids:jspoon:$versions.jspoon"
-    implementation "pl.droidsonroids.retrofit2:converter-jspoon:$versions.jspoon"
-    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
-    implementation "com.github.franmontiel:PersistentCookieJar:$versions.cookie"
 
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
@@ -61,7 +59,6 @@ dependencies {
     testImplementation "org.assertj:assertj-core:$versions.assertj"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitokotlin"
     testImplementation "org.mockito:mockito-core:$versions.mockitocore"
-    testImplementation 'org.koin:koin-test:1.0.2'
     testImplementation("android.arch.core:core-testing:$versions.lifecycleExtensions", {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'

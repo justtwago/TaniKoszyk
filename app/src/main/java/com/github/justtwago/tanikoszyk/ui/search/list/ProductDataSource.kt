@@ -3,14 +3,14 @@ package com.github.justtwago.tanikoszyk.ui.search.list
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
-import com.github.justtwago.tanikoszyk.model.domain.toViewModel
-import com.github.justtwago.tanikoszyk.services.MarketsRepository
+import com.github.justtwago.service.repositories.ProductRepository
+import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
 class ProductDataSource(
-        private val repository: MarketsRepository,
+        private val repository: ProductRepository,
         private val query: String,
         private val isInitialLoaderVisibleLiveData: MutableLiveData<Boolean>,
         private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>

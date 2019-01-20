@@ -3,11 +3,11 @@ package com.github.justtwago.tanikoszyk.ui.search.list
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.github.justtwago.tanikoszyk.services.MarketsRepository
+import com.github.justtwago.service.repositories.ProductRepository
 
 
 class ProductDataSourceFactory(
-        private val repository: MarketsRepository
+        private val repository: ProductRepository
 ) : DataSource.Factory<Int, SearchProductItemViewModel>() {
 
     private lateinit var isInitialLoaderVisibleLiveData: MutableLiveData<Boolean>
