@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/customTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/gordita_medium"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        tools:text="Title"
+        android:textSize="25sp" />
 
 </merge>

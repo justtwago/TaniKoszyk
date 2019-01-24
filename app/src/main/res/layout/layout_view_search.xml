@@ -23,6 +23,7 @@
         android:background="@color/transparent"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="8dp"
+        android:drawableTint="@color/greyishBrown"
         android:fontFamily="@font/gordita_medium"
         android:gravity="center_vertical"
         android:hint="@string/product_search"
@@ -30,7 +31,7 @@
         android:inputType="text"
         android:maxLines="1"
         android:paddingStart="16dp"
-        android:textColorHint="@color/greyishBrown"
+        android:textColorHint="@color/grey"
         android:textSize="14sp"
         app:searchIcon="@color/transparent"/>
 
@@ -44,5 +45,6 @@
         android:paddingEnd="16dp"
         android:src="@drawable/ic_close"
         android:visibility="gone"
+        android:tint="@color/greyishBrown"
         tools:visibility="visible"/>
 </LinearLayout>

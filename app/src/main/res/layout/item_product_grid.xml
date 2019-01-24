@@ -13,9 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="180dp"
         android:layout_height="220dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:background="@drawable/product_item_background"
         android:elevation="1dp"
         android:orientation="vertical">
@@ -27,8 +27,8 @@
             android:layout_marginTop="8dp"
             android:src="@{viewModel.imageUrl}"
             app:layout_constraintDimensionRatio="1"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:market="@{viewModel.market}"
             tools:src="@drawable/sample_product" />
@@ -59,13 +59,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/gordita_medium"
-            android:text="@{viewModel.title}"
             android:singleLine="true"
+            android:text="@{viewModel.title}"
             android:textColor="@color/grey"
             android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/quantity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/quantity"
             app:layout_constraintTop_toBottomOf="@+id/subtitle"
             tools:text="bez kości" />
 
@@ -76,11 +76,11 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/gordita_medium"
             android:text="@{viewModel.quantity}"
-            android:textSize="12sp"
             android:textColor="@color/grey"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/price"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="1 kg" />
 
@@ -92,23 +92,12 @@
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/gordita_bold"
             android:text="@{viewModel.price}"
+            android:textColor="@color/colorAccent"
             android:textSize="16sp"
-            android:textColor="@color/brown"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="13,99 zł" />
 
-        <ImageView
-            android:id="@+id/marketLogo"
-            android:layout_width="50dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1"
-            tools:src="@drawable/logo_kaufland_big"
-            android:src="@{viewModel.market}"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/price"
-            app:layout_constraintBottom_toBottomOf="@+id/price" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
