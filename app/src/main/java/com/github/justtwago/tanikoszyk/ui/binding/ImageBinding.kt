@@ -38,9 +38,9 @@ fun ImageView.setLogo(market: Market) {
 
 private fun Market.getLogoRes(): Int? {
     return when (this) {
-        Market.TESCO -> R.drawable.logo_tesco
-        Market.KAUFLAND -> R.drawable.logo_kaufland
-        Market.AUCHAN -> R.drawable.logo_auchan
-        Market.BIEDRONKA -> R.drawable.logo_biedronka
+        Market.TESCO -> R.drawable.logo_tesco_big
+        Market.KAUFLAND -> R.drawable.logo_kaufland_big
+        Market.AUCHAN -> R.drawable.logo_auchan_big
+        Market.BIEDRONKA -> R.drawable.logo_biedronka_big
     }
 }

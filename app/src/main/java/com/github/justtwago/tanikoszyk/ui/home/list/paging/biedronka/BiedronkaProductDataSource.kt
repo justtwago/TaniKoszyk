@@ -1,89 +1,49 @@
 package com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka
 
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.PageKeyedDataSource
 import com.github.justtwago.service.common.Response
+import com.github.justtwago.service.model.domain.Product
 import com.github.justtwago.service.model.domain.ProductIdPage
 import com.github.justtwago.service.model.domain.ProductPage
 import com.github.justtwago.service.model.domain.mapToDomain
 import com.github.justtwago.service.repositories.BiedronkaRepository
-import com.github.justtwago.tanikoszyk.common.extensions.Ignored
-import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel
-import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
+import com.github.justtwago.tanikoszyk.common.extensions.postBiedronkaReady
+import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataSource
 
 
 class BiedronkaProductDataSource(
         private val repository: BiedronkaRepository,
         private val query: String,
-        private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
-) : PageKeyedDataSource<Int, ProductItemViewModel>() {
+        private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
+) : BaseProductDataSource(query, isNextPageLoaderVisibleLiveData) {
 
-    private var pageCount = 0
-
-    override fun loadInitial(
-            params: LoadInitialParams<Int>,
-            callback: LoadInitialCallback<Int, ProductItemViewModel>
-    ) {
-        if (query.trim().length > 2) {
-            GlobalScope.launch {
-                val response = repository.getProducts(query, page = 1)
-                if (response is Response.Success.WithBody) {
-                    val productLinks = response.body.mapToDomain()
-                    val productPage = getProductPage(productLinks, 1)
-                    productPage?.let {
-                        pageCount = productPage.pageCount
-                        val nextPage = if (pageCount == 1) null else 2
-                        val previousPageKey = null
-                        callback.onResult(
-                            productPage.products.map { it.toViewModel() },
-                            previousPageKey,
-                            nextPage
-                        )
-                    }
-                } //TODO: Error handling
-            }
+    override suspend fun loadProductPage(page: Int): ProductPage? {
+        val response = repository.getProducts(query, page)
+        return when (response) {
+            is Response.Success.WithBody -> getProductPage(response.body.mapToDomain(), page)
+            else -> null
         }
     }
-
-    override fun loadAfter(
-            params: LoadParams<Int>,
-            callback: LoadCallback<Int, ProductItemViewModel>
-    ) {
-        GlobalScope.launch {
-            isNextPageLoaderVisibleLiveData.postValue(true)
-            val response = repository.getProducts(query, params.key)
-            if (response is Response.Success.WithBody) {
-                val productLinks = response.body.mapToDomain()
-                val productPage = getProductPage(productLinks, params.key)
-                productPage?.let {
-                    pageCount = productPage.pageCount
-                    val nextPage = if (pageCount == params.key) null else params.key + 1
-                    callback.onResult(productPage.products.map { it.toViewModel() }, nextPage)
-                }
-            }
-            isNextPageLoaderVisibleLiveData.postValue(false)
-        }
-    }
-
-    override fun loadBefore(
-            params: LoadParams<Int>,
-            callback: LoadCallback<Int, ProductItemViewModel>
-    ) = Ignored
 
     private suspend fun getProductPage(productLinks: ProductIdPage, page: Int): ProductPage? {
-
         return if (productLinks.pageCount >= page) {
             ProductPage(
-                products = productLinks.productIdList.mapNotNull {
-                    val productResponse = repository.getProduct(it)
-                    if (productResponse is Response.Success.WithBody) {
-                        productResponse.body.mapToDomain()
-                    } else null
-                }.filter { it.isNotEmpty() },
+                products = getProductsFromLinks(productLinks),
                 pageCount = productLinks.pageCount
             )
         } else null
+    }
+
+    private suspend fun getProductsFromLinks(productLinks: ProductIdPage): List<Product> {
+        return productLinks.productIdList.mapNotNull {
+            val productResponse = repository.getProduct(it)
+            (productResponse as? Response.Success.WithBody)?.body?.mapToDomain()
+        }.filter { it.isNotEmpty() }
+    }
+
+    override fun allContentProductsReady(isReady: Boolean) {
+        loadingLiveData.postBiedronkaReady(isReady)
     }
 }

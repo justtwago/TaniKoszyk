@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
+import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
@@ -29,7 +30,10 @@ class HomeViewModel(
     val isNextKauflandPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     val isNextTescoPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
 
+    val loadingLiveData = MutableLiveData<MarketsLoadingStatus>()
+
     init {
+        loadingLiveData.value = MarketsLoadingStatus()
         auchanPagedProductViewModelsLiveData = setupAuchanProductViewModelsLiveData()
         biedronkaPagedProductViewModelsLiveData = setupBiedronkaProductViewModelsLiveData()
         kauflandPagedProductViewModelsLiveData = setupKauflandProductViewModelsLiveData()
@@ -37,26 +41,26 @@ class HomeViewModel(
     }
 
     private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return auchanProductDataSourceFactory.initialize(query, isNextAuchanPageLoaderVisibleLiveData)
+        return auchanProductDataSourceFactory.initialize(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData)
     }
 
     private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return biedronkaProductDataSourceFactory.initialize(query, isNextBiedronkaPageLoaderVisibleLiveData)
+        return biedronkaProductDataSourceFactory.initialize(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData)
     }
 
     private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return kauflandProductDataSourceFactory.initialize(query, isNextKauflandPageLoaderVisibleLiveData)
+        return kauflandProductDataSourceFactory.initialize(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData)
     }
 
     private fun setupTescoProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return tescoProductDataSourceFactory.initialize(query, isNextTescoPageLoaderVisibleLiveData)
+        return tescoProductDataSourceFactory.initialize(query, isNextTescoPageLoaderVisibleLiveData, loadingLiveData)
     }
 
     fun onSearchClicked(query: String) {
         this.query = query
-        auchanProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData)
-        biedronkaProductDataSourceFactory.invalidate(query, isNextBiedronkaPageLoaderVisibleLiveData)
-        kauflandProductDataSourceFactory.invalidate(query, isNextKauflandPageLoaderVisibleLiveData)
-        tescoProductDataSourceFactory.invalidate(query, isNextTescoPageLoaderVisibleLiveData)
+        auchanProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData)
+        biedronkaProductDataSourceFactory.invalidate(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData)
+        kauflandProductDataSourceFactory.invalidate(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData)
+        tescoProductDataSourceFactory.invalidate(query, isNextTescoPageLoaderVisibleLiveData, loadingLiveData)
     }
 }
