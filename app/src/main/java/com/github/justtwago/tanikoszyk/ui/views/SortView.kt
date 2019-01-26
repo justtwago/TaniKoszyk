@@ -76,15 +76,23 @@ class SortView @JvmOverloads constructor(
     }
 
     private fun animateViews() {
-        animateSortItems()
         toggleExpanding()
+        animateSortItems()
+    }
+
+    private fun clearAllAnimation() {
+        target.clearAnimation()
+        alphabeticalAsc.clearAnimation()
+        alphabeticalDesc.clearAnimation()
+        priceAsc.clearAnimation()
+        priceDesc.clearAnimation()
     }
 
     private fun animateSortItems() {
         val animation = if (isExpanded) {
-            animateClosingItems()
-        } else {
             animateOpeningItems()
+        } else {
+            animateClosingItems()
         }
         animation.start()
     }
@@ -93,15 +101,15 @@ class SortView @JvmOverloads constructor(
         val scaleValue = 1f
         return sortIcon.animateRotation(180f)
             .withStartAction {
-                target.animateScale(scaleValue, isDelayed = true)
+                target.animateScale(isDelayed = true)
                     .withStartAction {
-                        alphabeticalAsc.animateScale(scaleValue, isDelayed = false)
+                        alphabeticalAsc.animateScale(isDelayed = false)
                             .withStartAction {
-                                alphabeticalDesc.animateScale(scaleValue, isDelayed = false)
+                                alphabeticalDesc.animateScale(isDelayed = false)
                                     .withStartAction {
-                                        priceAsc.animateScale(scaleValue, isDelayed = false)
+                                        priceAsc.animateScale(isDelayed = false)
                                             .withStartAction {
-                                                priceDesc.animateScale(scaleValue, isDelayed = false)
+                                                priceDesc.animateScale(isDelayed = false)
                                             }
                                     }
                             }
@@ -113,15 +121,15 @@ class SortView @JvmOverloads constructor(
         val scaleValue = 0f
         return sortIcon.animateRotation(0f)
             .withStartAction {
-                priceDesc.animateScale(scaleValue, isDelayed = false)
+                priceDesc.animateScale(isDelayed = false)
                     .withStartAction {
-                        priceAsc.animateScale(scaleValue, isDelayed = true)
+                        priceAsc.animateScale(isDelayed = true)
                             .withStartAction {
-                                alphabeticalDesc.animateScale(scaleValue, isDelayed = true)
+                                alphabeticalDesc.animateScale(isDelayed = true)
                                     .withStartAction {
-                                        alphabeticalAsc.animateScale(scaleValue, isDelayed = false)
+                                        alphabeticalAsc.animateScale(isDelayed = false)
                                             .withStartAction {
-                                                target.animateScale(scaleValue, isDelayed = false)
+                                                target.animateScale(isDelayed = false)
                                             }
                                     }
                             }
@@ -136,7 +144,8 @@ class SortView @JvmOverloads constructor(
             .rotation(angle)
     }
 
-    private fun View.animateScale(scaleValue: Float, isDelayed: Boolean): ViewPropertyAnimator {
+    private fun View.animateScale(isDelayed: Boolean): ViewPropertyAnimator {
+        val scaleValue = if (isExpanded) 1f else 0f
         return animate()
             .scaleX(scaleValue)
             .scaleY(scaleValue)
