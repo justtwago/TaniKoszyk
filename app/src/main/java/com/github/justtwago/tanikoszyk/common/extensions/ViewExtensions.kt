@@ -2,6 +2,7 @@ package com.github.justtwago.tanikoszyk.common.extensions
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.graphics.PorterDuff
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -9,12 +10,14 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.github.justtwago.tanikoszyk.R
 import kotlinx.android.synthetic.main.layout_custom_toolbar.view.*
 
@@ -141,9 +144,12 @@ fun View.getActivity(): AppCompatActivity {
 }
 
 
-
 var Toolbar.customTitle: String
     get() = customTitleTextView.text.toString()
     set(value) {
         customTitleTextView.text = value
     }
+
+fun ImageView.setTintColor(@ColorRes colorRes: Int) {
+    setColorFilter(ContextCompat.getColor(context, colorRes), PorterDuff.Mode.SRC_IN)
+}

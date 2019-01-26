@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.*
-import kotlinx.android.synthetic.main.layout_view_search.view.*
+import kotlinx.android.synthetic.main.view_search.view.*
 
 
 class SearchView @JvmOverloads constructor(
@@ -19,7 +19,7 @@ class SearchView @JvmOverloads constructor(
         }
 
     init {
-        inflateChild(R.layout.layout_view_search)
+        inflateChild(R.layout.view_search)
         setOnTextChangedListener()
         setupCancelButton()
     }
