@@ -67,7 +67,8 @@ class HomeViewModel(
 
     fun onSortTypeSelected(sortType: SortType) {
         auchanProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData, sortType)
+        biedronkaProductDataSourceFactory.invalidate(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData, sortType)
+        kauflandProductDataSourceFactory.invalidate(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData, sortType)
         tescoProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData, sortType)
-        //TODO: Implement sorting for kaufland and biedronka markets
     }
 }

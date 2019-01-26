@@ -12,6 +12,7 @@ import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataS
 class BiedronkaProductDataSource(
         private val repository: BiedronkaRepository,
         private val query: String,
+        private val sortType: SortType,
         private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
         isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
 ) : BaseProductDataSource(query, isNextPageLoaderVisibleLiveData) {
@@ -19,7 +20,18 @@ class BiedronkaProductDataSource(
     override suspend fun loadProductPage(page: Int): ProductPage? {
         val response = repository.getProducts(query, page)
         return when (response) {
-            is Response.Success.WithBody -> getProductPage(response.body.mapToDomain(), page)
+            is Response.Success.WithBody -> {
+                val productPage = getProductPage(response.body.mapToDomain(), page)
+                //TODO: Workaround because there is no way to sort products in website. API needed!
+                val sortedProducts = when (sortType) {
+                    SortType.TARGET -> productPage?.products
+                    SortType.ALPHABETICAL_ASCEND -> productPage?.products?.sortedBy { it.title }
+                    SortType.ALPHABETICAL_DESCEND -> productPage?.products?.sortedByDescending { it.title }
+                    SortType.PRICE_ASCEND -> productPage?.products?.sortedBy { it.price.substringBefore(" ").replace(',', '.').toDouble() }
+                    SortType.PRICE_DESCEND -> productPage?.products?.sortedByDescending { it.price.substringBefore(" ").replace(',', '.').toDouble() }
+                }
+                productPage?.copy(products = sortedProducts.orEmpty())
+            }
             else -> null
         }
     }
