@@ -6,6 +6,7 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
+import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 
@@ -15,14 +16,17 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
     protected lateinit var isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
     protected lateinit var loadingLiveData: MutableLiveData<MarketsLoadingStatus>
     protected lateinit var query: String
+    protected lateinit var sortType: SortType
     protected var dataSource: PageKeyedDataSource<Int, ProductItemViewModel>? = null
 
     fun initialize(
             query: String,
             isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
-            loadingLiveData: MutableLiveData<MarketsLoadingStatus>
+            loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+            sortType: SortType = SortType.TARGET
     ): LiveData<PagedList<ProductItemViewModel>> {
         this.query = query
+        this.sortType = sortType
         this.isNextPageLoaderVisibleLiveData = isNextPageLoaderVisibleLiveData
         this.loadingLiveData = loadingLiveData
 
@@ -33,8 +37,13 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
         return LivePagedListBuilder<Int, ProductItemViewModel>(this, config).build()
     }
 
-    fun invalidate(query: String, isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>, loadingLiveData: MutableLiveData<MarketsLoadingStatus>) {
-        initialize(query, isNextPageLoaderVisibleLiveData, loadingLiveData)
+    fun invalidate(
+            query: String,
+            isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
+            loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+            sortType: SortType = SortType.TARGET
+    ) {
+        initialize(query, isNextPageLoaderVisibleLiveData, loadingLiveData, sortType)
         dataSource?.invalidate()
     }
 }

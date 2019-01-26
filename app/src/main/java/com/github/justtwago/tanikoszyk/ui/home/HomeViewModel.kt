@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
+import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
@@ -62,5 +63,11 @@ class HomeViewModel(
         biedronkaProductDataSourceFactory.invalidate(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData)
         kauflandProductDataSourceFactory.invalidate(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData)
         tescoProductDataSourceFactory.invalidate(query, isNextTescoPageLoaderVisibleLiveData, loadingLiveData)
+    }
+
+    fun onSortTypeSelected(sortType: SortType) {
+        auchanProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData, sortType)
+        tescoProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData, sortType)
+        //TODO: Implement sorting for kaufland and biedronka markets
     }
 }

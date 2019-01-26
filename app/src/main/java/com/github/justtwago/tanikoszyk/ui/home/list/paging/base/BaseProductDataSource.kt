@@ -3,6 +3,7 @@ package com.github.justtwago.tanikoszyk.ui.home.list.paging.base
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.github.justtwago.service.model.domain.ProductPage
+import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel

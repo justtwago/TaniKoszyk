@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.inflateChild
 import com.github.justtwago.tanikoszyk.common.extensions.setTintColor
@@ -22,50 +23,54 @@ class SortView @JvmOverloads constructor(
     init {
         inflateChild(R.layout.view_sort)
         setOnSortClicked()
-        setOnTargetSortingSelected()
-        setOnAlphabeticalAscendingSortingSelected()
-        setOnAlphabeticalDescendingSortingSelected()
-        setOnPriceAscendingSortingSelected()
-        setOnPriceDescendingSortingSelected()
+        setOnSortItemSelectedListener()
     }
 
-    fun setOnTargetSortingSelected(action: (() -> Unit)? = null) {
+    fun setOnSortItemSelectedListener(listener: ((SortType) -> Unit)? = null) {
+        setOnTargetSortingSelected(listener)
+        setOnAlphabeticalAscendingSortingSelected(listener)
+        setOnAlphabeticalDescendingSortingSelected(listener)
+        setOnPriceAscendingSortingSelected(listener)
+        setOnPriceDescendingSortingSelected(listener)
+    }
+
+    private fun setOnTargetSortingSelected(listener: ((SortType) -> Unit)?) {
         target.setOnClickListener {
             resetColorFocus()
             target.setColorFocus()
-            action?.invoke()
+            listener?.invoke(SortType.TARGET)
         }
     }
 
-    fun setOnAlphabeticalAscendingSortingSelected(action: (() -> Unit)? = null) {
+    private fun setOnAlphabeticalAscendingSortingSelected(listener: ((SortType) -> Unit)?) {
         alphabeticalAsc.setOnClickListener {
             resetColorFocus()
             alphabeticalAsc.setColorFocus()
-            action?.invoke()
+            listener?.invoke(SortType.ALPHABETICAL_ASCEND)
         }
     }
 
-    fun setOnAlphabeticalDescendingSortingSelected(action: (() -> Unit)? = null) {
+    private fun setOnAlphabeticalDescendingSortingSelected(listener: ((SortType) -> Unit)?) {
         alphabeticalDesc.setOnClickListener {
             resetColorFocus()
             alphabeticalDesc.setColorFocus()
-            action?.invoke()
+            listener?.invoke(SortType.ALPHABETICAL_DESCEND)
         }
     }
 
-    fun setOnPriceAscendingSortingSelected(action: (() -> Unit)? = null) {
+    private fun setOnPriceAscendingSortingSelected(listener: ((SortType) -> Unit)?) {
         priceAsc.setOnClickListener {
             resetColorFocus()
             priceAsc.setColorFocus()
-            action?.invoke()
+            listener?.invoke(SortType.PRICE_ASCEND)
         }
     }
 
-    fun setOnPriceDescendingSortingSelected(action: (() -> Unit)? = null) {
+    private fun setOnPriceDescendingSortingSelected(listener: ((SortType) -> Unit)?) {
         priceDesc.setOnClickListener {
             resetColorFocus()
             priceDesc.setColorFocus()
-            action?.invoke()
+            listener?.invoke(SortType.ALPHABETICAL_DESCEND)
         }
     }
 
@@ -80,14 +85,6 @@ class SortView @JvmOverloads constructor(
         animateSortItems()
     }
 
-    private fun clearAllAnimation() {
-        target.clearAnimation()
-        alphabeticalAsc.clearAnimation()
-        alphabeticalDesc.clearAnimation()
-        priceAsc.clearAnimation()
-        priceDesc.clearAnimation()
-    }
-
     private fun animateSortItems() {
         val animation = if (isExpanded) {
             animateOpeningItems()
@@ -98,7 +95,6 @@ class SortView @JvmOverloads constructor(
     }
 
     private fun animateOpeningItems(): ViewPropertyAnimator {
-        val scaleValue = 1f
         return sortIcon.animateRotation(180f)
             .withStartAction {
                 target.animateScale(isDelayed = true)
@@ -118,7 +114,6 @@ class SortView @JvmOverloads constructor(
     }
 
     private fun animateClosingItems(): ViewPropertyAnimator {
-        val scaleValue = 0f
         return sortIcon.animateRotation(0f)
             .withStartAction {
                 priceDesc.animateScale(isDelayed = false)

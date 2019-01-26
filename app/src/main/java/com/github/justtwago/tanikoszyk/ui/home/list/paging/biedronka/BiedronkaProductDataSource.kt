@@ -2,10 +2,7 @@ package com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka
 
 import androidx.lifecycle.MutableLiveData
 import com.github.justtwago.service.common.Response
-import com.github.justtwago.service.model.domain.Product
-import com.github.justtwago.service.model.domain.ProductIdPage
-import com.github.justtwago.service.model.domain.ProductPage
-import com.github.justtwago.service.model.domain.mapToDomain
+import com.github.justtwago.service.model.domain.*
 import com.github.justtwago.service.repositories.BiedronkaRepository
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.common.extensions.postBiedronkaReady

@@ -3,6 +3,7 @@ package com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco
 import androidx.lifecycle.MutableLiveData
 import com.github.justtwago.service.common.Response
 import com.github.justtwago.service.model.domain.ProductPage
+import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.service.model.domain.mapToDomain
 import com.github.justtwago.service.repositories.TescoRepository
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
@@ -13,12 +14,13 @@ import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataS
 class TescoProductDataSource(
         private val repository: TescoRepository,
         private val query: String,
+        private val sortType: SortType,
         private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
         isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
 ) : BaseProductDataSource(query, isNextPageLoaderVisibleLiveData) {
 
     override suspend fun loadProductPage(page: Int): ProductPage? {
-        val response = repository.getProducts(query, page)
+        val response = repository.getProducts(query, page, sortType)
         return when (response) {
             is Response.Success.WithBody -> response.body.mapToDomain()
             else -> null

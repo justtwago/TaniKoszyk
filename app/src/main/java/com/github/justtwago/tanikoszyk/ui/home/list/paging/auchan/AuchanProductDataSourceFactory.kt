@@ -13,7 +13,7 @@ class AuchanProductDataSourceFactory(
 
 
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return AuchanProductDataSource(repository, query, loadingLiveData, isNextPageLoaderVisibleLiveData).apply {
+        return AuchanProductDataSource(repository, query, sortType, loadingLiveData, isNextPageLoaderVisibleLiveData).apply {
             dataSource = this
         }
     }

@@ -55,5 +55,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         mainLayout.setOnClickListener {
             searchView.requestSearchFocus()
         }
+        sortView.setOnSortItemSelectedListener(mainViewModel::onSortTypeSelected)
     }
 }
