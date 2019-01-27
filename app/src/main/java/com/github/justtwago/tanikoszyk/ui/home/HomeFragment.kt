@@ -1,10 +1,16 @@
 package com.github.justtwago.tanikoszyk.ui.home
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.justtwago.service.model.domain.Market
 import com.github.justtwago.tanikoszyk.R
+import com.github.justtwago.tanikoszyk.common.extensions.blockCollapsing
+import com.github.justtwago.tanikoszyk.common.extensions.setVisibility
 import com.github.justtwago.tanikoszyk.common.extensions.setupCustomToolbar
 import com.github.justtwago.tanikoszyk.databinding.FragmentHomeBinding
 import com.github.justtwago.tanikoszyk.ui.base.BaseFragment
@@ -15,8 +21,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
+    lateinit var menu: Menu
     private val mainViewModel by viewModel<HomeViewModel>()
     override val layoutId = R.layout.fragment_home
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,5 +68,51 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             searchView.requestSearchFocus()
         }
         sortView.setOnSortItemSelectedListener(mainViewModel::onSortTypeSelected)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_filter, menu)
+        this.menu = menu
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.auchanItem -> {
+                item.blockCollapsing(requireContext())
+                item.checkMarketItem(Market.AUCHAN, auchanProductsRecyclerView)
+            }
+            R.id.biedronkaItem -> {
+                item.blockCollapsing(requireContext())
+                item.checkMarketItem(Market.BIEDRONKA, biedronkaProductsRecyclerView)
+            }
+            R.id.kauflandItem -> {
+                item.blockCollapsing(requireContext())
+                item.checkMarketItem(Market.KAUFLAND, kauflandProductsRecyclerView)
+            }
+            R.id.tescoItem -> {
+                item.blockCollapsing(requireContext())
+                item.checkMarketItem(Market.TESCO, tescoProductsRecyclerView)
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun MenuItem.checkMarketItem(market: Market, recyclerView: RecyclerView): Boolean {
+        val auchanItem = menu.findItem(R.id.auchanItem)
+        val biedronkaItem = menu.findItem(R.id.biedronkaItem)
+        val kauflandItem = menu.findItem(R.id.kauflandItem)
+        val tescoItem = menu.findItem(R.id.tescoItem)
+
+        val isLastChecked = listOf(auchanItem, biedronkaItem, kauflandItem, tescoItem)
+            .filterNot { it.itemId == itemId }
+            .none { it.isChecked }
+
+        if (!isLastChecked) {
+            isChecked = !isChecked
+            recyclerView.setVisibility(isChecked)
+            mainViewModel.onMarketFilterSelected(market, isChecked)
+        }
+
+        return false
     }
 }

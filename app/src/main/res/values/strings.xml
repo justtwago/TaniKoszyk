@@ -7,4 +7,9 @@
     <string name="empty">W krótce!</string>
     <string name="title_products">Produkty</string>
     <string name="sort">Sortuj</string>
+    <string name="filter">Filter</string>
+    <string name="auchan">Auchan</string>
+    <string name="biedronka">Biedronka</string>
+    <string name="kaufland">Kaufland</string>
+    <string name="tesco">Tesco</string>
 </resources>

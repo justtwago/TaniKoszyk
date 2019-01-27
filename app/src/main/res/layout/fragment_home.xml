@@ -19,20 +19,10 @@
 
         <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
             android:id="@+id/customToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/CustomToolbar"
+            app:extraMenuPadding="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_filter"
-            android:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/customToolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <View
             android:layout_width="0dp"

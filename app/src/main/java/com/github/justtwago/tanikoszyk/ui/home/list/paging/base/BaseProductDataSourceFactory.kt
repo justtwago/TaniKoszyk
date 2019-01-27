@@ -17,18 +17,21 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
     protected lateinit var loadingLiveData: MutableLiveData<MarketsLoadingStatus>
     protected lateinit var query: String
     protected lateinit var sortType: SortType
+    protected var isReset: Boolean = false
     protected var dataSource: PageKeyedDataSource<Int, ProductItemViewModel>? = null
 
     fun initialize(
             query: String,
             isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
             loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
-            sortType: SortType = SortType.TARGET
+            sortType: SortType = SortType.TARGET,
+            isReset: Boolean = false
     ): LiveData<PagedList<ProductItemViewModel>> {
         this.query = query
         this.sortType = sortType
         this.isNextPageLoaderVisibleLiveData = isNextPageLoaderVisibleLiveData
         this.loadingLiveData = loadingLiveData
+        this.isReset = isReset
 
         val config = PagedList.Config.Builder()
             .setPageSize(basePageSize)
@@ -41,9 +44,10 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
             query: String,
             isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
             loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
-            sortType: SortType = SortType.TARGET
+            sortType: SortType = SortType.TARGET,
+            isReset: Boolean
     ) {
-        initialize(query, isNextPageLoaderVisibleLiveData, loadingLiveData, sortType)
+        initialize(query, isNextPageLoaderVisibleLiveData, loadingLiveData, sortType, isReset)
         dataSource?.invalidate()
     }
 }

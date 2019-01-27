@@ -12,7 +12,7 @@ class KauflandProductDataSourceFactory(
 ) : BaseProductDataSourceFactory(KAUFLAND_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return KauflandProductDataSource(repository, query, sortType, loadingLiveData, isNextPageLoaderVisibleLiveData).apply {
+        return KauflandProductDataSource(repository, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
             dataSource = this
         }
     }

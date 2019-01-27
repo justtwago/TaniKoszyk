@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseProductDataSource(
         private val query: String,
+        private val isReset: Boolean,
         private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
 ) : PageKeyedDataSource<Int, ProductItemViewModel>() {
 
@@ -26,8 +27,9 @@ abstract class BaseProductDataSource(
             params: LoadInitialParams<Int>,
             callback: LoadInitialCallback<Int, ProductItemViewModel>
     ) {
-        if (query.trim().length > 2) {
-            GlobalScope.launch {
+        when {
+            isReset -> callback.onResult(emptyList(), null, null)
+            isQueryValid() -> GlobalScope.launch {
                 allContentProductsReady(false)
                 val productPage = loadProductPage(1)
                 if (productPage != null) {
@@ -44,6 +46,8 @@ abstract class BaseProductDataSource(
             }
         }
     }
+
+    private fun isQueryValid() = query.trim().length > 2
 
     override fun loadAfter(
             params: LoadParams<Int>,

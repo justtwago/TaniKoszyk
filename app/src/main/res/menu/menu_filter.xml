@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filterItem"
+        android:icon="@drawable/ic_filter"
+        android:title="@string/filter"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/auchanItem"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/auchan"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/biedronkaItem"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/biedronka"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/kauflandItem"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/kaufland"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/tescoItem"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/tesco"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+</menu>

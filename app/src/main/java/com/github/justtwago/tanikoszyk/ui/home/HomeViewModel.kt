@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
+import com.github.justtwago.service.model.domain.Market
 import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
@@ -20,6 +21,7 @@ class HomeViewModel(
         private val tescoProductDataSourceFactory: TescoProductDataSourceFactory
 ) : ViewModel() {
     private var query = ""
+    private var sortType = SortType.TARGET
 
     var auchanPagedProductViewModelsLiveData: LiveData<PagedList<ProductItemViewModel>>
     var biedronkaPagedProductViewModelsLiveData: LiveData<PagedList<ProductItemViewModel>>
@@ -32,6 +34,11 @@ class HomeViewModel(
     val isNextTescoPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
 
     val loadingLiveData = MutableLiveData<MarketsLoadingStatus>()
+
+    private var isAuchanVisible = true
+    private var isBiedronkaVisible = true
+    private var isKauflandVisible = true
+    private var isTescoVisible = true
 
     init {
         loadingLiveData.value = MarketsLoadingStatus()
@@ -59,16 +66,66 @@ class HomeViewModel(
 
     fun onSearchClicked(query: String) {
         this.query = query
-        auchanProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData)
-        biedronkaProductDataSourceFactory.invalidate(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData)
-        kauflandProductDataSourceFactory.invalidate(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData)
-        tescoProductDataSourceFactory.invalidate(query, isNextTescoPageLoaderVisibleLiveData, loadingLiveData)
+        searchInAuchan(query)
+        searchInBiedronka(query)
+        searchInKaufland(query)
+        searchInTesco(query)
     }
 
     fun onSortTypeSelected(sortType: SortType) {
-        auchanProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData, sortType)
-        biedronkaProductDataSourceFactory.invalidate(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData, sortType)
-        kauflandProductDataSourceFactory.invalidate(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData, sortType)
-        tescoProductDataSourceFactory.invalidate(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData, sortType)
+        this.sortType = sortType
+        searchInAuchan(query)
+        searchInBiedronka(query)
+        searchInKaufland(query)
+        searchInTesco(query)
+    }
+
+    private fun searchInAuchan(query: String) {
+        auchanProductDataSourceFactory.invalidate(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            sortType = sortType,
+            isReset = !isAuchanVisible
+        )
+    }
+
+    private fun searchInBiedronka(query: String) {
+        biedronkaProductDataSourceFactory.invalidate(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            sortType = sortType,
+            isReset = !isBiedronkaVisible
+        )
+    }
+
+    private fun searchInKaufland(query: String) {
+        kauflandProductDataSourceFactory.invalidate(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            sortType = sortType,
+            isReset = !isKauflandVisible
+        )
+    }
+
+    private fun searchInTesco(query: String) {
+        tescoProductDataSourceFactory.invalidate(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            sortType = sortType,
+            isReset = !isTescoVisible
+        )
+    }
+
+    fun onMarketFilterSelected(market: Market, isSelected: Boolean) {
+        when (market) {
+            Market.AUCHAN -> isAuchanVisible = isSelected
+            Market.BIEDRONKA -> isBiedronkaVisible = isSelected
+            Market.KAUFLAND -> isKauflandVisible = isSelected
+            Market.TESCO -> isTescoVisible = isSelected
+        }
     }
 }

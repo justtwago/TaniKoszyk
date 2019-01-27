@@ -16,8 +16,9 @@ class TescoProductDataSource(
         private val query: String,
         private val sortType: SortType,
         private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+        isReset: Boolean,
         isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
-) : BaseProductDataSource(query, isNextPageLoaderVisibleLiveData) {
+) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData) {
 
     override suspend fun loadProductPage(page: Int): ProductPage? {
         val response = repository.getProducts(query, page, sortType)

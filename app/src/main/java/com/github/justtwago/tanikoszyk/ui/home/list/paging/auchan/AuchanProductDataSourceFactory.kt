@@ -11,9 +11,8 @@ class AuchanProductDataSourceFactory(
         private val repository: AuchanRepository
 ) : BaseProductDataSourceFactory(AUCHAN_PAGE_SIZE) {
 
-
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return AuchanProductDataSource(repository, query, sortType, loadingLiveData, isNextPageLoaderVisibleLiveData).apply {
+        return AuchanProductDataSource(repository, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
             dataSource = this
         }
     }

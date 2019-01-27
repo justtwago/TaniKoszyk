@@ -3,6 +3,7 @@
 
     <declare-styleable name="CustomToolbar">
         <attr name="topPaddingEnabled" format="boolean" />
+        <attr name="extraMenuPadding" format="dimension" />
     </declare-styleable>
 
 </resources>
