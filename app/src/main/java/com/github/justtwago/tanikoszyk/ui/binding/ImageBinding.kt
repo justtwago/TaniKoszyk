@@ -16,10 +16,12 @@ fun ImageView.setImage(imageUrl: String?, market: Market?) {
     val lazyUrl = GlideUrl(
         imageUrl, LazyHeaders.Builder()
             .addHeader("User-Agent", USER_AGENT)
-            .addHeader("Referer", when(market) {
-                Market.BIEDRONKA -> "http://www.biedronka.pl/pl/searchhub"
-                else -> ""
-            })
+            .addHeader(
+                "Referer", when (market) {
+                    Market.BIEDRONKA -> "http://www.biedronka.pl/pl/searchhub"
+                    else -> ""
+                }
+            )
             .build()
     )
     Glide.with(context)

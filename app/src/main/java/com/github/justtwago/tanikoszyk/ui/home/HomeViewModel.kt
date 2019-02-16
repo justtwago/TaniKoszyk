@@ -13,7 +13,6 @@ import com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaPr
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 
-
 class HomeViewModel(
         private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
         private val biedronkaProductDataSourceFactory: BiedronkaProductDataSourceFactory,
