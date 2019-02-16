@@ -30,6 +30,20 @@ android {
         }
     }
 
+    flavorDimensions "variant"
+
+    productFlavors {
+        master {
+            applicationIdSuffix ''
+            dimension "variant"
+        }
+
+        develop {
+            applicationIdSuffix '.develop'
+            dimension "variant"
+        }
+    }
+
     dataBinding {
         enabled = true
     }
