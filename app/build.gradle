@@ -18,9 +18,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {}
-        release {
+        debug {
             minifyEnabled false
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,7 +52,6 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment:$versions.navigation"
     implementation "android.arch.navigation:navigation-ui:$versions.navigation"
 
-
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
@@ -70,5 +74,4 @@ dependencies {
     })
     androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha09'
 }

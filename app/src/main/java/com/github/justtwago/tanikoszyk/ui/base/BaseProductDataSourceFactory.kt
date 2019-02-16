@@ -1,4 +1,4 @@
-package com.github.justtwago.tanikoszyk.ui.home.list.paging.base
+package com.github.justtwago.tanikoszyk.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

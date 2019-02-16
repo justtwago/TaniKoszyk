@@ -6,7 +6,7 @@ import com.github.justtwago.service.model.domain.*
 import com.github.justtwago.service.repositories.BiedronkaRepository
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.common.extensions.postBiedronkaReady
-import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataSource
+import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSource
 
 
 class BiedronkaProductDataSource(
@@ -53,7 +53,7 @@ class BiedronkaProductDataSource(
         }.filter { it.isNotEmpty() }
     }
 
-    override fun allContentProductsReady(isReady: Boolean) {
-        loadingLiveData.postBiedronkaReady(isReady)
+    override fun onFirstProductPageLoaded(isLoaded: Boolean) {
+        loadingLiveData.postBiedronkaReady(isLoaded)
     }
 }

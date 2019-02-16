@@ -4,7 +4,7 @@ import androidx.paging.DataSource
 import com.github.justtwago.service.repositories.TESCO_PAGE_SIZE
 import com.github.justtwago.service.repositories.TescoRepository
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
-import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataSourceFactory
+import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSourceFactory
 
 
 class TescoProductDataSourceFactory(

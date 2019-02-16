@@ -4,7 +4,7 @@ import androidx.paging.DataSource
 import com.github.justtwago.service.repositories.AUCHAN_PAGE_SIZE
 import com.github.justtwago.service.repositories.AuchanRepository
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
-import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataSourceFactory
+import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSourceFactory
 
 
 class AuchanProductDataSourceFactory(

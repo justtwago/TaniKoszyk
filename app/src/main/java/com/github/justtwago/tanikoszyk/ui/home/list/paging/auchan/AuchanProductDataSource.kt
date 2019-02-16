@@ -8,7 +8,7 @@ import com.github.justtwago.service.model.domain.mapToDomain
 import com.github.justtwago.service.repositories.AuchanRepository
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.common.extensions.postAuchanReady
-import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataSource
+import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSource
 
 
 class AuchanProductDataSource(
@@ -28,7 +28,7 @@ class AuchanProductDataSource(
         }
     }
 
-    override fun allContentProductsReady(isReady: Boolean) {
-        loadingLiveData.postAuchanReady(isReady)
+    override fun onFirstProductPageLoaded(isLoaded: Boolean) {
+        loadingLiveData.postAuchanReady(isLoaded)
     }
 }

@@ -77,21 +77,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.auchanItem -> {
-                item.blockCollapsing(requireContext())
-                item.checkMarketItem(Market.AUCHAN, auchanProductsRecyclerView)
+            R.id.auchanItem -> item.run {
+                blockCollapsing(requireContext())
+                checkMarketItem(Market.AUCHAN, auchanProductsRecyclerView)
             }
-            R.id.biedronkaItem -> {
-                item.blockCollapsing(requireContext())
-                item.checkMarketItem(Market.BIEDRONKA, biedronkaProductsRecyclerView)
+            R.id.biedronkaItem -> item.run {
+                blockCollapsing(requireContext())
+                checkMarketItem(Market.BIEDRONKA, biedronkaProductsRecyclerView)
             }
-            R.id.kauflandItem -> {
-                item.blockCollapsing(requireContext())
-                item.checkMarketItem(Market.KAUFLAND, kauflandProductsRecyclerView)
+            R.id.kauflandItem -> item.run {
+                blockCollapsing(requireContext())
+                checkMarketItem(Market.KAUFLAND, kauflandProductsRecyclerView)
             }
-            R.id.tescoItem -> {
-                item.blockCollapsing(requireContext())
-                item.checkMarketItem(Market.TESCO, tescoProductsRecyclerView)
+            R.id.tescoItem -> item.run {
+                blockCollapsing(requireContext())
+                checkMarketItem(Market.TESCO, tescoProductsRecyclerView)
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -112,7 +112,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             recyclerView.setVisibility(isChecked)
             mainViewModel.onMarketFilterSelected(market, isChecked)
         }
-
         return false
     }
 }

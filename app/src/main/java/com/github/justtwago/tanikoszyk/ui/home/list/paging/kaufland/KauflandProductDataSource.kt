@@ -8,7 +8,7 @@ import com.github.justtwago.service.model.domain.mapToDomain
 import com.github.justtwago.service.repositories.KauflandRepository
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.common.extensions.postKauflandReady
-import com.github.justtwago.tanikoszyk.ui.home.list.paging.base.BaseProductDataSource
+import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSource
 
 class KauflandProductDataSource(
         private val repository: KauflandRepository,
@@ -38,7 +38,7 @@ class KauflandProductDataSource(
         }
     }
 
-    override fun allContentProductsReady(isReady: Boolean) {
-        loadingLiveData.postKauflandReady(isReady)
+    override fun onFirstProductPageLoaded(isLoaded: Boolean) {
+        loadingLiveData.postKauflandReady(isLoaded)
     }
 }

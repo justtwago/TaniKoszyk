@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.inflateChild
 import com.github.justtwago.tanikoszyk.databinding.ItemProductGridBinding
+import com.github.justtwago.tanikoszyk.ui.base.BaseProductViewHolder
 
 private const val PRODUCT_TYPE = 0
 private const val LOADER_TYPE = 1
