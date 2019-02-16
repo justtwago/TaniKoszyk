@@ -12,4 +12,5 @@
     <string name="biedronka">Biedronka</string>
     <string name="kaufland">Kaufland</string>
     <string name="tesco">Tesco</string>
+    <string name="sign_in">Zaloguj</string>
 </resources>
