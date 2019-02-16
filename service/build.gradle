@@ -35,6 +35,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
+    implementation "com.google.firebase:firebase-core:$versions.firebaseCore"
+    implementation "com.google.firebase:firebase-auth:$versions.firebaseAuth"
+    implementation "com.google.firebase:firebase-database:$versions.firebaseDatabase"
+
     implementation "pl.droidsonroids:jspoon:$versions.jspoon"
     implementation "pl.droidsonroids.retrofit2:converter-jspoon:$versions.jspoon"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
