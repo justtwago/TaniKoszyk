@@ -16,6 +16,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseFragment<B : ViewDataBinding> : Fragment(), CoroutineScope {
     protected lateinit var binding: B
     protected abstract val layoutId: Int
+    protected abstract val viewModel: BaseViewModel
 
     private val job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -24,6 +25,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), CoroutineScope {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
+        viewModel.initCoroutineScope(this)
         return binding.root
     }
 

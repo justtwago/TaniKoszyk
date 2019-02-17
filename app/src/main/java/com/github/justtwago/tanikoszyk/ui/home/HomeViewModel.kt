@@ -2,9 +2,9 @@ package com.github.justtwago.tanikoszyk.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
+import com.github.justtwago.tanikoszyk.ui.base.BaseViewModel
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
@@ -14,8 +14,6 @@ import com.github.justtwago.usecases.model.market.common.Market
 import com.github.justtwago.usecases.model.market.common.Product
 import com.github.justtwago.usecases.model.market.common.SortType
 import com.github.justtwago.usecases.usecases.realtimedb.AddProductToCartUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 class HomeViewModel(
         private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
@@ -23,10 +21,9 @@ class HomeViewModel(
         private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory,
         private val tescoProductDataSourceFactory: TescoProductDataSourceFactory,
         private val addProductToCartUseCase: AddProductToCartUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     private var query = ""
     private var sortType = SortType.TARGET
-    private lateinit var coroutineScope: CoroutineScope
 
     var auchanPagedProductViewModelsLiveData: LiveData<PagedList<ProductItemViewModel>>
     var biedronkaPagedProductViewModelsLiveData: LiveData<PagedList<ProductItemViewModel>>
@@ -44,10 +41,6 @@ class HomeViewModel(
     private var isBiedronkaVisible = true
     private var isKauflandVisible = true
     private var isTescoVisible = true
-
-    fun initialize(coroutineScope: CoroutineScope){
-        this.coroutineScope = coroutineScope
-    }
 
     init {
         loadingLiveData.value = MarketsLoadingStatus()
@@ -163,7 +156,7 @@ class HomeViewModel(
     }
 
     private fun addProductToCart(product: Product) {
-        coroutineScope.launch {
+        launch {
             addProductToCartUseCase.execute(product)
         }
     }

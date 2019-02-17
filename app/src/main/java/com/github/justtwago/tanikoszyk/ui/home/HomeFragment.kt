@@ -22,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     lateinit var menu: Menu
-    private val mainViewModel by viewModel<HomeViewModel>()
+    override val viewModel by viewModel<HomeViewModel>()
     override val layoutId = R.layout.fragment_home
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = mainViewModel
-        mainViewModel.initialize(this)
+        binding.viewModel = viewModel
         setupCustomToolbar(view)
         setupMarketRecyclerViews()
         setupListeners()
@@ -62,13 +61,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setupListeners() {
         searchView.setOnActionDoneListener {
             if (searchView.text.trim().length > 2) {
-                launch { mainViewModel.onSearchClicked(query = searchView.text) }
+                launch { viewModel.onSearchClicked(query = searchView.text) }
             }
         }
         mainLayout.setOnClickListener {
             searchView.requestSearchFocus()
         }
-        sortView.setOnSortItemSelectedListener(mainViewModel::onSortTypeSelected)
+        sortView.setOnSortItemSelectedListener(viewModel::onSortTypeSelected)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -111,7 +110,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         if (!isLastChecked) {
             isChecked = !isChecked
             recyclerView.setVisibility(isChecked)
-            mainViewModel.onMarketFilterSelected(market, isChecked)
+            viewModel.onMarketFilterSelected(market, isChecked)
         }
         return false
     }

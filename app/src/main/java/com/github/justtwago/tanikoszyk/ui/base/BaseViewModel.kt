@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 
 
 abstract class BaseViewModel : ViewModel() {
-    protected lateinit var coroutineScope: CoroutineScope
+    private lateinit var coroutineScope: CoroutineScope
 
     fun initCoroutineScope(coroutineScope: CoroutineScope) {
         this.coroutineScope = coroutineScope

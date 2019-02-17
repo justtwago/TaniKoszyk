@@ -10,19 +10,17 @@ import com.github.justtwago.tanikoszyk.databinding.FragmentSignUpBinding
 import com.github.justtwago.tanikoszyk.navigation.NavigationRequest
 import com.github.justtwago.tanikoszyk.ui.auth.AuthenticationActivity
 import com.github.justtwago.tanikoszyk.ui.base.BaseFragment
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override val layoutId = R.layout.fragment_sign_up
-
-    private val viewModel by viewModel<SignUpViewModel>()
+    override val viewModel by viewModel<SignUpViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.initialize(this)
+        viewModel.initialize()
         registerObservers()
     }
 
