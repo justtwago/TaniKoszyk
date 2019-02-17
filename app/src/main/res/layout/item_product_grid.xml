@@ -18,7 +18,8 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/product_item_background"
         android:elevation="1dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{() -> viewModel.onProductClicked()}">
 
         <ImageView
             android:id="@+id/image"

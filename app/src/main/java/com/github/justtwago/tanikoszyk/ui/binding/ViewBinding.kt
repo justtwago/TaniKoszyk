@@ -2,6 +2,7 @@ package com.github.justtwago.tanikoszyk.ui.binding
 
 import android.view.View
 import android.widget.EditText
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.github.justtwago.tanikoszyk.common.extensions.addSimpleTextChangedLis
 import com.github.justtwago.tanikoszyk.ui.auth.CredentialsListener
 import com.github.justtwago.tanikoszyk.ui.home.list.SearchProductAdapter
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
+import com.github.justtwago.usecases.model.market.common.Product
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
@@ -39,4 +41,9 @@ fun EditText.setEmailChangedListener(listener: CredentialsListener) {
 @BindingAdapter("passwordChangedListener")
 fun EditText.setPasswodChangedListener(listener: CredentialsListener) {
     addSimpleTextChangedListener(listener::onPasswordTextChanged)
+}
+
+@BindingAdapter("onClick", "product")
+fun ConstraintLayout.setOnProductClickListener(listener: (Product) -> Unit, product: Product) {
+    listener.invoke(product)
 }

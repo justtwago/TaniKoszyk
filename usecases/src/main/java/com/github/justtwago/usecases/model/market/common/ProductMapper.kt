@@ -6,6 +6,7 @@ import com.github.justtwago.service.model.biedronka.BiedronkaProduct
 import com.github.justtwago.service.model.biedronka.BiedronkaProductIdPage
 import com.github.justtwago.service.model.kaufland.KauflandProduct
 import com.github.justtwago.service.model.kaufland.KauflandProductPage
+import com.github.justtwago.service.model.service.ProductService
 import com.github.justtwago.service.model.tesco.TescoProduct
 import com.github.justtwago.service.model.tesco.TescoProductPage
 import com.github.justtwago.service.repositories.AUCHAN_BASE_URL
@@ -113,5 +114,17 @@ fun BiedronkaProduct.mapToDomain(): Product {
         imageUrl = imageUrl?.replace("4x2", "1x1").orEmpty(),
         quantity = quantity?.substringAfter("/").orEmpty(),
         market = Market.BIEDRONKA
+    )
+}
+
+fun Product.mapToService(): ProductService {
+    return ProductService(
+        id,
+        subtitle,
+        title,
+        price,
+        imageUrl,
+        quantity,
+        market.name
     )
 }

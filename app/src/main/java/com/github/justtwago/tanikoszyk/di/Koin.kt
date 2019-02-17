@@ -24,7 +24,8 @@ val appModule = module {
             auchanProductDataSourceFactory = get(),
             biedronkaProductDataSourceFactory = get(),
             kauflandProductDataSourceFactory = get(),
-            tescoProductDataSourceFactory = get()
+            tescoProductDataSourceFactory = get(),
+            addProductToCartUseCase = get()
         )
     }
     viewModel { SignInViewModel(signInUseCase = get(), checkIsUserSignInUseCase = get()) }

@@ -1,7 +1,7 @@
 package com.github.justtwago.usecases.usecases.market
 
 import com.github.justtwago.service.common.Response
-import com.github.justtwago.service.model.domain.SortTypeService
+import com.github.justtwago.service.model.service.SortTypeService
 import com.github.justtwago.service.repositories.AuchanRepository
 import com.github.justtwago.usecases.model.Result
 import com.github.justtwago.usecases.sample.auchanProductPage

@@ -4,7 +4,7 @@ import android.content.Context
 import com.github.justtwago.service.common.Response
 import com.github.justtwago.service.common.createRetrofit
 import com.github.justtwago.service.common.executeSafely
-import com.github.justtwago.service.model.domain.SortTypeService
+import com.github.justtwago.service.model.service.SortTypeService
 import com.github.justtwago.service.model.tesco.TescoProductPage
 import com.github.justtwago.service.services.TescoService
 

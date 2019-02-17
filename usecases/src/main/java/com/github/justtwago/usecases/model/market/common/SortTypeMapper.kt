@@ -1,6 +1,6 @@
 package com.github.justtwago.usecases.model.market.common
 
-import com.github.justtwago.service.model.domain.SortTypeService
+import com.github.justtwago.service.model.service.SortTypeService
 
 
 fun SortType.mapToService(): SortTypeService {

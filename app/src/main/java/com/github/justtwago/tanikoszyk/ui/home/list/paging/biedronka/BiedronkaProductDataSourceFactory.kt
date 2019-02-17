@@ -12,7 +12,7 @@ class BiedronkaProductDataSourceFactory(
 ) : BaseProductDataSourceFactory(BIEDRONKA_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return BiedronkaProductDataSource(getBiedronkaProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
+        return BiedronkaProductDataSource(getBiedronkaProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData, onProductClickListener).apply {
             dataSource = this
         }
     }

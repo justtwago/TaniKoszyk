@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "608034751201-mavcjakihfq3sirmdrs70f43j85ev0in.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.justtwago.tanikoszyk.develop",
+            "certificate_hash": "bf347fd5662777480e2bdfe243a9106a6b2a24de"
+          }
+        },
+        {
           "client_id": "608034751201-ed5kek5psnevo5dai4sok10fjhed1940.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608034751201-s9eb998nsk4qfd0f2dapi25vrh1nnvjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -1,4 +1,4 @@
-package com.github.justtwago.service.model.domain
+package com.github.justtwago.service.model.service
 
 
 enum class MarketService {

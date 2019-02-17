@@ -11,16 +11,22 @@ import com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaPr
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 import com.github.justtwago.usecases.model.market.common.Market
+import com.github.justtwago.usecases.model.market.common.Product
 import com.github.justtwago.usecases.model.market.common.SortType
+import com.github.justtwago.usecases.usecases.realtimedb.AddProductToCartUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
         private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
         private val biedronkaProductDataSourceFactory: BiedronkaProductDataSourceFactory,
         private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory,
-        private val tescoProductDataSourceFactory: TescoProductDataSourceFactory
+        private val tescoProductDataSourceFactory: TescoProductDataSourceFactory,
+        private val addProductToCartUseCase: AddProductToCartUseCase
 ) : ViewModel() {
     private var query = ""
     private var sortType = SortType.TARGET
+    private lateinit var coroutineScope: CoroutineScope
 
     var auchanPagedProductViewModelsLiveData: LiveData<PagedList<ProductItemViewModel>>
     var biedronkaPagedProductViewModelsLiveData: LiveData<PagedList<ProductItemViewModel>>
@@ -39,6 +45,10 @@ class HomeViewModel(
     private var isKauflandVisible = true
     private var isTescoVisible = true
 
+    fun initialize(coroutineScope: CoroutineScope){
+        this.coroutineScope = coroutineScope
+    }
+
     init {
         loadingLiveData.value = MarketsLoadingStatus()
         auchanPagedProductViewModelsLiveData = setupAuchanProductViewModelsLiveData()
@@ -48,19 +58,39 @@ class HomeViewModel(
     }
 
     private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return auchanProductDataSourceFactory.initialize(query, isNextAuchanPageLoaderVisibleLiveData, loadingLiveData)
+        return auchanProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            onProductClickListener = ::addProductToCart
+        )
     }
 
     private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return biedronkaProductDataSourceFactory.initialize(query, isNextBiedronkaPageLoaderVisibleLiveData, loadingLiveData)
+        return biedronkaProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            onProductClickListener = ::addProductToCart
+        )
     }
 
     private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return kauflandProductDataSourceFactory.initialize(query, isNextKauflandPageLoaderVisibleLiveData, loadingLiveData)
+        return kauflandProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            onProductClickListener = ::addProductToCart
+        )
     }
 
     private fun setupTescoProductViewModelsLiveData(): LiveData<PagedList<ProductItemViewModel>> {
-        return tescoProductDataSourceFactory.initialize(query, isNextTescoPageLoaderVisibleLiveData, loadingLiveData)
+        return tescoProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData,
+            onProductClickListener = ::addProductToCart
+        )
     }
 
     fun onSearchClicked(query: String) {
@@ -85,7 +115,8 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isAuchanVisible
+            isReset = !isAuchanVisible,
+            onProductClickListener = ::addProductToCart
         )
     }
 
@@ -95,7 +126,8 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isBiedronkaVisible
+            isReset = !isBiedronkaVisible,
+            onProductClickListener = ::addProductToCart
         )
     }
 
@@ -105,7 +137,8 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isKauflandVisible
+            isReset = !isKauflandVisible,
+            onProductClickListener = ::addProductToCart
         )
     }
 
@@ -115,7 +148,8 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isTescoVisible
+            isReset = !isTescoVisible,
+            onProductClickListener = ::addProductToCart
         )
     }
 
@@ -125,6 +159,12 @@ class HomeViewModel(
             Market.BIEDRONKA -> isBiedronkaVisible = isSelected
             Market.KAUFLAND -> isKauflandVisible = isSelected
             Market.TESCO -> isTescoVisible = isSelected
+        }
+    }
+
+    private fun addProductToCart(product: Product) {
+        coroutineScope.launch {
+            addProductToCartUseCase.execute(product)
         }
     }
 }

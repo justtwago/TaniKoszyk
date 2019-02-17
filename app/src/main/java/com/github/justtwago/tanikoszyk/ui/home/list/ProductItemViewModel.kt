@@ -1,6 +1,7 @@
 package com.github.justtwago.tanikoszyk.ui.home.list
 
 import com.github.justtwago.usecases.model.market.common.Market
+import com.github.justtwago.usecases.model.market.common.Product
 
 
 class ProductItemViewModel(
@@ -11,5 +12,12 @@ class ProductItemViewModel(
         val price: String,
         val imageUrl: String,
         val quantity: String,
-        val market: Market
-)
+        val market: Market,
+        val onClickListener: (Product) -> Unit
+) {
+    fun onProductClicked() {
+        onClickListener.invoke(
+            Product(id, subtitle, title, oldPrice, price, imageUrl, quantity, market)
+        )
+    }
+}

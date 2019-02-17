@@ -12,7 +12,7 @@ class AuchanProductDataSourceFactory(
 ) : BaseProductDataSourceFactory(AUCHAN_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return AuchanProductDataSource(getAuchanProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
+        return AuchanProductDataSource(getAuchanProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData, onProductClickListener).apply {
             dataSource = this
         }
     }

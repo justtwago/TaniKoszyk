@@ -6,6 +6,7 @@ import com.github.justtwago.tanikoszyk.common.extensions.postKauflandReady
 import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSource
 import com.github.justtwago.usecases.model.Result
 import com.github.justtwago.usecases.model.market.MarketPageRequest
+import com.github.justtwago.usecases.model.market.common.Product
 import com.github.justtwago.usecases.model.market.common.ProductPage
 import com.github.justtwago.usecases.model.market.common.SortType
 import com.github.justtwago.usecases.usecases.market.GetKauflandProductPageUseCase
@@ -16,8 +17,9 @@ class KauflandProductDataSource(
         private val sortType: SortType,
         private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
         isReset: Boolean,
-        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
-) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData) {
+        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
+        onProductClickListener: (Product) -> Unit
+) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData, onProductClickListener) {
 
     override suspend fun loadProductPage(page: Int): ProductPage? {
         val result = getKauflandProductPageUseCase.execute(MarketPageRequest(query, page, sortType))

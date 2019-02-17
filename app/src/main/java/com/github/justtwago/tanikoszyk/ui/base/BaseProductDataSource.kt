@@ -5,6 +5,7 @@ import androidx.paging.PageKeyedDataSource
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel
+import com.github.justtwago.usecases.model.market.common.Product
 import com.github.justtwago.usecases.model.market.common.ProductPage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 abstract class BaseProductDataSource(
         private val query: String,
         private val isReset: Boolean,
-        private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
+        private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
+        private val onProductClickListener: (Product) -> Unit
 ) : PageKeyedDataSource<Int, ProductItemViewModel>() {
 
     private var pageCount = 0
@@ -44,7 +46,7 @@ abstract class BaseProductDataSource(
                 val nextPage = if (pageCount == 1) null else 2
                 val previousPageKey = null
                 callback.onResult(
-                    productPage.products.map { it.toViewModel() },
+                    productPage.products.map { it.toViewModel(onProductClickListener) },
                     previousPageKey,
                     nextPage
                 )
@@ -60,7 +62,7 @@ abstract class BaseProductDataSource(
             productPage?.let {
                 pageCount = productPage.pageCount
                 val nextPage = if (pageCount == params.key) null else params.key + 1
-                callback.onResult(productPage.products.map { it.toViewModel() }, nextPage)
+                callback.onResult(productPage.products.map { it.toViewModel(onProductClickListener) }, nextPage)
             }
             isNextPageLoaderVisibleLiveData.postValue(false)
         }

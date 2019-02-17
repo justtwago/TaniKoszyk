@@ -12,7 +12,7 @@ class TescoProductDataSourceFactory(
 ) : BaseProductDataSourceFactory(TESCO_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return TescoProductDataSource(getTescoProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
+        return TescoProductDataSource(getTescoProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData, onProductClickListener).apply {
             dataSource = this
         }
     }
