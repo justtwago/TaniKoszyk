@@ -2,6 +2,7 @@ package com.github.justtwago.usecases.di
 
 import com.github.justtwago.usecases.usecases.auth.CheckIsUserSignInUseCase
 import com.github.justtwago.usecases.usecases.auth.SignInUseCase
+import com.github.justtwago.usecases.usecases.auth.SignOutUseCase
 import com.github.justtwago.usecases.usecases.auth.SignUpUseCase
 import com.github.justtwago.usecases.usecases.market.GetAuchanProductPageUseCase
 import com.github.justtwago.usecases.usecases.market.GetBiedronkaProductPageUseCase
@@ -13,6 +14,7 @@ import org.koin.dsl.module.module
 val usecaseModule = module {
     single { SignInUseCase(authenticator = get()) }
     single { SignUpUseCase(authenticator = get()) }
+    single { SignOutUseCase(authenticator = get()) }
     single { CheckIsUserSignInUseCase(authenticator = get()) }
 
     single { GetAuchanProductPageUseCase(auchanRepository = get()) }

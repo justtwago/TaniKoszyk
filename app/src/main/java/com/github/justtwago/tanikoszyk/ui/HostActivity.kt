@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.github.justtwago.tanikoszyk.R
+import com.github.justtwago.tanikoszyk.ui.auth.launchAuthenticationActivity
 import com.github.justtwago.tanikoszyk.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_host.*
 
@@ -50,4 +51,7 @@ class HostActivity : BaseActivity() {
         }
     }
 
+    fun navigateToAuthenticationScreen(){
+        launchAuthenticationActivity()
+    }
 }
