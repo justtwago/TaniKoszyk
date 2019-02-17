@@ -1,11 +1,19 @@
 package com.github.justtwago.tanikoszyk.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_host.*
 
+fun Context.launchHostActivity(){
+    val intent = Intent(this, HostActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    startActivity(intent)
+}
 
 class HostActivity : BaseActivity() {
 

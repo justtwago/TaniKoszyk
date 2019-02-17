@@ -1,6 +1,7 @@
 package com.github.justtwago.tanikoszyk.di
 
-import com.github.justtwago.tanikoszyk.ui.auth.AuthenticationViewModel
+import com.github.justtwago.tanikoszyk.ui.auth.signin.SignInViewModel
+import com.github.justtwago.tanikoszyk.ui.auth.signup.SignUpViewModel
 import com.github.justtwago.tanikoszyk.ui.home.HomeViewModel
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.github.justtwago.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
@@ -23,5 +24,6 @@ val appModule = module {
         kauflandProductDataSourceFactory = get(),
         tescoProductDataSourceFactory = get()
     ) }
-    viewModel { AuthenticationViewModel(authenticator = get()) }
+    viewModel { SignInViewModel(authenticator = get()) }
+    viewModel { SignUpViewModel(authenticator = get()) }
 }

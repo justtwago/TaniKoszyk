@@ -12,9 +12,9 @@ import androidx.lifecycle.Observer
 
 inline fun <reified T> LiveData<T>.observe(
         lifecycleOwner: LifecycleOwner,
-        crossinline observer: (T) -> Unit
+        crossinline observer: (T?) -> Unit
 ) {
-    observe(lifecycleOwner, Observer { observer(it!!) })
+    observe(lifecycleOwner, Observer { observer(it) })
 }
 
 fun ViewGroup.inflateChild(@LayoutRes layout: Int, attachToRoot: Boolean = true): View = LayoutInflater.from(

@@ -63,6 +63,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "androidx.paging:paging-runtime:$versions.paging"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "android.arch.navigation:navigation-fragment:$versions.navigation"
     implementation "android.arch.navigation:navigation-ui:$versions.navigation"
 

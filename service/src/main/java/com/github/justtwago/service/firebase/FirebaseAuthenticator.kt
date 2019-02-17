@@ -7,17 +7,17 @@ import kotlin.coroutines.suspendCoroutine
 
 
 interface FirebaseAuthenticator {
-    suspend fun signIn(login: String, password: String): Result<String>
-    suspend fun signUp(login: String, password: String): Result<String>
+    suspend fun signIn(email: String, password: String): Result<String>
+    suspend fun signUp(email: String, password: String): Result<String>
     suspend fun signOut()
     suspend fun isUserLoggedIn(): Boolean
 }
 
 class FirebaseAuthenticatorImpl(private val firebaseAuth: FirebaseAuth) : FirebaseAuthenticator {
 
-    override suspend fun signIn(login: String, password: String): Result<String> {
+    override suspend fun signIn(email: String, password: String): Result<String> {
         return suspendCoroutine { continuation ->
-            firebaseAuth.signInWithEmailAndPassword(login, password)
+            firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     continuation.resume(
                         if (task.isSuccessful) {
@@ -30,9 +30,9 @@ class FirebaseAuthenticatorImpl(private val firebaseAuth: FirebaseAuth) : Fireba
         }
     }
 
-    override suspend fun signUp(login: String, password: String): Result<String> {
+    override suspend fun signUp(email: String, password: String): Result<String> {
         return suspendCoroutine { continuation ->
-            firebaseAuth.createUserWithEmailAndPassword(login, password)
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     continuation.resume(
                         if (task.isSuccessful) {
