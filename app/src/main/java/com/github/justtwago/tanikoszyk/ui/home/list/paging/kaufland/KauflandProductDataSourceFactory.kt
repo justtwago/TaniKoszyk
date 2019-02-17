@@ -1,18 +1,18 @@
 package com.github.justtwago.tanikoszyk.ui.home.list.paging.kaufland
 
 import androidx.paging.DataSource
-import com.github.justtwago.service.repositories.KAUFLAND_PAGE_SIZE
-import com.github.justtwago.service.repositories.KauflandRepository
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSourceFactory
+import com.github.justtwago.usecases.model.market.common.KAUFLAND_PAGE_SIZE
+import com.github.justtwago.usecases.usecases.market.GetKauflandProductPageUseCase
 
 
 class KauflandProductDataSourceFactory(
-        private val repository: KauflandRepository
+        private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase
 ) : BaseProductDataSourceFactory(KAUFLAND_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, ProductItemViewModel> {
-        return KauflandProductDataSource(repository, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
+        return KauflandProductDataSource(getKauflandProductPageUseCase, query, sortType, loadingLiveData, isReset, isNextPageLoaderVisibleLiveData).apply {
             dataSource = this
         }
     }

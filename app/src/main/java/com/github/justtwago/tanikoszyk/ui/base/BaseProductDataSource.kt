@@ -2,10 +2,10 @@ package com.github.justtwago.tanikoszyk.ui.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.github.justtwago.service.model.domain.ProductPage
 import com.github.justtwago.tanikoszyk.common.extensions.Ignored
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
 import com.github.justtwago.tanikoszyk.ui.mappers.toViewModel
+import com.github.justtwago.usecases.model.market.common.ProductPage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

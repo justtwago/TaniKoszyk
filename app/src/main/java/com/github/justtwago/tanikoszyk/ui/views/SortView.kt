@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.inflateChild
 import com.github.justtwago.tanikoszyk.common.extensions.setTintColor
+import com.github.justtwago.usecases.model.market.common.SortType
 import kotlinx.android.synthetic.main.view_sort.view.*
 
 

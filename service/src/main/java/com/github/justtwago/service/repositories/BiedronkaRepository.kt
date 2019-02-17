@@ -6,12 +6,9 @@ import com.github.justtwago.service.common.createRetrofit
 import com.github.justtwago.service.common.executeSafely
 import com.github.justtwago.service.model.biedronka.BiedronkaProduct
 import com.github.justtwago.service.model.biedronka.BiedronkaProductIdPage
-import com.github.justtwago.service.model.domain.ProductPage
-import com.github.justtwago.service.model.domain.mapToDomain
 import com.github.justtwago.service.services.BiedronkaService
 
 const val BIEDRONKA_BASE_URL = "http://www.biedronka.pl/"
-const val BIEDRONKA_PAGE_SIZE = 20
 
 interface BiedronkaRepository {
     suspend fun getProducts(searchQuery: String, page: Int): Response<BiedronkaProductIdPage>

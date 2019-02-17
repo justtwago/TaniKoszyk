@@ -8,7 +8,6 @@ import com.github.justtwago.service.model.kaufland.KauflandProductPage
 import com.github.justtwago.service.services.KauflandService
 
 const val KAUFLAND_BASE_URL = "https://www.kaufland.pl/"
-const val KAUFLAND_PAGE_SIZE = 60
 
 interface KauflandRepository {
     suspend fun getProducts(searchQuery: String, page: Int): Response<KauflandProductPage>

@@ -1,18 +1,18 @@
 package com.github.justtwago.tanikoszyk.ui.home.list.paging.tesco
 
 import androidx.lifecycle.MutableLiveData
-import com.github.justtwago.service.common.Response
-import com.github.justtwago.service.model.domain.ProductPage
-import com.github.justtwago.service.model.domain.SortType
-import com.github.justtwago.service.model.domain.mapToDomain
-import com.github.justtwago.service.repositories.TescoRepository
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.common.extensions.postTescoReady
 import com.github.justtwago.tanikoszyk.ui.base.BaseProductDataSource
+import com.github.justtwago.usecases.model.Result
+import com.github.justtwago.usecases.model.market.MarketPageRequest
+import com.github.justtwago.usecases.model.market.common.ProductPage
+import com.github.justtwago.usecases.model.market.common.SortType
+import com.github.justtwago.usecases.usecases.market.GetTescoProductPageUseCase
 
 
 class TescoProductDataSource(
-        private val repository: TescoRepository,
+        private val getTescoProductPageUseCase: GetTescoProductPageUseCase,
         private val query: String,
         private val sortType: SortType,
         private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
@@ -21,9 +21,9 @@ class TescoProductDataSource(
 ) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData) {
 
     override suspend fun loadProductPage(page: Int): ProductPage? {
-        val response = repository.getProducts(query, page, sortType)
-        return when (response) {
-            is Response.Success.WithBody -> response.body.mapToDomain()
+        val result = getTescoProductPageUseCase.execute(MarketPageRequest(query, page, sortType))
+        return when (result) {
+            is Result.Success -> result.result
             else -> null
         }
     }

@@ -7,7 +7,7 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestOptions
 import com.github.justtwago.tanikoszyk.R
-import com.github.justtwago.service.model.domain.Market
+import com.github.justtwago.usecases.model.market.common.Market
 
 private const val USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
 

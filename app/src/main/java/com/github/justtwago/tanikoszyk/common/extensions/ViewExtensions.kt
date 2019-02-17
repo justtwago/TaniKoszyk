@@ -175,3 +175,13 @@ fun MenuItem.blockCollapsing(context: Context): Boolean {
     })
     return false
 }
+
+fun TextView.addSimpleTextChangedListener(listener: (string: String) -> Unit) = this.addTextChangedListener(object : TextWatcher {
+    override fun afterTextChanged(s: Editable) {
+        listener(s.toString())
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Ignored
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Ignored
+})
