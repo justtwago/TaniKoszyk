@@ -1,6 +1,6 @@
 package com.github.justtwago.tanikoszyk.ui.home.list
 
-import com.github.justtwago.service.model.domain.Market
+import com.github.justtwago.usecases.model.market.common.Market
 
 
 class ProductItemViewModel(

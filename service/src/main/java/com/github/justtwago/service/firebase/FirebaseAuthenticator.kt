@@ -1,44 +1,44 @@
 package com.github.justtwago.service.firebase
 
-import com.github.justtwago.service.common.Result
+import com.github.justtwago.service.common.Response
 import com.google.firebase.auth.FirebaseAuth
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 
 interface FirebaseAuthenticator {
-    suspend fun signIn(email: String, password: String): Result<String>
-    suspend fun signUp(email: String, password: String): Result<String>
+    suspend fun signIn(email: String, password: String): Response<String>
+    suspend fun signUp(email: String, password: String): Response<String>
     suspend fun signOut()
     suspend fun isUserLoggedIn(): Boolean
 }
 
 class FirebaseAuthenticatorImpl(private val firebaseAuth: FirebaseAuth) : FirebaseAuthenticator {
 
-    override suspend fun signIn(email: String, password: String): Result<String> {
+    override suspend fun signIn(email: String, password: String): Response<String> {
         return suspendCoroutine { continuation ->
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     continuation.resume(
                         if (task.isSuccessful) {
-                            Result.Success(task.result?.user?.uid.orEmpty())
+                            Response.Success.WithBody(task.result?.user?.uid.orEmpty())
                         } else {
-                            Result.Failure(task.exception?.message.orEmpty())
+                            Response.Failure(task.exception ?: Throwable())
                         }
                     )
                 }
         }
     }
 
-    override suspend fun signUp(email: String, password: String): Result<String> {
+    override suspend fun signUp(email: String, password: String): Response<String> {
         return suspendCoroutine { continuation ->
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     continuation.resume(
                         if (task.isSuccessful) {
-                            Result.Success(task.result?.user?.uid.orEmpty())
+                            Response.Success.WithBody(task.result?.user?.uid.orEmpty())
                         } else {
-                            Result.Failure(task.exception?.message.orEmpty())
+                            Response.Failure(task.exception ?: Throwable())
                         }
                     )
                 }

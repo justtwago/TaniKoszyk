@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.justtwago.service.model.domain.Market
 import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.extensions.blockCollapsing
 import com.github.justtwago.tanikoszyk.common.extensions.setVisibility
@@ -15,6 +14,7 @@ import com.github.justtwago.tanikoszyk.common.extensions.setupCustomToolbar
 import com.github.justtwago.tanikoszyk.databinding.FragmentHomeBinding
 import com.github.justtwago.tanikoszyk.ui.base.BaseFragment
 import com.github.justtwago.tanikoszyk.ui.home.list.SearchProductAdapter
+import com.github.justtwago.usecases.model.market.common.Market
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

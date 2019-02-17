@@ -6,9 +6,9 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import com.github.justtwago.service.model.domain.SortType
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
+import com.github.justtwago.usecases.model.market.common.SortType
 
 
 abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : DataSource.Factory<Int, ProductItemViewModel>() {

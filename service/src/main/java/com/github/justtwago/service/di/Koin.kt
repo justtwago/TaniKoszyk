@@ -15,12 +15,4 @@ val serviceModule = module {
     single { KauflandRepositoryImpl(androidApplication()) as KauflandRepository }
     single { TescoRepositoryImpl(androidApplication()) as TescoRepository }
     single { BiedronkaRepositoryImpl(androidApplication()) as BiedronkaRepository }
-    single {
-        ProductRepositoryImpl(
-            auchanRepository = get(),
-            kauflandRepository = get(),
-            tescoRepository = get(),
-            biedronkaRepository = get()
-        ) as ProductRepository
-    }
 }

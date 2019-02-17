@@ -1,6 +1,6 @@
 package com.github.justtwago.service.model.domain
 
 
-enum class Market {
+enum class MarketService {
     KAUFLAND, AUCHAN, TESCO, BIEDRONKA
 }

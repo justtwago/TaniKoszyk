@@ -1,4 +1,4 @@
-package com.github.justtwago.service.model.domain
+package com.github.justtwago.usecases.model.market.common
 
 import com.github.justtwago.service.model.auchan.AuchanProduct
 import com.github.justtwago.service.model.auchan.AuchanProductPage
@@ -9,8 +9,6 @@ import com.github.justtwago.service.model.kaufland.KauflandProductPage
 import com.github.justtwago.service.model.tesco.TescoProduct
 import com.github.justtwago.service.model.tesco.TescoProductPage
 import com.github.justtwago.service.repositories.AUCHAN_BASE_URL
-import com.github.justtwago.service.repositories.KAUFLAND_PAGE_SIZE
-import com.github.justtwago.service.repositories.TESCO_PAGE_SIZE
 
 
 fun AuchanProductPage.mapToDomain(): ProductPage {

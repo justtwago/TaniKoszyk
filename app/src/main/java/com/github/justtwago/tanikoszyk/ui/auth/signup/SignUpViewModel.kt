@@ -2,16 +2,21 @@ package com.github.justtwago.tanikoszyk.ui.auth.signup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.justtwago.service.common.Result
-import com.github.justtwago.service.firebase.FirebaseAuthenticator
 import com.github.justtwago.tanikoszyk.common.SingleLiveEvent
 import com.github.justtwago.tanikoszyk.navigation.NavigationRequest
 import com.github.justtwago.tanikoszyk.ui.auth.CredentialsListener
+import com.github.justtwago.usecases.model.Result
+import com.github.justtwago.usecases.model.auth.AuthenticationRequest
+import com.github.justtwago.usecases.usecases.auth.CheckIsUserSignInUseCase
+import com.github.justtwago.usecases.usecases.auth.SignUpUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-class SignUpViewModel(private val authenticator: FirebaseAuthenticator) : ViewModel(), CredentialsListener {
+class SignUpViewModel(
+        private val signUpUseCase: SignUpUseCase,
+        private val checkIsUserSignInUseCase: CheckIsUserSignInUseCase
+) : ViewModel(), CredentialsListener {
     private val emailLiveData = MutableLiveData<String>()
     private val passwordLiveData = MutableLiveData<String>()
     private lateinit var coroutineScope: CoroutineScope
@@ -48,7 +53,7 @@ class SignUpViewModel(private val authenticator: FirebaseAuthenticator) : ViewMo
 
     private fun skipAuthenticationIfNeeded() {
         coroutineScope.launch {
-            val isUserSignIn = authenticator.isUserLoggedIn()
+            val isUserSignIn = checkIsUserSignInUseCase.execute()
             if (isUserSignIn) {
                 navigationEvent.postValue(NavigationRequest.HOME_SCREEN)
 
@@ -57,7 +62,7 @@ class SignUpViewModel(private val authenticator: FirebaseAuthenticator) : ViewMo
     }
 
     private suspend fun signUp(email: String, password: String): Boolean {
-        val result = authenticator.signUp(email, password)
+        val result = signUpUseCase.execute(AuthenticationRequest(email, password))
         return result is Result.Success
     }
 }

@@ -1,4 +1,4 @@
-package com.github.justtwago.service.model.domain
+package com.github.justtwago.usecases.model.market.common
 
 
 data class Product(
@@ -18,7 +18,7 @@ data class Product(
                 "Old price: $oldPrice\n" +
                 "Price: $price\n" +
                 "Quantity: $quantity\n" +
-                "Market: ${market.name}"
+                "MarketService: ${market.name}"
     }
 
     fun isNotEmpty(): Boolean {
