@@ -12,7 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CartFragment : BaseFragment<FragmentCartBinding>() {
     override val layoutId = R.layout.fragment_cart
     override val viewModel by viewModel<CartViewModel>()
-    override val hasMenu = false
 
     override fun setupBindingVariables() {
         binding.viewModel = viewModel

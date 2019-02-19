@@ -15,7 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override val layoutId = R.layout.fragment_profile
     override val viewModel by viewModel<ProfileViewModel>()
-    override val hasMenu = false
 
     override fun setupBindingVariables() {
         binding.viewModel = viewModel

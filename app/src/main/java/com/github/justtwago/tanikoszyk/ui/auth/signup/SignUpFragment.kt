@@ -15,7 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override val layoutId = R.layout.fragment_sign_up
     override val viewModel by viewModel<SignUpViewModel>()
-    override val hasMenu = false
 
     override fun setupBindingVariables() {
         binding.viewModel = viewModel

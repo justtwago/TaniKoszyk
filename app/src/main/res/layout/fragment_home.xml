@@ -20,9 +20,21 @@
         <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
             android:id="@+id/customToolbar"
             style="@style/CustomToolbar"
-            app:extraMenuPadding="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/filterMenuItem"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_gravity="end"
+                android:paddingStart="16dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:src="@drawable/ic_filter" />
+        </com.github.justtwago.tanikoszyk.ui.views.CustomToolbar>
 
         <View
             android:layout_width="0dp"
@@ -68,8 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
                     app:pagedProducts="@{viewModel.auchanPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
@@ -79,8 +91,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
                     app:pagedProducts="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
@@ -90,8 +102,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
                     app:pagedProducts="@{viewModel.kauflandPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
@@ -101,8 +113,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
                     app:pagedProducts="@{viewModel.tescoPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />

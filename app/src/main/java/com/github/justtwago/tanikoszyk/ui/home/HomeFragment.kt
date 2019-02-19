@@ -1,10 +1,12 @@
 package com.github.justtwago.tanikoszyk.ui.home
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.justtwago.tanikoszyk.R
@@ -20,10 +22,9 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-    lateinit var menu: Menu
     override val viewModel by viewModel<HomeViewModel>()
     override val layoutId = R.layout.fragment_home
-    override val hasMenu = true
+    private lateinit var popupMenu: PopupMenu
 
     override fun setupBindingVariables() {
         binding.viewModel = viewModel
@@ -34,6 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setupCustomToolbar(view)
         setupMarketRecyclerViews()
         setupListeners()
+        setupPopupMenu()
     }
 
     private fun setupCustomToolbar(view: View) {
@@ -66,36 +68,38 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             searchView.requestSearchFocus()
         }
         sortView.setOnSortItemSelectedListener(viewModel::onSortTypeSelected)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_filter, menu)
-        this.menu = menu
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.auchanItem -> item.run {
-                blockCollapsing(requireContext())
-                checkMarketItem(Market.AUCHAN, auchanProductsRecyclerView)
-            }
-            R.id.biedronkaItem -> item.run {
-                blockCollapsing(requireContext())
-                checkMarketItem(Market.BIEDRONKA, biedronkaProductsRecyclerView)
-            }
-            R.id.kauflandItem -> item.run {
-                blockCollapsing(requireContext())
-                checkMarketItem(Market.KAUFLAND, kauflandProductsRecyclerView)
-            }
-            R.id.tescoItem -> item.run {
-                blockCollapsing(requireContext())
-                checkMarketItem(Market.TESCO, tescoProductsRecyclerView)
-            }
-            else -> super.onOptionsItemSelected(item)
+        filterMenuItem.setOnClickListener {
+            popupMenu.show()
         }
     }
 
-    private fun MenuItem.checkMarketItem(market: Market, recyclerView: RecyclerView): Boolean {
+    private fun setupPopupMenu() {
+        popupMenu = PopupMenu(requireContext(), filterMenuItem, Gravity.END, R.attr.actionOverflowMenuStyle, 0)
+        popupMenu.menuInflater.inflate(R.menu.menu_filter, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.auchanItem -> item.run {
+                    blockCollapsing(requireContext())
+                    checkMarketItem(popupMenu.menu, Market.AUCHAN, auchanProductsRecyclerView)
+                }
+                R.id.biedronkaItem -> item.run {
+                    blockCollapsing(requireContext())
+                    checkMarketItem(popupMenu.menu, Market.BIEDRONKA, biedronkaProductsRecyclerView)
+                }
+                R.id.kauflandItem -> item.run {
+                    blockCollapsing(requireContext())
+                    checkMarketItem(popupMenu.menu, Market.KAUFLAND, kauflandProductsRecyclerView)
+                }
+                R.id.tescoItem -> item.run {
+                    blockCollapsing(requireContext())
+                    checkMarketItem(popupMenu.menu, Market.TESCO, tescoProductsRecyclerView)
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun MenuItem.checkMarketItem(menu: Menu, market: Market, recyclerView: RecyclerView): Boolean {
         val auchanItem = menu.findItem(R.id.auchanItem)
         val biedronkaItem = menu.findItem(R.id.biedronkaItem)
         val kauflandItem = menu.findItem(R.id.kauflandItem)
