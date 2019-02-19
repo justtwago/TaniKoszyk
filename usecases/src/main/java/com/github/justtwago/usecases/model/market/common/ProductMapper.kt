@@ -11,7 +11,6 @@ import com.github.justtwago.service.model.tesco.TescoProduct
 import com.github.justtwago.service.model.tesco.TescoProductPage
 import com.github.justtwago.service.repositories.AUCHAN_BASE_URL
 
-
 fun AuchanProductPage.mapToDomain(): ProductPage {
     return ProductPage(
         products = products?.map { it.mapToDomain() }?.filter { it.isNotEmpty() }.orEmpty(),
@@ -24,7 +23,6 @@ fun AuchanProduct.mapToDomain(): Product {
         id = toString().hashCode(), //TODO: get ids from tesco
         subtitle = subtitle.orEmpty(),
         title = title?.substringAfter("$subtitle - ").orEmpty(),
-        oldPrice = "",
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
         imageUrl = "$AUCHAN_BASE_URL${imageUrl?.substring(1, imageUrl?.length ?: 0).orEmpty()}",
         quantity = quantity.orEmpty(),
@@ -44,7 +42,6 @@ fun KauflandProduct.mapToDomain(): Product {
         id = toString().hashCode(), //TODO: get ids from tesco
         subtitle = subtitle.orEmpty(),
         title = title.orEmpty(),
-        oldPrice = oldPrice.orEmpty(),
         price = "${price ?: 0} zł".replace('.', ','),
         imageUrl = imageUrl?.split(", ")?.last()?.substringBefore(" ").orEmpty(),
         quantity = quantity.orEmpty(),
@@ -72,7 +69,6 @@ fun TescoProduct.mapToDomain(): Product {
         id = toString().hashCode(), //TODO: get ids from tesco
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
-        oldPrice = "",
         price = "${price ?: 0} zł".replace('.', ','),
         imageUrl = imageUrl.orEmpty(),
         quantity = mapQuantity(),
@@ -109,7 +105,6 @@ fun BiedronkaProduct.mapToDomain(): Product {
         id = toString().hashCode(),
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
-        oldPrice = "",
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
         imageUrl = imageUrl?.replace("4x2", "1x1").orEmpty(),
         quantity = quantity?.substringAfter("/").orEmpty(),
@@ -126,5 +121,17 @@ fun Product.mapToService(): ProductService {
         imageUrl,
         quantity,
         market.name
+    )
+}
+
+fun ProductService.mapToDomain(): Product {
+    return Product(
+        id,
+        subtitle,
+        title,
+        price,
+        imageUrl,
+        quantity,
+        Market.valueOf(market)
     )
 }

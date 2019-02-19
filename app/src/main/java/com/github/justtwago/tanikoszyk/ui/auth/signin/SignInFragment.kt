@@ -15,12 +15,16 @@ import com.github.justtwago.tanikoszyk.ui.auth.AuthenticationActivity
 
 class SignInFragment : BaseFragment<FragmentSignInBinding>() {
     override val layoutId = R.layout.fragment_sign_in
+    override val hasMenu = false
 
     override val viewModel by viewModel<SignInViewModel>()
 
+    override fun setupBindingVariables() {
+        binding.viewModel = viewModel
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
         viewModel.initialize()
         registerObservers()
     }

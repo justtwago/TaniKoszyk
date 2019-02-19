@@ -5,12 +5,12 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-
 interface FirebaseAuthenticator {
     suspend fun signIn(email: String, password: String): Response<String>
     suspend fun signUp(email: String, password: String): Response<String>
     suspend fun signOut()
     suspend fun isUserLoggedIn(): Boolean
+    suspend fun getUserId(): String
 }
 
 class FirebaseAuthenticatorImpl(private val firebaseAuth: FirebaseAuth) : FirebaseAuthenticator {
@@ -49,4 +49,5 @@ class FirebaseAuthenticatorImpl(private val firebaseAuth: FirebaseAuth) : Fireba
 
     override suspend fun isUserLoggedIn() = firebaseAuth.currentUser != null
 
+    override suspend fun getUserId(): String = firebaseAuth.currentUser?.uid.orEmpty()
 }

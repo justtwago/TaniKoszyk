@@ -12,14 +12,17 @@ import com.github.justtwago.tanikoszyk.ui.auth.AuthenticationActivity
 import com.github.justtwago.tanikoszyk.ui.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override val layoutId = R.layout.fragment_sign_up
     override val viewModel by viewModel<SignUpViewModel>()
+    override val hasMenu = false
+
+    override fun setupBindingVariables() {
+        binding.viewModel = viewModel
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
         viewModel.initialize()
         registerObservers()
     }

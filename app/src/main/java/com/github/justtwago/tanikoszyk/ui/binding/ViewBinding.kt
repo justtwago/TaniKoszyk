@@ -23,8 +23,8 @@ fun View.setMarketsContentVisibility(marketsLoadingStatus: MarketsLoadingStatus)
     visibility = if (marketsLoadingStatus.isContentReady()) View.GONE else View.VISIBLE
 }
 
-@BindingAdapter("products")
-fun RecyclerView.setProducts(products: PagedList<ProductItemViewModel>?) {
+@BindingAdapter("pagedProducts")
+fun RecyclerView.setPagedProducts(products: PagedList<ProductItemViewModel>?) {
     (adapter as? SearchProductAdapter)?.submitList(products)
 }
 

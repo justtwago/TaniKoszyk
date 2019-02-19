@@ -71,7 +71,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="16dp"
                     app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.auchanPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.auchanPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -82,7 +82,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="16dp"
                     app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -93,7 +93,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="16dp"
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.kauflandPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.kauflandPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -104,7 +104,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="16dp"
                     app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.tescoPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.tescoPagedProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

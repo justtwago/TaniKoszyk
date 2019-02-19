@@ -8,7 +8,6 @@ fun Product.toViewModel(onClickListener: (Product) -> Unit) = ProductItemViewMod
     id = id,
     subtitle = subtitle,
     title = title,
-    oldPrice = oldPrice,
     price = price,
     imageUrl = imageUrl,
     quantity = quantity,

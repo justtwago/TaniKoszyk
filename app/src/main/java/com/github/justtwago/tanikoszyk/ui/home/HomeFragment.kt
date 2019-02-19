@@ -20,19 +20,17 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-
     lateinit var menu: Menu
     override val viewModel by viewModel<HomeViewModel>()
     override val layoutId = R.layout.fragment_home
+    override val hasMenu = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    override fun setupBindingVariables() {
+        binding.viewModel = viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
         setupCustomToolbar(view)
         setupMarketRecyclerViews()
         setupListeners()

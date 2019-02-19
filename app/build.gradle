@@ -78,6 +78,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.bindingCollections"
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.bindingCollections"
+
     testImplementation "junit:junit:$versions.junit"
     testImplementation "org.assertj:assertj-core:$versions.assertj"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitokotlin"

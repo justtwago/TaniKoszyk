@@ -8,7 +8,6 @@ class ProductItemViewModel(
         val id: Int,
         val subtitle: String,
         val title: String,
-        val oldPrice: String,
         val price: String,
         val imageUrl: String,
         val quantity: String,
@@ -17,7 +16,7 @@ class ProductItemViewModel(
 ) {
     fun onProductClicked() {
         onClickListener.invoke(
-            Product(id, subtitle, title, oldPrice, price, imageUrl, quantity, market)
+            Product(id, subtitle, title, price, imageUrl, quantity, market)
         )
     }
 }
