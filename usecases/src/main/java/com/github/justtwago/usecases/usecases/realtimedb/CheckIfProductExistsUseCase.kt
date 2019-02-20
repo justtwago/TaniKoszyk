@@ -3,14 +3,13 @@ package com.github.justtwago.usecases.usecases.realtimedb
 import com.github.justtwago.service.firebase.FirebaseAuthenticator
 import com.github.justtwago.service.firebase.FirebaseProductCartRepository
 import com.github.justtwago.usecases.model.market.common.Product
-import com.github.justtwago.usecases.model.market.common.mapToService
 import com.github.justtwago.usecases.usecases.base.AsyncUseCase
 
-class AddProductToCartUseCase(
-    private val firebaseProductCartRepository: FirebaseProductCartRepository,
-    private val authenticator: FirebaseAuthenticator
+class CheckIfProductExistsUseCase(
+    private val authenticator: FirebaseAuthenticator,
+    private val firebaseProductCartRepository: FirebaseProductCartRepository
 ) : AsyncUseCase<Product, Boolean> {
     override suspend fun execute(request: Product): Boolean {
-        return firebaseProductCartRepository.addProductToCart(authenticator.getUserId(), request.mapToService())
+        return firebaseProductCartRepository.checkIfProductExists(uid = authenticator.getUserId(), productId = request.id.toString())
     }
 }

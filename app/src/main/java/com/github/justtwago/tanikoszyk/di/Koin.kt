@@ -14,10 +14,10 @@ import org.koin.dsl.module.module
 
 val appModule = module {
 
-    single { AuchanProductDataSourceFactory(getAuchanProductPageUseCase = get()) }
-    single { BiedronkaProductDataSourceFactory(getBiedronkaProductPageUseCase = get()) }
-    single { KauflandProductDataSourceFactory(getKauflandProductPageUseCase = get()) }
-    single { TescoProductDataSourceFactory(getTescoProductPageUseCase = get()) }
+    single { AuchanProductDataSourceFactory(getAuchanProductPageUseCase = get(), checkIfProductExistsUseCase = get()) }
+    single { BiedronkaProductDataSourceFactory(getBiedronkaProductPageUseCase = get(), checkIfProductExistsUseCase = get()) }
+    single { KauflandProductDataSourceFactory(getKauflandProductPageUseCase = get(), checkIfProductExistsUseCase = get()) }
+    single { TescoProductDataSourceFactory(getTescoProductPageUseCase = get(), checkIfProductExistsUseCase = get()) }
 
     viewModel {
         HomeViewModel(

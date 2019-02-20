@@ -10,12 +10,27 @@ fun DatabaseReference.addValueEventListener(
     onDataChange: ((DataSnapshot) -> Unit)? = null
 ) {
     addValueEventListener(object : ValueEventListener {
-        override fun onCancelled(error: DatabaseError) {
-            onCancelled?.invoke(error)
-        }
-
         override fun onDataChange(snapshot: DataSnapshot) {
             onDataChange?.invoke(snapshot)
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            onCancelled?.invoke(databaseError)
+        }
+    })
+}
+
+fun DatabaseReference.addListenerForSingleValueEvent(
+    onCancelled: ((DatabaseError) -> Unit)? = null,
+    onDataChange: ((DataSnapshot) -> Unit)? = null
+) {
+    addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            onDataChange?.invoke(snapshot)
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            onCancelled?.invoke(databaseError)
         }
     })
 }

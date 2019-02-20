@@ -9,6 +9,7 @@ import com.github.justtwago.usecases.usecases.market.GetBiedronkaProductPageUseC
 import com.github.justtwago.usecases.usecases.market.GetKauflandProductPageUseCase
 import com.github.justtwago.usecases.usecases.market.GetTescoProductPageUseCase
 import com.github.justtwago.usecases.usecases.realtimedb.AddProductToCartUseCase
+import com.github.justtwago.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 import com.github.justtwago.usecases.usecases.realtimedb.ObserveCartProductsUseCase
 import org.koin.dsl.module.module
 
@@ -24,5 +25,6 @@ val usecaseModule = module {
     single { GetBiedronkaProductPageUseCase(biedronkaRepository = get()) }
     single { GetKauflandProductPageUseCase(kauflandRepository = get()) }
     single { GetTescoProductPageUseCase(tescoRepository = get()) }
-    single { ObserveCartProductsUseCase(firebaseProductCartRepository = get(), authenticator = get()) }
+    single { ObserveCartProductsUseCase(authenticator = get(), firebaseProductCartRepository = get()) }
+    single { CheckIfProductExistsUseCase(authenticator = get(), firebaseProductCartRepository = get()) }
 }

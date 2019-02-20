@@ -10,16 +10,18 @@ import com.github.justtwago.usecases.model.market.common.Product
 import com.github.justtwago.usecases.model.market.common.ProductPage
 import com.github.justtwago.usecases.model.market.common.SortType
 import com.github.justtwago.usecases.usecases.market.GetKauflandProductPageUseCase
+import com.github.justtwago.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class KauflandProductDataSource(
-        private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase,
-        private val query: String,
-        private val sortType: SortType,
-        private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
-        isReset: Boolean,
-        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
-        onProductClickListener: (Product) -> Unit
-) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData, onProductClickListener) {
+    private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase,
+    private val query: String,
+    private val sortType: SortType,
+    private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+    checkIfProductExistsUseCase: CheckIfProductExistsUseCase,
+    isReset: Boolean,
+    isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
+    onProductClickListener: (Product) -> Boolean
+) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData, checkIfProductExistsUseCase, onProductClickListener) {
 
     override suspend fun loadProductPage(page: Int): ProductPage? {
         val result = getKauflandProductPageUseCase.execute(MarketPageRequest(query, page, sortType))

@@ -1,25 +1,40 @@
 package com.github.justtwago.service.firebase
 
+import com.github.justtwago.service.common.addListenerForSingleValueEvent
 import com.github.justtwago.service.common.addValueEventListener
 import com.github.justtwago.service.model.service.ProductService
 import com.google.firebase.database.DatabaseReference
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+
+private const val PRODUCTS_DB_REFERENCE = "products"
 
 interface FirebaseProductCartRepository {
-    suspend fun addProductToCart(uid: String, product: ProductService)
+    suspend fun addProductToCart(uid: String, product: ProductService): Boolean
     suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit)
+    suspend fun checkIfProductExists(uid: String, productId: String): Boolean
 }
 
 class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseReference) : FirebaseProductCartRepository {
-    override suspend fun addProductToCart(uid: String, product: ProductService) {
-        databaseReference.child("products").child(uid).child(product.id.toString()).setValue(product)
+
+    override suspend fun addProductToCart(uid: String, product: ProductService): Boolean {
+        return databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).child(product.id.toString()).setValue(product).isSuccessful
     }
 
     override suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit) {
-        databaseReference.child("products").child(uid).addValueEventListener {
+        databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).addValueEventListener {
             val products = it.children.asSequence()
                 .map { productSnapshot -> productSnapshot.getValue(ProductService::class.java)!! }
                 .toList()
             cartProductObserver.invoke(products)
+        }
+    }
+
+    override suspend fun checkIfProductExists(uid: String, productId: String): Boolean {
+        return suspendCoroutine { continuation ->
+            databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).addListenerForSingleValueEvent {
+                continuation.resume(it.hasChild(productId))
+            }
         }
     }
 }

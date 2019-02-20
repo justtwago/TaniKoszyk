@@ -27,12 +27,12 @@
                 android:id="@+id/filterMenuItem"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_gravity="end"
-                android:paddingStart="16dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="16dp"
+                android:background="?attr/actionBarItemBackground"
                 android:paddingBottom="16dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
                 android:src="@drawable/ic_filter" />
         </com.github.justtwago.tanikoszyk.ui.views.CustomToolbar>
 
@@ -83,7 +83,7 @@
                     android:paddingEnd="16dp"
                     android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.auchanPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.auchanPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -94,7 +94,7 @@
                     android:paddingEnd="16dp"
                     android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.biedronkaPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -105,7 +105,7 @@
                     android:paddingEnd="16dp"
                     android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.kauflandPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.kauflandPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -116,7 +116,7 @@
                     android:paddingEnd="16dp"
                     android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.tescoPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.tescoPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

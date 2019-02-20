@@ -12,7 +12,7 @@ import com.github.justtwago.tanikoszyk.ui.base.BaseProductViewHolder
 private const val PRODUCT_TYPE = 0
 private const val LOADER_TYPE = 1
 
-class SearchProductAdapter : PagedListAdapter<ProductItemViewModel, BaseProductViewHolder>(
+class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BaseProductViewHolder>(
     DIFF_CALLBACK
 ) {
     private var isProductsLoading: Boolean? = null
@@ -66,15 +66,15 @@ class SearchProductAdapter : PagedListAdapter<ProductItemViewModel, BaseProductV
 
     companion object {
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<ProductItemViewModel>() {
+            DiffUtil.ItemCallback<SearchProductItemViewModel>() {
             override fun areItemsTheSame(
-                    oldConcert: ProductItemViewModel,
-                    newConcert: ProductItemViewModel
+                    oldConcert: SearchProductItemViewModel,
+                    newConcert: SearchProductItemViewModel
             ): Boolean = oldConcert.id == newConcert.id
 
             override fun areContentsTheSame(
-                    oldConcert: ProductItemViewModel,
-                    newConcert: ProductItemViewModel
+                    oldConcert: SearchProductItemViewModel,
+                    newConcert: SearchProductItemViewModel
             ): Boolean = oldConcert == newConcert
         }
     }

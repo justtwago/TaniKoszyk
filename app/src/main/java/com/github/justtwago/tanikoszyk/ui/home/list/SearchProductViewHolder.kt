@@ -5,7 +5,7 @@ import com.github.justtwago.tanikoszyk.ui.base.BaseProductViewHolder
 
 
 class SearchProductViewHolder(private val binding: ItemProductGridBinding) : BaseProductViewHolder(binding.root) {
-    fun bind(productItemViewModel: ProductItemViewModel) {
-        binding.viewModel = productItemViewModel
+    fun bind(searchProductItemViewModel: SearchProductItemViewModel) {
+        binding.viewModel = searchProductItemViewModel
     }
 }

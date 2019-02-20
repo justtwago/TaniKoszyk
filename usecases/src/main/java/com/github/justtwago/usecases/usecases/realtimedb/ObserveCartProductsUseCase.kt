@@ -9,8 +9,8 @@ import com.github.justtwago.usecases.usecases.base.AsyncUseCase
 private typealias CartProductObserver = (List<Product>) -> Unit
 
 class ObserveCartProductsUseCase(
-    private val firebaseProductCartRepository: FirebaseProductCartRepository,
-    private val authenticator: FirebaseAuthenticator
+    private val authenticator: FirebaseAuthenticator,
+    private val firebaseProductCartRepository: FirebaseProductCartRepository
 ) : AsyncUseCase<CartProductObserver, Unit> {
     override suspend fun execute(request: CartProductObserver) {
         firebaseProductCartRepository.observeCartProducts(authenticator.getUserId()) {

@@ -10,17 +10,18 @@ import com.github.justtwago.usecases.model.market.common.Product
 import com.github.justtwago.usecases.model.market.common.ProductPage
 import com.github.justtwago.usecases.model.market.common.SortType
 import com.github.justtwago.usecases.usecases.market.GetBiedronkaProductPageUseCase
-
+import com.github.justtwago.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class BiedronkaProductDataSource(
-        private val getBiedronkaProductPageUseCase: GetBiedronkaProductPageUseCase,
-        private val query: String,
-        private val sortType: SortType,
-        private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
-        isReset: Boolean,
-        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
-        onProductClickListener: (Product) -> Unit
-) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData, onProductClickListener) {
+    private val getBiedronkaProductPageUseCase: GetBiedronkaProductPageUseCase,
+    private val query: String,
+    private val sortType: SortType,
+    private val loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+    checkIfProductExistsUseCase: CheckIfProductExistsUseCase,
+    isReset: Boolean,
+    isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
+    onProductClickListener: (Product) -> Boolean
+) : BaseProductDataSource(query, isReset, isNextPageLoaderVisibleLiveData, checkIfProductExistsUseCase, onProductClickListener) {
 
     override suspend fun loadProductPage(page: Int): ProductPage? {
         val result = getBiedronkaProductPageUseCase.execute(MarketPageRequest(query, page, sortType))
@@ -29,7 +30,6 @@ class BiedronkaProductDataSource(
             else -> null
         }
     }
-
 
     override fun onFirstProductPageLoaded(isLoaded: Boolean) {
         loadingLiveData.postBiedronkaReady(isLoaded)

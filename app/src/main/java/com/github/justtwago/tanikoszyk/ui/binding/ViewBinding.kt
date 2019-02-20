@@ -6,11 +6,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import com.github.justtwago.tanikoszyk.R
 import com.github.justtwago.tanikoszyk.common.MarketsLoadingStatus
 import com.github.justtwago.tanikoszyk.common.extensions.addSimpleTextChangedListener
+import com.github.justtwago.tanikoszyk.common.extensions.resDrawable
 import com.github.justtwago.tanikoszyk.ui.auth.CredentialsListener
 import com.github.justtwago.tanikoszyk.ui.home.list.SearchProductAdapter
-import com.github.justtwago.tanikoszyk.ui.home.list.ProductItemViewModel
+import com.github.justtwago.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.github.justtwago.usecases.model.market.common.Product
 
 @BindingAdapter("android:visibility")
@@ -24,8 +26,8 @@ fun View.setMarketsContentVisibility(marketsLoadingStatus: MarketsLoadingStatus)
 }
 
 @BindingAdapter("pagedProducts")
-fun RecyclerView.setPagedProducts(products: PagedList<ProductItemViewModel>?) {
-    (adapter as? SearchProductAdapter)?.submitList(products)
+fun RecyclerView.setPagedProducts(searchProducts: PagedList<SearchProductItemViewModel>?) {
+    (adapter as? SearchProductAdapter)?.submitList(searchProducts)
 }
 
 @BindingAdapter("loadingItemVisibility")
@@ -44,6 +46,17 @@ fun EditText.setPasswodChangedListener(listener: CredentialsListener) {
 }
 
 @BindingAdapter("onClick", "product")
-fun ConstraintLayout.setOnProductClickListener(listener: (Product) -> Unit, product: Product) {
+fun ConstraintLayout.setOnProductClickListener(listener: (Product) -> Boolean, product: Product) {
     listener.invoke(product)
+}
+
+@BindingAdapter("productBackground")
+fun ConstraintLayout.setProductBackground(isProductInCart: Boolean) {
+    background = resDrawable(
+        if (isProductInCart) {
+            R.drawable.product_item_background_checked
+        } else {
+            R.drawable.product_item_background
+        }
+    )
 }
