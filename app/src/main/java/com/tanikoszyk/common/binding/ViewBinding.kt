@@ -3,6 +3,7 @@ package com.tanikoszyk.common.binding
 import android.view.View
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +18,7 @@ import com.tanikoszyk.usecases.model.market.common.Product
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
-    visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("android:visibility")
-fun View.setMarketsContentVisibility(marketsLoadingStatus: MarketsLoadingStatus) {
-    visibility = if (marketsLoadingStatus.isContentReady()) View.GONE else View.VISIBLE
+    this.isVisible = isVisible
 }
 
 @BindingAdapter("pagedProducts")

@@ -1,17 +1,17 @@
 package com.tanikoszyk.ui.home
 
 import android.os.Bundle
+import androidx.transition.TransitionManager
 import android.view.Gravity
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.blockCollapsing
-import com.tanikoszyk.common.extensions.setVisibility
 import com.tanikoszyk.common.extensions.setupCustomToolbar
 import com.tanikoszyk.databinding.FragmentHomeBinding
 import com.tanikoszyk.ui.base.BaseFragment
@@ -111,7 +111,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         if (!isLastChecked) {
             isChecked = !isChecked
-            recyclerView.setVisibility(isChecked)
+            TransitionManager.beginDelayedTransition(mainLayout)
+            recyclerView.isVisible = isChecked
             viewModel.onMarketFilterSelected(market, isChecked)
         }
         return false

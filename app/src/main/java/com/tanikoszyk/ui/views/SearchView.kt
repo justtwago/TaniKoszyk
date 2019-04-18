@@ -3,6 +3,7 @@ package com.tanikoszyk.ui.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.*
 import kotlinx.android.synthetic.main.view_search.view.*
@@ -43,7 +44,7 @@ class SearchView @JvmOverloads constructor(
     }
 
     private fun hideCancelButton(text: String) {
-        cancelButton.setVisibility(text.isNotBlank())
+        cancelButton.isVisible = text.isNotBlank()
     }
 
     fun setOnActionDoneListener(listener: () -> Unit) {

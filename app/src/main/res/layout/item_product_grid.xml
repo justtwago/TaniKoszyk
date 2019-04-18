@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -7,109 +8,111 @@
 
         <variable
             name="viewModel"
-            type="com.tanikoszyk.ui.home.list.SearchProductItemViewModel" />
+            type="com.tanikoszyk.ui.home.list.SearchProductItemViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="180dp"
         android:layout_height="220dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:elevation="1dp"
-        android:onClick="@{() -> viewModel.onProductClicked()}"
-        android:orientation="vertical"
-        app:productBackground="@{viewModel.isInCart}">
+        android:onClick="@{() -> viewModel.onProductClicked()}">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="110dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:src="@{viewModel.imageUrl}"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:market="@{viewModel.market}"
-            tools:src="@drawable/sample_product" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/gordita_bold"
-            android:singleLine="true"
-            android:text="@{viewModel.subtitle}"
-            android:textColor="@color/greyishBrown"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Schab wieprzowy" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="110dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:src="@{viewModel.imageUrl}"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:market="@{viewModel.market}"
+                tools:src="@drawable/sample_product"/>
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/gordita_medium"
-            android:singleLine="true"
-            android:text="@{viewModel.title}"
-            android:textColor="@color/grey"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/quantity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subtitle"
-            tools:text="bez kości" />
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gordita_bold"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:singleLine="true"
+                android:text="@{viewModel.subtitle}"
+                android:textColor="@color/greyishBrown"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Schab wieprzowy"/>
 
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/gordita_medium"
-            android:text="@{viewModel.quantity}"
-            android:textColor="@color/grey"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/price"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="1 kg" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gordita_medium"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:text="@{viewModel.title}"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/quantity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subtitle"
+                tools:text="bez kości"/>
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/gordita_bold"
-            android:text="@{viewModel.price}"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="13,99 zł" />
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gordita_medium"
+                android:layout_marginStart="8dp"
+                android:text="@{viewModel.quantity}"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="1 kg"/>
 
-        <ImageView
-            android:id="@+id/marketLogo"
-            android:layout_width="50dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:src="@{viewModel.market}"
-            app:layout_constraintBottom_toBottomOf="@+id/price"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/price"
-            tools:src="@drawable/logo_kaufland_big" />
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gordita_bold"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewModel.price}"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="13,99 zł"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/marketLogo"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:src="@{viewModel.market}"
+                app:layout_constraintBottom_toBottomOf="@+id/price"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/price"
+                tools:src="@drawable/logo_kaufland_big"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

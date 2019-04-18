@@ -62,10 +62,6 @@ fun TextView.setOnActionDoneListener(listener: () -> Unit) {
     }
 }
 
-fun View.setVisibility(isVisible: Boolean) {
-    if (isVisible) setVisible() else setGone()
-}
-
 fun View.setGone() {
     visibility = View.GONE
 }
