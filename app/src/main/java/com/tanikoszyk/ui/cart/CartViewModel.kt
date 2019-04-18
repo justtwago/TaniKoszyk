@@ -19,7 +19,7 @@ class CartViewModel(val observeCartProductsUseCase: ObserveCartProductsUseCase) 
 
     suspend fun initialize() {
         observeCartProductsUseCase.execute {
-            products.update(it.map { product -> product.toSearchProductViewModel(false) { true } })
+            products.update(it.map { product -> product.toSearchProductViewModel() })
         }
     }
 }

@@ -13,7 +13,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     override val layoutId = R.layout.fragment_cart
     override val viewModel by viewModel<CartViewModel>()
 
-    override fun setupBindingVariables() {
+    override fun setupBindingVariables(binding: FragmentCartBinding) {
         binding.viewModel = viewModel
     }
 

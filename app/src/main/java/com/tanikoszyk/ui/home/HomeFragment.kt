@@ -15,8 +15,10 @@ import com.tanikoszyk.common.extensions.blockCollapsing
 import com.tanikoszyk.common.extensions.setupCustomToolbar
 import com.tanikoszyk.databinding.FragmentHomeBinding
 import com.tanikoszyk.ui.base.BaseFragment
+import com.tanikoszyk.ui.home.list.OnProductClickListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 import com.tanikoszyk.usecases.model.market.common.Market
+import com.tanikoszyk.usecases.model.market.common.Product
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val layoutId = R.layout.fragment_home
     private lateinit var popupMenu: PopupMenu
 
-    override fun setupBindingVariables() {
+    override fun setupBindingVariables(binding: FragmentHomeBinding) {
         binding.viewModel = viewModel
     }
 
@@ -54,7 +56,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun RecyclerView.initialize() {
-        adapter = SearchProductAdapter()
+        adapter = SearchProductAdapter(onClickListener = object : OnProductClickListener {
+            override fun onProductClicked(product: Product, rootView: View) {
+
+            }
+        })
         layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
 

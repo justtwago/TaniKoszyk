@@ -12,9 +12,9 @@ import com.tanikoszyk.ui.base.BaseProductViewHolder
 private const val PRODUCT_TYPE = 0
 private const val LOADER_TYPE = 1
 
-class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BaseProductViewHolder>(
-    DIFF_CALLBACK
-) {
+class SearchProductAdapter(private val onClickListener: OnProductClickListener) :
+    PagedListAdapter<SearchProductItemViewModel, BaseProductViewHolder>(DIFF_CALLBACK) {
+
     private var isProductsLoading: Boolean? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseProductViewHolder {
@@ -32,8 +32,10 @@ class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BasePr
     }
 
     override fun onBindViewHolder(holder: BaseProductViewHolder, position: Int) {
-        (holder as? SearchProductViewHolder)?.let {
-            getItem(position)?.let(it::bind)
+        (holder as? SearchProductViewHolder)?.apply {
+            getItem(position)?.let {
+                bind(it, onClickListener)
+            }
         }
     }
 
@@ -68,13 +70,13 @@ class SearchProductAdapter : PagedListAdapter<SearchProductItemViewModel, BasePr
         private val DIFF_CALLBACK = object :
             DiffUtil.ItemCallback<SearchProductItemViewModel>() {
             override fun areItemsTheSame(
-                    oldConcert: SearchProductItemViewModel,
-                    newConcert: SearchProductItemViewModel
+                oldConcert: SearchProductItemViewModel,
+                newConcert: SearchProductItemViewModel
             ): Boolean = oldConcert.id == newConcert.id
 
             override fun areContentsTheSame(
-                    oldConcert: SearchProductItemViewModel,
-                    newConcert: SearchProductItemViewModel
+                oldConcert: SearchProductItemViewModel,
+                newConcert: SearchProductItemViewModel
             ): Boolean = oldConcert == newConcert
         }
     }

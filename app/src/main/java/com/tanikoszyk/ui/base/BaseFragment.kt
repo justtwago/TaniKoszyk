@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment(), CoroutineScope {
-    protected lateinit var binding: B
+    private lateinit var binding: B
     protected abstract val layoutId: Int
     protected abstract val viewModel: BaseViewModel
 
@@ -26,11 +26,11 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), CoroutineScope {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
         viewModel.initCoroutineScope(this)
-        setupBindingVariables()
+        setupBindingVariables(binding)
         return binding.root
     }
 
-    abstract fun setupBindingVariables()
+    abstract fun setupBindingVariables(binding: B)
 
     override fun onDestroy() {
         super.onDestroy()

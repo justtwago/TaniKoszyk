@@ -16,7 +16,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override val layoutId = R.layout.fragment_sign_up
     override val viewModel by viewModel<SignUpViewModel>()
 
-    override fun setupBindingVariables() {
+    override fun setupBindingVariables(binding: FragmentSignUpBinding) {
         binding.viewModel = viewModel
     }
 

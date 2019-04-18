@@ -9,6 +9,10 @@
         <variable
             name="viewModel"
             type="com.tanikoszyk.ui.home.list.SearchProductItemViewModel"/>
+
+        <variable
+            name="onClickListener"
+            type="com.tanikoszyk.ui.home.list.OnProductClickListener"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -17,7 +21,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="@{() -> viewModel.onProductClicked()}">
+        android:onClick="@{(view) -> onClickListener.onProductClicked(viewModel.product, view)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

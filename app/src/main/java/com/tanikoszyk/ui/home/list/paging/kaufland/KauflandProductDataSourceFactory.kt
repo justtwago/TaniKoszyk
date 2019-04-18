@@ -8,8 +8,7 @@ import com.tanikoszyk.usecases.usecases.market.GetKauflandProductPageUseCase
 import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class KauflandProductDataSourceFactory(
-    private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase,
-    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
+    private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase
 ) : BaseProductDataSourceFactory(KAUFLAND_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, SearchProductItemViewModel> {
@@ -18,10 +17,8 @@ class KauflandProductDataSourceFactory(
             query,
             sortType,
             loadingLiveData,
-            checkIfProductExistsUseCase,
             isReset,
-            isNextPageLoaderVisibleLiveData,
-            onProductClickListener
+            isNextPageLoaderVisibleLiveData
         ).apply {
             dataSource = this
         }

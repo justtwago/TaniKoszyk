@@ -11,7 +11,6 @@ import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFa
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 import com.tanikoszyk.usecases.model.market.common.Market
-import com.tanikoszyk.usecases.model.market.common.Product
 import com.tanikoszyk.usecases.model.market.common.SortType
 import com.tanikoszyk.usecases.usecases.realtimedb.AddProductToCartUseCase
 
@@ -22,6 +21,7 @@ class HomeViewModel(
     private val tescoProductDataSourceFactory: TescoProductDataSourceFactory,
     private val addProductToCartUseCase: AddProductToCartUseCase
 ) : BaseViewModel() {
+
     private var query = ""
     private var sortType = SortType.TARGET
 
@@ -54,8 +54,7 @@ class HomeViewModel(
         return auchanProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            onProductClickListener = ::addProductToCart
+            loadingLiveData = loadingLiveData
         )
     }
 
@@ -63,8 +62,7 @@ class HomeViewModel(
         return biedronkaProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            onProductClickListener = ::addProductToCart
+            loadingLiveData = loadingLiveData
         )
     }
 
@@ -72,8 +70,7 @@ class HomeViewModel(
         return kauflandProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            onProductClickListener = ::addProductToCart
+            loadingLiveData = loadingLiveData
         )
     }
 
@@ -81,8 +78,7 @@ class HomeViewModel(
         return tescoProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            onProductClickListener = ::addProductToCart
+            loadingLiveData = loadingLiveData
         )
     }
 
@@ -108,8 +104,7 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isAuchanVisible,
-            onProductClickListener = ::addProductToCart
+            isReset = !isAuchanVisible
         )
     }
 
@@ -119,8 +114,7 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isBiedronkaVisible,
-            onProductClickListener = ::addProductToCart
+            isReset = !isBiedronkaVisible
         )
     }
 
@@ -130,8 +124,7 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isKauflandVisible,
-            onProductClickListener = ::addProductToCart
+            isReset = !isKauflandVisible
         )
     }
 
@@ -141,8 +134,7 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData,
             sortType = sortType,
-            isReset = !isTescoVisible,
-            onProductClickListener = ::addProductToCart
+            isReset = !isTescoVisible
         )
     }
 
@@ -153,12 +145,5 @@ class HomeViewModel(
             Market.KAUFLAND -> isKauflandVisible = isSelected
             Market.TESCO -> isTescoVisible = isSelected
         }
-    }
-
-    private fun addProductToCart(product: Product): Boolean {
-        launch {
-            addProductToCartUseCase.execute(product)
-        }
-        return true
     }
 }

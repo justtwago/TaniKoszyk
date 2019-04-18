@@ -16,7 +16,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override val layoutId = R.layout.fragment_profile
     override val viewModel by viewModel<ProfileViewModel>()
 
-    override fun setupBindingVariables() {
+    override fun setupBindingVariables(binding: FragmentProfileBinding) {
         binding.viewModel = viewModel
     }
 

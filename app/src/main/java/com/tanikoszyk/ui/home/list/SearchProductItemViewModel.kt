@@ -10,13 +10,9 @@ class SearchProductItemViewModel(
     val price: String,
     val imageUrl: String,
     val quantity: String,
-    val market: Market,
-    val onClickListener: (Product) -> Boolean,
-    var isInCart: Boolean
+    val market: Market
 ) {
-    fun onProductClicked() {
-        isInCart = onClickListener.invoke(
-            Product(id, subtitle, title, price, imageUrl, quantity, market)
-        )
-    }
+
+    val product: Product
+        get() = Product(id, subtitle, title, price, imageUrl, quantity, market)
 }

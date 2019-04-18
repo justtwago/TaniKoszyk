@@ -5,18 +5,14 @@ import androidx.paging.PageKeyedDataSource
 import com.tanikoszyk.common.extensions.Ignored
 import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.common.mappers.toSearchProductViewModel
-import com.tanikoszyk.usecases.model.market.common.Product
 import com.tanikoszyk.usecases.model.market.common.ProductPage
-import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 abstract class BaseProductDataSource(
     private val query: String,
     private val isReset: Boolean,
-    private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
-    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase,
-    private val onProductClickListener: (Product) -> Boolean
+    private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
 ) : PageKeyedDataSource<Int, SearchProductItemViewModel>() {
 
     private var pageCount = 0
@@ -25,7 +21,10 @@ abstract class BaseProductDataSource(
 
     protected abstract fun onFirstProductPageLoaded(isLoaded: Boolean)
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, SearchProductItemViewModel>) {
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, SearchProductItemViewModel>
+    ) {
         when {
             isReset -> callback.onResult(emptyList(), null, null)
             isQueryValid() -> loadFirstPage(callback)
@@ -48,10 +47,7 @@ abstract class BaseProductDataSource(
                 val previousPageKey = null
                 callback.onResult(
                     productPage.products.map {
-                        it.toSearchProductViewModel(
-                            isInCart = checkIfProductExistsUseCase.execute(it),
-                            onClickListener = onProductClickListener
-                        )
+                        it.toSearchProductViewModel()
                     },
                     previousPageKey,
                     nextPage
@@ -70,10 +66,7 @@ abstract class BaseProductDataSource(
                 val nextPage = if (pageCount == params.key) null else params.key + 1
                 callback.onResult(
                     productPage.products.map {
-                        it.toSearchProductViewModel(
-                            isInCart = checkIfProductExistsUseCase.execute(it),
-                            onClickListener = onProductClickListener
-                        )
+                        it.toSearchProductViewModel()
                     },
                     nextPage
                 )

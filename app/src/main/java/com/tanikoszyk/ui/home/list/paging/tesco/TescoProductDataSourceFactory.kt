@@ -5,11 +5,9 @@ import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.ui.base.BaseProductDataSourceFactory
 import com.tanikoszyk.usecases.model.market.common.TESCO_PAGE_SIZE
 import com.tanikoszyk.usecases.usecases.market.GetTescoProductPageUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class TescoProductDataSourceFactory(
-    private val getTescoProductPageUseCase: GetTescoProductPageUseCase,
-    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
+    private val getTescoProductPageUseCase: GetTescoProductPageUseCase
 ) : BaseProductDataSourceFactory(TESCO_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, SearchProductItemViewModel> {
@@ -18,10 +16,8 @@ class TescoProductDataSourceFactory(
             query,
             sortType,
             loadingLiveData,
-            checkIfProductExistsUseCase,
             isReset,
-            isNextPageLoaderVisibleLiveData,
-            onProductClickListener
+            isNextPageLoaderVisibleLiveData
         ).apply {
             dataSource = this
         }

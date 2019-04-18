@@ -42,17 +42,6 @@ fun EditText.setPasswodChangedListener(listener: CredentialsListener) {
 }
 
 @BindingAdapter("onClick", "product")
-fun ConstraintLayout.setOnProductClickListener(listener: (Product) -> Boolean, product: Product) {
-    listener.invoke(product)
-}
-
-@BindingAdapter("productBackground")
-fun ConstraintLayout.setProductBackground(isProductInCart: Boolean) {
-    background = resDrawable(
-        if (isProductInCart) {
-            R.drawable.product_item_background_checked
-        } else {
-            R.drawable.product_item_background
-        }
-    )
+fun View.setOnProductClickListener(listener: (Product, View) -> Boolean, product: Product) {
+    listener.invoke(product, this)
 }

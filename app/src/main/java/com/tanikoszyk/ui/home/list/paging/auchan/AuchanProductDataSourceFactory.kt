@@ -5,11 +5,9 @@ import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.ui.base.BaseProductDataSourceFactory
 import com.tanikoszyk.usecases.model.market.common.AUCHAN_PAGE_SIZE
 import com.tanikoszyk.usecases.usecases.market.GetAuchanProductPageUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class AuchanProductDataSourceFactory(
-    private val getAuchanProductPageUseCase: GetAuchanProductPageUseCase,
-    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
+    private val getAuchanProductPageUseCase: GetAuchanProductPageUseCase
 ) : BaseProductDataSourceFactory(AUCHAN_PAGE_SIZE) {
 
     override fun create(): DataSource<Int, SearchProductItemViewModel> {
@@ -18,10 +16,8 @@ class AuchanProductDataSourceFactory(
             query,
             sortType,
             loadingLiveData,
-            checkIfProductExistsUseCase,
             isReset,
-            isNextPageLoaderVisibleLiveData,
-            onProductClickListener
+            isNextPageLoaderVisibleLiveData
         ).apply {
             dataSource = this
         }
