@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.justtwago.tanikoszyk.ui.home.HomeViewModel" />
+            type="com.tanikoszyk.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
         android:background="@color/lightGrey"
         tools:context=".ui.home.HomeFragment">
 
-        <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
+        <com.tanikoszyk.ui.views.CustomToolbar
             android:id="@+id/customToolbar"
             style="@style/CustomToolbar"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
                 android:src="@drawable/ic_filter" />
-        </com.github.justtwago.tanikoszyk.ui.views.CustomToolbar>
+        </com.tanikoszyk.ui.views.CustomToolbar>
 
         <View
             android:layout_width="0dp"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.github.justtwago.tanikoszyk.ui.views.SortView
+                <com.tanikoszyk.ui.views.SortView
                     android:id="@+id/sortView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -141,7 +141,7 @@
 
         </FrameLayout>
 
-        <com.github.justtwago.tanikoszyk.ui.views.SearchView
+        <com.tanikoszyk.ui.views.SearchView
             android:id="@+id/searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

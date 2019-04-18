@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.github.justtwago.tanikoszyk.ui.cart.CartFragment"
+        android:name="com.tanikoszyk.ui.cart.CartFragment"
         android:label="CartFragment"
         tools:layout="@layout/fragment_cart" />
 

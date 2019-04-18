@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/emptyFragment"
-        android:name="com.github.justtwago.tanikoszyk.ui.profile.ProfileFragment"
+        android:name="com.tanikoszyk.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
 </navigation>

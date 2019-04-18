@@ -10,7 +10,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.github.justtwago.tanikoszyk"
+        applicationId "com.tanikoszyk"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
@@ -33,13 +33,12 @@ android {
     flavorDimensions "variant"
 
     productFlavors {
-        master {
-            applicationIdSuffix ''
+        prod {
             dimension "variant"
         }
 
-        develop {
-            applicationIdSuffix '.develop'
+        dev {
+            applicationIdSuffix '.dev'
             dimension "variant"
         }
     }

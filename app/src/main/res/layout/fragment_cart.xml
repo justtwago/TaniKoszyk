@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.justtwago.tanikoszyk.ui.cart.CartViewModel" />
+            type="com.tanikoszyk.ui.cart.CartViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/lightGrey">
 
-        <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
+        <com.tanikoszyk.ui.views.CustomToolbar
             android:id="@+id/customToolbar"
             style="@style/CustomToolbar"
             app:extraMenuPadding="4dp"
