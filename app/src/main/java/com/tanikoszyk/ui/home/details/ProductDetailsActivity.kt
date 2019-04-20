@@ -62,6 +62,9 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
         viewModel.onProductLoadingFinishedEvent.observe(this, Observer {
             supportStartPostponedEnterTransition()
         })
+        viewModel.onDismissEvent.observe(this, Observer {
+            onBackPressed()
+        })
     }
 
     override fun onBackPressed() {

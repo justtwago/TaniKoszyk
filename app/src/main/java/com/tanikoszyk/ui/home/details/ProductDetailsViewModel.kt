@@ -12,6 +12,7 @@ class ProductDetailsViewModel(
 
     val product = MutableLiveData<Product>()
     val onProductLoadingFinishedEvent = SingleLiveEvent<Unit>()
+    val onDismissEvent = SingleLiveEvent<Unit>()
     val onProductLoadingFinished: () -> Unit = {
         onProductLoadingFinishedEvent.call()
     }
@@ -26,5 +27,9 @@ class ProductDetailsViewModel(
                 addProductToCartUseCase.execute(it)
             }
         }
+    }
+
+    fun onDismissClicked() {
+        onDismissEvent.call()
     }
 }
