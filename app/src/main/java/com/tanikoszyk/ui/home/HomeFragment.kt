@@ -1,6 +1,7 @@
 package com.tanikoszyk.ui.home
 
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.transition.TransitionManager
 import android.view.Gravity
 import android.view.Menu
@@ -29,6 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel by viewModel<HomeViewModel>()
     override val layoutId = R.layout.fragment_home
     private lateinit var popupMenu: PopupMenu
+    private var lastProductItemClickTime: Long = 0
 
     override fun setupBindingVariables(binding: FragmentHomeBinding) {
         binding.viewModel = viewModel
@@ -60,6 +62,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun RecyclerView.initialize() {
         adapter = SearchProductAdapter(onClickListener = object : OnProductClickListener {
             override fun onProductClicked(product: Product, rootView: View) {
+                if (SystemClock.elapsedRealtime() - lastProductItemClickTime < 1000) return
+                lastProductItemClickTime = SystemClock.elapsedRealtime()
                 goToDetails(product, rootView)
             }
         })

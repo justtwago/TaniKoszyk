@@ -49,6 +49,31 @@ class HomeViewModel(
         tescoPagedSearchProductViewModelsLiveData = setupTescoProductViewModelsLiveData()
     }
 
+    fun onSearchClicked(query: String) {
+        this.query = query
+        searchInAuchan(query)
+        searchInBiedronka(query)
+        searchInKaufland(query)
+        searchInTesco(query)
+    }
+
+    fun onSortTypeSelected(sortType: SortType) {
+        this.sortType = sortType
+        searchInAuchan(query)
+        searchInBiedronka(query)
+        searchInKaufland(query)
+        searchInTesco(query)
+    }
+
+    fun onMarketFilterSelected(market: Market, isSelected: Boolean) {
+        when (market) {
+            Market.AUCHAN -> isAuchanVisible = isSelected
+            Market.BIEDRONKA -> isBiedronkaVisible = isSelected
+            Market.KAUFLAND -> isKauflandVisible = isSelected
+            Market.TESCO -> isTescoVisible = isSelected
+        }
+    }
+
     private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
         return auchanProductDataSourceFactory.initialize(
             query = query,
@@ -79,22 +104,6 @@ class HomeViewModel(
             isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
-    }
-
-    fun onSearchClicked(query: String) {
-        this.query = query
-        searchInAuchan(query)
-        searchInBiedronka(query)
-        searchInKaufland(query)
-        searchInTesco(query)
-    }
-
-    fun onSortTypeSelected(sortType: SortType) {
-        this.sortType = sortType
-        searchInAuchan(query)
-        searchInBiedronka(query)
-        searchInKaufland(query)
-        searchInTesco(query)
     }
 
     private fun searchInAuchan(query: String) {
@@ -135,14 +144,5 @@ class HomeViewModel(
             sortType = sortType,
             isReset = !isTescoVisible
         )
-    }
-
-    fun onMarketFilterSelected(market: Market, isSelected: Boolean) {
-        when (market) {
-            Market.AUCHAN -> isAuchanVisible = isSelected
-            Market.BIEDRONKA -> isBiedronkaVisible = isSelected
-            Market.KAUFLAND -> isKauflandVisible = isSelected
-            Market.TESCO -> isTescoVisible = isSelected
-        }
     }
 }
