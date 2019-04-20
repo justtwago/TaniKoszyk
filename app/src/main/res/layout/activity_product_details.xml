@@ -28,13 +28,13 @@
                 android:layout_height="0dp"
                 android:padding="8dp"
                 android:src="@{viewModel.product.imageUrl}"
-                app:market="@{viewModel.product.market}"
-                app:loadingFinishedListener="@{viewModel.onProductLoadingFinished}"
                 app:layout_constraintBottom_toTopOf="@+id/subtitle"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:loadingFinishedListener="@{viewModel.onProductLoadingFinished}"
+                app:market="@{viewModel.product.market}"
                 tools:src="@drawable/sample_product"/>
 
             <TextView
@@ -119,8 +119,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Dodaj do koszyka"
+                android:text="@string/add_to_cart"
                 android:visibility="gone"
+                android:onClick="@{() -> viewModel.onAddToCartClicked()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>

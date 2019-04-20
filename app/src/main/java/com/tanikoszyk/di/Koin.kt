@@ -33,5 +33,5 @@ val appModule = module {
     viewModel { SignUpViewModel(signUpUseCase = get(), checkIsUserSignInUseCase = get()) }
     viewModel { ProfileViewModel(signOutUseCase = get()) }
     viewModel { CartViewModel(observeCartProductsUseCase = get()) }
-    viewModel { ProductDetailsViewModel() }
+    viewModel { ProductDetailsViewModel(addProductToCartUseCase = get()) }
 }

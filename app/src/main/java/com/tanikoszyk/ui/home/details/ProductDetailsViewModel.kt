@@ -4,8 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import com.tanikoszyk.common.SingleLiveEvent
 import com.tanikoszyk.ui.base.BaseViewModel
 import com.tanikoszyk.usecases.model.market.common.Product
+import com.tanikoszyk.usecases.usecases.realtimedb.AddProductToCartUseCase
 
-class ProductDetailsViewModel : BaseViewModel() {
+class ProductDetailsViewModel(
+    private val addProductToCartUseCase: AddProductToCartUseCase
+) : BaseViewModel() {
+
     val product = MutableLiveData<Product>()
     val onProductLoadingFinishedEvent = SingleLiveEvent<Unit>()
     val onProductLoadingFinished: () -> Unit = {
@@ -14,5 +18,13 @@ class ProductDetailsViewModel : BaseViewModel() {
 
     fun initialize(product: Product) {
         this.product.value = product
+    }
+
+    fun onAddToCartClicked() {
+        product.value?.let {
+            launch {
+                addProductToCartUseCase.execute(it)
+            }
+        }
     }
 }

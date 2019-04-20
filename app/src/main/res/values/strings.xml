@@ -16,4 +16,5 @@
     <string name="sign_in">Zaloguj się</string>
     <string name="sign_up">Zarejestruj się</string>
     <string name="sign_out">Wyloguj się</string>
+    <string name="add_to_cart">Dodaj do koszyka</string>
 </resources>
