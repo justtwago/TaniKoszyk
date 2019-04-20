@@ -1,11 +1,13 @@
 package com.tanikoszyk.common.binding
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionManager
 import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
 import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
@@ -13,6 +15,12 @@ import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
+    this.isVisible = isVisible
+}
+
+@BindingAdapter("animatedVisibility")
+fun View.setAnimatedVisibility(isVisible: Boolean) {
+    (parent as? ViewGroup)?.let { TransitionManager.beginDelayedTransition(it) }
     this.isVisible = isVisible
 }
 

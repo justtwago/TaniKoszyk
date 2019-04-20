@@ -24,26 +24,25 @@ fun ImageView.setImage(imageUrl: String?, market: Market?, onLoadingFinished: ((
         .into(this)
 }
 
-private fun buildUrl(
-    imageUrl: String?,
-    market: Market?
-): GlideUrl {
-    return GlideUrl(
-        imageUrl, LazyHeaders.Builder()
-            .addHeader(
-                "Referer", when (market) {
-                    Market.BIEDRONKA -> "http://www.biedronka.pl/pl/searchhub"
-                    else -> ""
-                }
-            )
-            .build()
-    )
+private fun buildUrl(imageUrl: String?, market: Market?): GlideUrl? {
+    return imageUrl?.let {
+        GlideUrl(
+            it, LazyHeaders.Builder()
+                .addHeader(
+                    "Referer", when (market) {
+                        Market.BIEDRONKA -> "http://www.biedronka.pl/pl/searchhub"
+                        else -> ""
+                    }
+                )
+                .build()
+        )
+    }
 }
 
 @BindingAdapter("android:src")
-fun ImageView.setLogo(market: Market) {
+fun ImageView.setLogo(market: Market?) {
     Glide.with(context)
-        .load(market.getLogoRes())
+        .load(market?.getLogoRes())
         .apply(RequestOptions().placeholder(R.drawable.sample_placeholder))
         .into(this)
 }

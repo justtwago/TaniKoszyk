@@ -5,7 +5,6 @@ import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.ui.base.BaseProductDataSourceFactory
 import com.tanikoszyk.usecases.model.market.common.KAUFLAND_PAGE_SIZE
 import com.tanikoszyk.usecases.usecases.market.GetKauflandProductPageUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class KauflandProductDataSourceFactory(
     private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase

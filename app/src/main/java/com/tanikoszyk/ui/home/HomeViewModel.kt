@@ -18,8 +18,7 @@ class HomeViewModel(
     private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
     private val biedronkaProductDataSourceFactory: BiedronkaProductDataSourceFactory,
     private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory,
-    private val tescoProductDataSourceFactory: TescoProductDataSourceFactory,
-    private val addProductToCartUseCase: AddProductToCartUseCase
+    private val tescoProductDataSourceFactory: TescoProductDataSourceFactory
 ) : BaseViewModel() {
 
     private var query = ""

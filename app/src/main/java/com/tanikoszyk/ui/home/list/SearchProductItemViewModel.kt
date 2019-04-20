@@ -10,9 +10,10 @@ data class SearchProductItemViewModel(
     val price: String,
     val imageUrl: String,
     val quantity: String,
-    val market: Market
+    val market: Market,
+    val isSelected: Boolean
 ) {
 
     val product: Product
-        get() = Product(url, subtitle, title, price, imageUrl, quantity, market)
+        get() = Product(url, subtitle, title, price, imageUrl, quantity, market, isSelected)
 }

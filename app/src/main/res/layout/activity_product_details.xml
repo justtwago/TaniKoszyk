@@ -106,7 +106,7 @@
                     android:text="@{viewModel.product.price}"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
+                    app:layout_constraintBottom_toTopOf="@+id/setSelectionButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="13,99 zł"/>
 
@@ -123,12 +123,13 @@
                     tools:src="@drawable/logo_kaufland_big"/>
 
                 <Button
-                    android:id="@+id/addToCartButton"
+                    android:id="@+id/setSelectionButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:onClick="@{() -> viewModel.onAddToCartClicked()}"
-                    android:text="@string/add_to_cart"
+                    android:onClick="@{() -> viewModel.onSetSelectionClicked()}"
+                    android:text="@{viewModel.product.isSelected ? @string/remove_from_cart : @string/add_to_cart}"
+                    android:backgroundTint="@{viewModel.product.isSelected ? @color/red : @color/colorPrimary}"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

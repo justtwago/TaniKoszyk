@@ -11,14 +11,28 @@ private const val PRODUCTS_DB_REFERENCE = "products"
 
 interface FirebaseProductCartRepository {
     suspend fun addProductToCart(uid: String, product: ProductService): Boolean
+    suspend fun removeProductFromCart(uid: String, product: ProductService): Boolean
     suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit)
-    suspend fun checkIfProductExists(uid: String, productUrl: String): Boolean
+    suspend fun checkIfProductExists(uid: String, productId: String): Boolean
 }
 
-class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseReference) : FirebaseProductCartRepository {
+class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseReference) :
+    FirebaseProductCartRepository {
 
     override suspend fun addProductToCart(uid: String, product: ProductService): Boolean {
-        return databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).child(product.url.hashCode().toString()).setValue(product).isSuccessful
+        return databaseReference.child(PRODUCTS_DB_REFERENCE)
+            .child(uid)
+            .child(product.id)
+            .setValue(product)
+            .isSuccessful
+    }
+
+    override suspend fun removeProductFromCart(uid: String, product: ProductService): Boolean {
+        return databaseReference.child(PRODUCTS_DB_REFERENCE)
+            .child(uid)
+            .child(product.id)
+            .removeValue()
+            .isSuccessful
     }
 
     override suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit) {
@@ -30,10 +44,10 @@ class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseR
         }
     }
 
-    override suspend fun checkIfProductExists(uid: String, productUrl: String): Boolean {
+    override suspend fun checkIfProductExists(uid: String, productId: String): Boolean {
         return suspendCoroutine { continuation ->
             databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).addListenerForSingleValueEvent {
-                continuation.resume(it.hasChild(productUrl))
+                continuation.resume(it.hasChild(productId))
             }
         }
     }

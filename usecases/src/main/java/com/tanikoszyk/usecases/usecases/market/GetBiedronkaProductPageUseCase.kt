@@ -6,9 +6,14 @@ import com.tanikoszyk.usecases.model.Result
 import com.tanikoszyk.usecases.model.market.MarketPageRequest
 import com.tanikoszyk.usecases.model.market.common.*
 import com.tanikoszyk.usecases.usecases.base.AsyncUseCase
+import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
+class GetBiedronkaProductPageUseCase(
+    private val biedronkaRepository: BiedronkaRepository,
+    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
+) :
+    AsyncUseCase<MarketPageRequest, Result<ProductPage>> {
 
-class GetBiedronkaProductPageUseCase(private val biedronkaRepository: BiedronkaRepository) : AsyncUseCase<MarketPageRequest, Result<ProductPage>> {
     override suspend fun execute(request: MarketPageRequest): Result<ProductPage> {
         val response = biedronkaRepository.getProducts(request.searchQuery, request.page)
         return when (response) {
@@ -19,10 +24,21 @@ class GetBiedronkaProductPageUseCase(private val biedronkaRepository: BiedronkaR
                     SortType.TARGET -> productPage?.products
                     SortType.ALPHABETICAL_ASCEND -> productPage?.products?.sortedBy { it.title }
                     SortType.ALPHABETICAL_DESCEND -> productPage?.products?.sortedByDescending { it.title }
-                    SortType.PRICE_ASCEND -> productPage?.products?.sortedBy { it.price.substringBefore(" ").replace(',', '.').toDouble() }
-                    SortType.PRICE_DESCEND -> productPage?.products?.sortedByDescending { it.price.substringBefore(" ").replace(',', '.').toDouble() }
+                    SortType.PRICE_ASCEND -> productPage?.products?.sortedBy {
+                        it.price.substringBefore(" ").replace(',', '.').toDouble()
+                    }
+                    SortType.PRICE_DESCEND -> productPage?.products?.sortedByDescending {
+                        it.price.substringBefore(" ").replace(',', '.').toDouble()
+                    }
                 }
-                productPage?.let { Result.Success(it.copy(products = sortedProducts.orEmpty())) } ?: Result.Failure()
+                productPage?.let {
+                    Result.Success(
+                        it.copy(products = sortedProducts.orEmpty()
+                            .map {
+                                it.copy(isSelected = checkIfProductExistsUseCase.execute(it))
+                            })
+                    )
+                } ?: Result.Failure()
             }
             else -> Result.Failure()
         }

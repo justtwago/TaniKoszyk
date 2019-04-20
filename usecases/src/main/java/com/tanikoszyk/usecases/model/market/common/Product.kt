@@ -11,8 +11,10 @@ data class Product(
     val price: String,
     val imageUrl: String,
     val quantity: String,
-    val market: Market
+    val market: Market,
+    val isSelected: Boolean
 ) : Parcelable {
+    val id = url.hashCode().toString()
 
     override fun toString(): String {
         return "Url: $url\n" +

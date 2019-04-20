@@ -25,13 +25,18 @@ val appModule = module {
             auchanProductDataSourceFactory = get(),
             biedronkaProductDataSourceFactory = get(),
             kauflandProductDataSourceFactory = get(),
-            tescoProductDataSourceFactory = get(),
-            addProductToCartUseCase = get()
+            tescoProductDataSourceFactory = get()
         )
     }
     viewModel { SignInViewModel(signInUseCase = get(), checkIsUserSignInUseCase = get()) }
     viewModel { SignUpViewModel(signUpUseCase = get(), checkIsUserSignInUseCase = get()) }
     viewModel { ProfileViewModel(signOutUseCase = get()) }
     viewModel { CartViewModel(observeCartProductsUseCase = get()) }
-    viewModel { ProductDetailsViewModel(addProductToCartUseCase = get()) }
+    viewModel {
+        ProductDetailsViewModel(
+            addProductToCartUseCase = get(),
+            removeProductFromCartUseCase = get(),
+            checkIfProductExistsUseCase = get()
+        )
+    }
 }

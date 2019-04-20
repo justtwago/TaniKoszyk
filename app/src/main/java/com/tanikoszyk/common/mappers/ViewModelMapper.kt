@@ -10,5 +10,6 @@ fun Product.toSearchProductViewModel() = SearchProductItemViewModel(
     price = price,
     imageUrl = imageUrl,
     quantity = quantity,
-    market = market
+    market = market,
+    isSelected = isSelected
 )
