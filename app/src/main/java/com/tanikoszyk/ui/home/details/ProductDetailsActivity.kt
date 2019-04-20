@@ -8,6 +8,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.transition.doOnEnd
 import androidx.core.util.Pair
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.transition.*
 import com.tanikoszyk.R
 import com.tanikoszyk.databinding.ActivityProductDetailsBinding
@@ -34,9 +35,11 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportPostponeEnterTransition()
         super.onCreate(savedInstanceState)
         initButtonVisibilityAfterTransition()
         initViewModel()
+        registerObservers()
     }
 
     private fun initButtonVisibilityAfterTransition() {
@@ -53,6 +56,12 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
         val product = intent.getParcelableExtra<Product>(PRODUCT_KEY)
         viewModel.initialize(product)
         return product
+    }
+
+    private fun registerObservers() {
+        viewModel.onProductLoadingFinishedEvent.observe(this, Observer {
+            supportStartPostponedEnterTransition()
+        })
     }
 
     override fun onBackPressed() {
