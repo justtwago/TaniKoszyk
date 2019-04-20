@@ -12,7 +12,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 class CartViewModel(val observeCartProductsUseCase: ObserveCartProductsUseCase) : BaseViewModel() {
     val products = createDiffObservableList<SearchProductItemViewModel>(
         areContentsTheSame = { old, new -> old == new },
-        areItemsTheSame = { old, new -> old.id == new.id }
+        areItemsTheSame = { old, new -> old.url == new.url }
     )
     val productsBinding: ItemBinding<SearchProductItemViewModel> =
         ItemBinding.of<SearchProductItemViewModel>(BR.viewModel, R.layout.item_product_line)

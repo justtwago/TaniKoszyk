@@ -72,7 +72,7 @@ class SearchProductAdapter(private val onClickListener: OnProductClickListener) 
             override fun areItemsTheSame(
                 oldConcert: SearchProductItemViewModel,
                 newConcert: SearchProductItemViewModel
-            ): Boolean = oldConcert.id == newConcert.id
+            ): Boolean = oldConcert.url == newConcert.url
 
             override fun areContentsTheSame(
                 oldConcert: SearchProductItemViewModel,

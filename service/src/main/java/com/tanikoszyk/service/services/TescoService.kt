@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 
 interface TescoService {
-    @GET("groceries/pl-PL/search")
+    @GET("/groceries/pl-PL/search")
     fun getProducts(
             @Query("query") searchQuery: String,
             @Query("page") page: Int = 1,

@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Product(
-    val id: Int,
+    val url: String,
     val subtitle: String,
     val title: String,
     val price: String,
@@ -15,7 +15,8 @@ data class Product(
 ) : Parcelable {
 
     override fun toString(): String {
-        return "Subtitle: $subtitle\n" +
+        return "Url: $url\n" +
+                "Subtitle: $subtitle\n" +
                 "Title: $title\n" +
                 "Url: $imageUrl\n" +
                 "Price: $price\n" +
@@ -24,7 +25,8 @@ data class Product(
     }
 
     fun isNotEmpty(): Boolean {
-        return subtitle.isNotEmpty()
+        return url.isNotEmpty()
+                && subtitle.isNotEmpty()
                 && imageUrl.isNotEmpty()
                 && price != "0 zł"
                 && price != "0,0 zł"

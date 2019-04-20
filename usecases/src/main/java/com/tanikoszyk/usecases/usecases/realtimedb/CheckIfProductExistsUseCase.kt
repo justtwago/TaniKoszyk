@@ -10,6 +10,6 @@ class CheckIfProductExistsUseCase(
     private val firebaseProductCartRepository: FirebaseProductCartRepository
 ) : AsyncUseCase<Product, Boolean> {
     override suspend fun execute(request: Product): Boolean {
-        return firebaseProductCartRepository.checkIfProductExists(uid = authenticator.getUserId(), productId = request.id.toString())
+        return firebaseProductCartRepository.checkIfProductExists(uid = authenticator.getUserId(), productUrl = request.url)
     }
 }

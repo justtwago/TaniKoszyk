@@ -8,7 +8,7 @@ import com.tanikoszyk.service.model.service.SortTypeService
 import com.tanikoszyk.service.model.tesco.TescoProductPage
 import com.tanikoszyk.service.services.TescoService
 
-const val TESCO_BASE_URL = "https://ezakupy.tesco.pl/"
+const val TESCO_BASE_URL = "https://ezakupy.tesco.pl"
 
 interface TescoRepository {
     suspend fun getProducts(searchQuery: String, page: Int, sortType: SortTypeService = SortTypeService.TARGET): Response<TescoProductPage>

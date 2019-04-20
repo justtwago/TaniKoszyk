@@ -10,6 +10,10 @@ import com.tanikoszyk.service.model.service.ProductService
 import com.tanikoszyk.service.model.tesco.TescoProduct
 import com.tanikoszyk.service.model.tesco.TescoProductPage
 import com.tanikoszyk.service.repositories.AUCHAN_BASE_URL
+import com.tanikoszyk.service.repositories.BIEDRONKA_BASE_URL
+import com.tanikoszyk.service.repositories.KAUFLAND_BASE_URL
+import com.tanikoszyk.service.repositories.TESCO_BASE_URL
+import com.tanikoszyk.service.services.BIEDRONKA_SINGLE_PRODUCT_REQUEST
 
 fun AuchanProductPage.mapToDomain(): ProductPage {
     return ProductPage(
@@ -20,7 +24,7 @@ fun AuchanProductPage.mapToDomain(): ProductPage {
 
 fun AuchanProduct.mapToDomain(): Product {
     return Product(
-        id = toString().hashCode(), //TODO: get ids from tesco
+        url = url?.let { AUCHAN_BASE_URL + it }.orEmpty(),
         subtitle = subtitle.orEmpty(),
         title = title?.substringAfter("$subtitle - ").orEmpty(),
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
@@ -39,7 +43,7 @@ fun KauflandProductPage.mapToDomain(): ProductPage {
 
 fun KauflandProduct.mapToDomain(): Product {
     return Product(
-        id = toString().hashCode(), //TODO: get ids from tesco
+        url = url?.let { KAUFLAND_BASE_URL + it }.orEmpty(),
         subtitle = subtitle.orEmpty(),
         title = title.orEmpty(),
         price = "${price ?: 0} zł".replace('.', ','),
@@ -66,7 +70,7 @@ fun TescoProductPage.mapToDomain(): ProductPage {
 fun TescoProduct.mapToDomain(): Product {
     val title = title?.split(" ")
     return Product(
-        id = toString().hashCode(), //TODO: get ids from tesco
+        url = url?.let { TESCO_BASE_URL + it }.orEmpty(),
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
         price = "${price ?: 0} zł".replace('.', ','),
@@ -99,10 +103,10 @@ fun BiedronkaProductIdPage.mapToDomain(): ProductIdPage {
     )
 }
 
-fun BiedronkaProduct.mapToDomain(): Product {
+fun BiedronkaProduct.mapToDomain(url: String): Product {
     val title = title?.split(" ")
     return Product(
-        id = toString().hashCode(),
+        url = BIEDRONKA_BASE_URL + BIEDRONKA_SINGLE_PRODUCT_REQUEST + url,
         subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
         title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
         price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
@@ -114,7 +118,7 @@ fun BiedronkaProduct.mapToDomain(): Product {
 
 fun Product.mapToService(): ProductService {
     return ProductService(
-        id,
+        url,
         subtitle,
         title,
         price,
@@ -126,7 +130,7 @@ fun Product.mapToService(): ProductService {
 
 fun ProductService.mapToDomain(): Product {
     return Product(
-        id,
+        url,
         subtitle,
         title,
         price,

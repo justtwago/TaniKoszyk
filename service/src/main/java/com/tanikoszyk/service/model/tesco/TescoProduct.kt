@@ -4,6 +4,7 @@ import pl.droidsonroids.jspoon.annotation.Selector
 
 
 data class TescoProduct(
+        @Selector(".tile-content > a", attr = "href") var url: String? = null,
         @Selector(".product-tile--browsable") var subtitle: String? = null,
         @Selector(".product-tile--browsable") var title: String? = null,
         @Selector(".price-per-sellable-unit > div > span > .value") var price: String? = null,

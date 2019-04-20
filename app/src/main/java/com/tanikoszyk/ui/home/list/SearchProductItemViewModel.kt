@@ -3,8 +3,8 @@ package com.tanikoszyk.ui.home.list
 import com.tanikoszyk.usecases.model.market.common.Market
 import com.tanikoszyk.usecases.model.market.common.Product
 
-class SearchProductItemViewModel(
-    val id: Int,
+data class SearchProductItemViewModel(
+    val url: String,
     val subtitle: String,
     val title: String,
     val price: String,
@@ -14,5 +14,5 @@ class SearchProductItemViewModel(
 ) {
 
     val product: Product
-        get() = Product(id, subtitle, title, price, imageUrl, quantity, market)
+        get() = Product(url, subtitle, title, price, imageUrl, quantity, market)
 }

@@ -4,7 +4,7 @@ import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.usecases.model.market.common.Product
 
 fun Product.toSearchProductViewModel() = SearchProductItemViewModel(
-    id = id,
+    url = url,
     subtitle = subtitle,
     title = title,
     price = price,

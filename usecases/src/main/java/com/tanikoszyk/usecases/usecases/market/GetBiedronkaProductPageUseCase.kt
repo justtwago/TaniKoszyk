@@ -40,7 +40,7 @@ class GetBiedronkaProductPageUseCase(private val biedronkaRepository: BiedronkaR
     private suspend fun getProductsFromLinks(productLinks: ProductIdPage): List<Product> {
         return productLinks.productIdList.mapNotNull {
             val productResponse = biedronkaRepository.getProduct(it)
-            (productResponse as? Response.Success.WithBody)?.body?.mapToDomain()
+            (productResponse as? Response.Success.WithBody)?.body?.mapToDomain(url = it)
         }.filter { it.isNotEmpty() }
     }
 }

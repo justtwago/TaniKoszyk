@@ -1,7 +1,7 @@
 package com.tanikoszyk.service.model.service
 
 data class ProductService(
-    val id: Int = 0,
+    val url: String = "",
     val subtitle: String = "",
     val title: String = "",
     val price: String = "",
