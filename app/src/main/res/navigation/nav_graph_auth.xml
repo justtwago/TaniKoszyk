@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.github.justtwago.tanikoszyk.ui.auth.signin.SignInFragment"
+        android:name="com.tanikoszyk.ui.auth.signin.SignInFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.github.justtwago.tanikoszyk.ui.auth.signup.SignUpFragment"
+        android:name="com.tanikoszyk.ui.auth.signup.SignUpFragment"
         android:label="signup_fragment"
         tools:layout="@layout/fragment_sign_up">
         <action

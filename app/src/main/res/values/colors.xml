@@ -8,6 +8,7 @@
     <color name="grey">#A5A5A5</color>
     <color name="greyishBrown">#4c4c4c</color>
     <color name="black">#000000</color>
+    <color name="blackAlpha20">#33000000</color>
     <color name="green">#00C853</color>
     <color name="transparent">#00ffffff</color>
 </resources>

@@ -10,7 +10,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.github.justtwago.tanikoszyk"
+        applicationId "com.tanikoszyk"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
@@ -33,13 +33,12 @@ android {
     flavorDimensions "variant"
 
     productFlavors {
-        master {
-            applicationIdSuffix ''
+        prod {
             dimension "variant"
         }
 
-        develop {
-            applicationIdSuffix '.develop'
+        dev {
+            applicationIdSuffix '.dev'
             dimension "variant"
         }
     }
@@ -58,6 +57,7 @@ dependencies {
     implementation project(':usecases')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "androidx.core:core-ktx:$versions.ktx"
     implementation "androidx.appcompat:appcompat:$versions.androidx"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
@@ -74,9 +74,11 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
 
     implementation "com.github.bumptech.glide:glide:$versions.glide"
-    implementation 'com.github.iammert:ExpandableLayout:1.4.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.legacy:legacy-support-v4:$versions.legacySupport"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.bindingCollections"
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.bindingCollections"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "org.assertj:assertj-core:$versions.assertj"

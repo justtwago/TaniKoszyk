@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.justtwago.tanikoszyk.ui.home.HomeViewModel" />
+            type="com.tanikoszyk.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,12 +17,24 @@
         android:background="@color/lightGrey"
         tools:context=".ui.home.HomeFragment">
 
-        <com.github.justtwago.tanikoszyk.ui.views.CustomToolbar
+        <com.tanikoszyk.ui.views.CustomToolbar
             android:id="@+id/customToolbar"
             style="@style/CustomToolbar"
-            app:extraMenuPadding="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/filterMenuItem"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:background="?attr/actionBarItemBackground"
+                android:paddingBottom="16dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:src="@drawable/ic_filter" />
+        </com.tanikoszyk.ui.views.CustomToolbar>
 
         <View
             android:layout_width="0dp"
@@ -58,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.github.justtwago.tanikoszyk.ui.views.SortView
+                <com.tanikoszyk.ui.views.SortView
                     android:id="@+id/sortView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -68,10 +80,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.auchanPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.auchanPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -79,10 +91,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.biedronkaPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.biedronkaPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -90,10 +102,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.kauflandPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.kauflandPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -101,10 +113,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingStart="8dp"
                     android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
-                    app:products="@{viewModel.tescoPagedProductViewModelsLiveData}"
+                    app:pagedProducts="@{viewModel.tescoPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
@@ -114,7 +126,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/lightGrey"
-            android:visibility="@{viewModel.loadingLiveData}"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="@{!viewModel.loadingLiveData.isContentReady()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +143,7 @@
 
         </FrameLayout>
 
-        <com.github.justtwago.tanikoszyk.ui.views.SearchView
+        <com.tanikoszyk.ui.views.SearchView
             android:id="@+id/searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

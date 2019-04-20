@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.justtwago.tanikoszyk.ui.auth.signin.SignInViewModel" />
+            type="com.tanikoszyk.ui.auth.signin.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,6 +6,7 @@
     <string name="profile">Profil</string>
     <string name="empty">W krótce!</string>
     <string name="title_products">Produkty</string>
+    <string name="title_cart">Koszyk</string>
     <string name="sort">Sortuj</string>
     <string name="filter">Filter</string>
     <string name="auchan">Auchan</string>
@@ -15,4 +16,5 @@
     <string name="sign_in">Zaloguj się</string>
     <string name="sign_up">Zarejestruj się</string>
     <string name="sign_out">Wyloguj się</string>
+    <string name="add_to_cart">Dodaj do koszyka</string>
 </resources>
