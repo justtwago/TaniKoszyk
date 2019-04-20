@@ -2,13 +2,10 @@ package com.tanikoszyk.ui.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.*
-import kotlinx.android.synthetic.main.layout_custom_toolbar.view.*
-
 
 class CustomToolbar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -50,25 +47,5 @@ class CustomToolbar @JvmOverloads constructor(
         isTopPaddingEnabled = typedArray.getBoolean(R.styleable.CustomToolbar_topPaddingEnabled, true)
         extraMenuPadding = typedArray.getDimensionPixelSize(R.styleable.CustomToolbar_extraMenuPadding, 0)
         typedArray.recycle()
-    }
-
-    fun setTitleVisibility(isVisible: Boolean) {
-        if (isVisible) {
-            customTitleTextView.setVisible()
-        } else {
-            customTitleTextView.setGone()
-        }
-    }
-
-    fun setBackButtonColor(color: Int) {
-        navigationIcon?.setTint(color)
-    }
-
-    fun getMenuItemActionView(itemId: Int): View? {
-        return findMenuItem(itemId)?.actionView
-    }
-
-    fun findMenuItem(id: Int): MenuItem? {
-        return menu?.findItem(id)
     }
 }

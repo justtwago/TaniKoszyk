@@ -1,9 +1,11 @@
 package com.tanikoszyk.ui
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.tanikoszyk.R
 import com.tanikoszyk.ui.auth.launchAuthenticationActivity
 import com.tanikoszyk.ui.base.BaseActivity
@@ -16,7 +18,7 @@ fun Context.launchHostActivity(){
     startActivity(intent)
 }
 
-class HostActivity : BaseActivity() {
+class HostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

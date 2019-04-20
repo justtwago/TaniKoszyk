@@ -3,8 +3,8 @@ package com.tanikoszyk.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.tanikoszyk.R
-import com.tanikoszyk.ui.base.BaseActivity
 import com.tanikoszyk.ui.launchHostActivity
 
 fun Context.launchAuthenticationActivity(){
@@ -13,7 +13,7 @@ fun Context.launchAuthenticationActivity(){
     }
     startActivity(intent)
 }
-class AuthenticationActivity : BaseActivity() {
+class AuthenticationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,19 +2,14 @@ package com.tanikoszyk.common.binding
 
 import android.view.View
 import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
-import com.tanikoszyk.R
-import com.tanikoszyk.common.MarketsLoadingStatus
 import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
-import com.tanikoszyk.common.extensions.resDrawable
 import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
-import com.tanikoszyk.usecases.model.market.common.Product
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
@@ -37,11 +32,6 @@ fun EditText.setEmailChangedListener(listener: CredentialsListener) {
 }
 
 @BindingAdapter("passwordChangedListener")
-fun EditText.setPasswodChangedListener(listener: CredentialsListener) {
+fun EditText.setPasswordChangedListener(listener: CredentialsListener) {
     addSimpleTextChangedListener(listener::onPasswordTextChanged)
-}
-
-@BindingAdapter("onClick", "product")
-fun View.setOnProductClickListener(listener: (Product, View) -> Boolean, product: Product) {
-    listener.invoke(product, this)
 }

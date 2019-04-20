@@ -62,18 +62,6 @@ fun TextView.setOnActionDoneListener(listener: () -> Unit) {
     }
 }
 
-fun View.setGone() {
-    visibility = View.GONE
-}
-
-fun View.setVisible() {
-    visibility = View.VISIBLE
-}
-
-fun View.setInvisible() {
-    visibility = View.INVISIBLE
-}
-
 fun View.onGlobalLayoutListenerOnce(action: () -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {
@@ -149,17 +137,6 @@ var Toolbar.customTitle: String
 
 fun ImageView.setTintColor(@ColorRes colorRes: Int) {
     setColorFilter(ContextCompat.getColor(context, colorRes), PorterDuff.Mode.SRC_IN)
-}
-
-fun MenuItem.onMenuItemActionCollapse(action: () -> Unit) {
-    setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-        override fun onMenuItemActionExpand(item: MenuItem) = true
-
-        override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-            action()
-            return true
-        }
-    })
 }
 
 fun MenuItem.blockCollapsing(context: Context): Boolean {

@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import androidx.core.util.Pair
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.tanikoszyk.common.extensions.blockCollapsing
 import com.tanikoszyk.common.extensions.setupCustomToolbar
 import com.tanikoszyk.databinding.FragmentHomeBinding
 import com.tanikoszyk.ui.base.BaseFragment
+import com.tanikoszyk.ui.home.details.launchProductDetailsActivity
 import com.tanikoszyk.ui.home.list.OnProductClickListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 import com.tanikoszyk.usecases.model.market.common.Market
@@ -58,10 +60,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun RecyclerView.initialize() {
         adapter = SearchProductAdapter(onClickListener = object : OnProductClickListener {
             override fun onProductClicked(product: Product, rootView: View) {
-
+                goToDetails(product, rootView)
             }
         })
         layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+    }
+
+    fun goToDetails(product: Product, rootView: View) {
+        requireActivity().launchProductDetailsActivity(product, Pair(rootView, rootView.transitionName))
     }
 
     private fun setupListeners() {

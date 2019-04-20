@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.tanikoszyk.ui.home.list.SearchProductItemViewModel"/>
-
-        <variable
-            name="onClickListener"
-            type="com.tanikoszyk.ui.home.list.OnProductClickListener"/>
+            type="com.tanikoszyk.ui.home.details.ProductDetailsViewModel"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="180dp"
-        android:layout_height="220dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="@{(view) -> onClickListener.onProductClicked(viewModel.product, view)}"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
         android:transitionName="productCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -33,13 +27,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:padding="8dp"
-                android:src="@{viewModel.imageUrl}"
+                android:src="@{viewModel.product.imageUrl}"
+                app:market="@{viewModel.product.market}"
                 app:layout_constraintBottom_toTopOf="@+id/subtitle"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:market="@{viewModel.market}"
                 tools:src="@drawable/sample_product"/>
 
             <TextView
@@ -51,10 +45,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
-                android:text="@{viewModel.subtitle}"
+                android:text="@{viewModel.product.subtitle}"
                 android:textColor="@color/greyishBrown"
                 android:textSize="13sp"
-                app:layout_constraintBottom_toTopOf="@+id/title"
+                app:layout_constraintBottom_toTopOf="@+id/titleTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image"
@@ -62,14 +56,14 @@
                 tools:text="Schab wieprzowy"/>
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/titleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gordita_medium"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:singleLine="true"
-                android:text="@{viewModel.title}"
+                android:text="@{viewModel.product.title}"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/quantity"
@@ -84,13 +78,13 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gordita_medium"
                 android:layout_marginStart="8dp"
-                android:text="@{viewModel.quantity}"
+                android:text="@{viewModel.product.quantity}"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/marketLogo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
                 tools:text="1 kg"/>
 
             <TextView
@@ -100,10 +94,10 @@
                 android:fontFamily="@font/gordita_bold"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@{viewModel.price}"
+                android:text="@{viewModel.product.price}"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="13,99 zł"/>
 
@@ -112,12 +106,23 @@
                 android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:src="@{viewModel.market}"
+                android:src="@{viewModel.product.market}"
                 app:layout_constraintBottom_toBottomOf="@+id/price"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/price"
                 tools:src="@drawable/logo_kaufland_big"/>
+
+            <Button
+                android:id="@+id/addToCartButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Dodaj do koszyka"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

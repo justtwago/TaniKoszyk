@@ -9,13 +9,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.tanikoszyk.R
 import com.tanikoszyk.usecases.model.market.common.Market
 
-private const val USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
-
 @BindingAdapter("android:src", "market", requireAll = false)
 fun ImageView.setImage(imageUrl: String?, market: Market?) {
     val lazyUrl = GlideUrl(
         imageUrl, LazyHeaders.Builder()
-            .addHeader("User-Agent", USER_AGENT)
             .addHeader(
                 "Referer", when (market) {
                     Market.BIEDRONKA -> "http://www.biedronka.pl/pl/searchhub"

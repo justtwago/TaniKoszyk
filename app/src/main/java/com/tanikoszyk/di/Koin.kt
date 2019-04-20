@@ -4,6 +4,7 @@ import com.tanikoszyk.ui.auth.signin.SignInViewModel
 import com.tanikoszyk.ui.auth.signup.SignUpViewModel
 import com.tanikoszyk.ui.cart.CartViewModel
 import com.tanikoszyk.ui.home.HomeViewModel
+import com.tanikoszyk.ui.home.details.ProductDetailsViewModel
 import com.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
@@ -32,4 +33,5 @@ val appModule = module {
     viewModel { SignUpViewModel(signUpUseCase = get(), checkIsUserSignInUseCase = get()) }
     viewModel { ProfileViewModel(signOutUseCase = get()) }
     viewModel { CartViewModel(observeCartProductsUseCase = get()) }
+    viewModel { ProductDetailsViewModel() }
 }
