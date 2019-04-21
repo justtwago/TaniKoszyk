@@ -58,6 +58,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.core:core-ktx:$versions.ktx"
+    implementation "androidx.fragment:fragment-ktx:$versions.ktxFragment"
     implementation "androidx.appcompat:appcompat:$versions.androidx"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
