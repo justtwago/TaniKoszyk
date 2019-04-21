@@ -12,6 +12,7 @@ import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
 import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
+import androidx.recyclerview.widget.ItemTouchHelper
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
@@ -32,6 +33,24 @@ fun RecyclerView.setPagedProducts(searchProducts: PagedList<SearchProductItemVie
 @BindingAdapter("loadingItemVisibility")
 fun RecyclerView.setLoadingItemVisibility(isVisible: Boolean) {
     (adapter as? SearchProductAdapter)?.setLoaderVisibility(isVisible)
+}
+
+@BindingAdapter("onItemRemovedListener")
+fun RecyclerView.setOnItemRemoved(onItemRemoved: (position: Int) -> Unit) {
+    val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            onItemRemoved.invoke(viewHolder.adapterPosition)
+        }
+    }
+    ItemTouchHelper(simpleCallback).attachToRecyclerView(this)
 }
 
 @BindingAdapter("emailChangedListener")

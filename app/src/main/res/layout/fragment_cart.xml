@@ -30,6 +30,7 @@
             android:clipToPadding="false"
             android:paddingBottom="8dp"
             app:itemBinding="@{viewModel.productsBinding}"
+            app:onItemRemovedListener="@{viewModel.onProductRemovedListener}"
             app:items="@{viewModel.products}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
