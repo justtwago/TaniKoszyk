@@ -8,12 +8,13 @@ import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.inflateChild
 import com.tanikoszyk.databinding.ItemProductGridBinding
 import com.tanikoszyk.ui.base.BaseProductViewHolder
+import com.tanikoszyk.usecases.model.market.common.Product
 
 private const val PRODUCT_TYPE = 0
 private const val LOADER_TYPE = 1
 
 class SearchProductAdapter(private val onClickListener: OnProductClickListener) :
-    PagedListAdapter<SearchProductItemViewModel, BaseProductViewHolder>(DIFF_CALLBACK) {
+    PagedListAdapter<Product, BaseProductViewHolder>(DIFF_CALLBACK) {
 
     private var isProductsLoading: Boolean? = null
 
@@ -68,15 +69,15 @@ class SearchProductAdapter(private val onClickListener: OnProductClickListener) 
 
     companion object {
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<SearchProductItemViewModel>() {
+            DiffUtil.ItemCallback<Product>() {
             override fun areItemsTheSame(
-                oldConcert: SearchProductItemViewModel,
-                newConcert: SearchProductItemViewModel
+                oldConcert: Product,
+                newConcert: Product
             ): Boolean = oldConcert.url == newConcert.url
 
             override fun areContentsTheSame(
-                oldConcert: SearchProductItemViewModel,
-                newConcert: SearchProductItemViewModel
+                oldConcert: Product,
+                newConcert: Product
             ): Boolean = oldConcert == newConcert
         }
     }

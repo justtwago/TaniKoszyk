@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.tanikoszyk.common.MarketsLoadingStatus
 import com.tanikoszyk.ui.base.BaseViewModel
-import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 import com.tanikoszyk.usecases.model.market.common.Market
+import com.tanikoszyk.usecases.model.market.common.Product
 import com.tanikoszyk.usecases.model.market.common.SortType
-import com.tanikoszyk.usecases.usecases.realtimedb.AddProductToCartUseCase
 
 class HomeViewModel(
     private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
@@ -24,10 +23,10 @@ class HomeViewModel(
     private var query = ""
     private var sortType = SortType.TARGET
 
-    var auchanPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    var biedronkaPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    var kauflandPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    var tescoPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
+    var auchanPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
+    var biedronkaPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
+    var kauflandPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
+    var tescoPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
 
     val isNextAuchanPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     val isNextBiedronkaPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
@@ -74,7 +73,7 @@ class HomeViewModel(
         }
     }
 
-    private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
+    private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<Product>> {
         return auchanProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
@@ -82,7 +81,7 @@ class HomeViewModel(
         )
     }
 
-    private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
+    private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<Product>> {
         return biedronkaProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
@@ -90,7 +89,7 @@ class HomeViewModel(
         )
     }
 
-    private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
+    private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<Product>> {
         return kauflandProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
@@ -98,7 +97,7 @@ class HomeViewModel(
         )
     }
 
-    private fun setupTescoProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
+    private fun setupTescoProductViewModelsLiveData(): LiveData<PagedList<Product>> {
         return tescoProductDataSourceFactory.initialize(
             query = query,
             isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,

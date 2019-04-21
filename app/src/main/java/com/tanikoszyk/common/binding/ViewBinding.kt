@@ -11,8 +11,8 @@ import androidx.transition.TransitionManager
 import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
 import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
-import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.tanikoszyk.usecases.model.market.common.Product
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
@@ -26,7 +26,7 @@ fun View.setAnimatedVisibility(isVisible: Boolean) {
 }
 
 @BindingAdapter("pagedProducts")
-fun RecyclerView.setPagedProducts(searchProducts: PagedList<SearchProductItemViewModel>?) {
+fun RecyclerView.setPagedProducts(searchProducts: PagedList<Product>?) {
     (adapter as? SearchProductAdapter)?.submitList(searchProducts)
 }
 
