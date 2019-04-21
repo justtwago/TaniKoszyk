@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.tanikoszyk.ui.home.list.SearchProductItemViewModel"/>
+            name="product"
+            type="com.tanikoszyk.usecases.model.market.common.Product"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -27,12 +27,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:src="@{viewModel.imageUrl}"
+                android:src="@{product.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:market="@{viewModel.market}"
+                app:market="@{product.market}"
                 tools:src="@drawable/sample_product"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
-                android:text="@{viewModel.subtitle}"
+                android:text="@{product.subtitle}"
                 android:textColor="@color/greyishBrown"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toStartOf="@+id/marketLogo"
@@ -60,7 +60,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:singleLine="true"
-                android:text="@{viewModel.title}"
+                android:text="@{product.title}"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/marketLogo"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gordita_medium"
                 android:layout_marginStart="8dp"
-                android:text="@{viewModel.quantity}"
+                android:text="@{product.quantity}"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/image"
@@ -88,7 +88,7 @@
                 android:fontFamily="@font/gordita_bold"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="12dp"
-                android:text="@{viewModel.price}"
+                android:text="@{product.price}"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -100,7 +100,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
-                android:src="@{viewModel.market}"
+                android:src="@{product.market}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="@id/price"
                 app:layout_constraintTop_toTopOf="parent"

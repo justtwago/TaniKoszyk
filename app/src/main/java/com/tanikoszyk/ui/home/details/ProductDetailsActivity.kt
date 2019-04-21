@@ -47,7 +47,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
             duration = 250
             doOnEnd {
                 TransitionManager.beginDelayedTransition(rootLayout)
-                addToCartButton.isVisible = true
+                setSelectionButton.isVisible = true
             }
         }
     }
@@ -68,7 +68,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
     }
 
     override fun onBackPressed() {
-        addToCartButton.isVisible = false
+        setSelectionButton.isVisible = false
         super.onBackPressed()
     }
 }

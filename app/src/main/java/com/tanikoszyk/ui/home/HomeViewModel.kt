@@ -5,30 +5,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.tanikoszyk.common.MarketsLoadingStatus
 import com.tanikoszyk.ui.base.BaseViewModel
-import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
 import com.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 import com.tanikoszyk.usecases.model.market.common.Market
+import com.tanikoszyk.usecases.model.market.common.Product
 import com.tanikoszyk.usecases.model.market.common.SortType
-import com.tanikoszyk.usecases.usecases.realtimedb.AddProductToCartUseCase
 
 class HomeViewModel(
     private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
     private val biedronkaProductDataSourceFactory: BiedronkaProductDataSourceFactory,
     private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory,
-    private val tescoProductDataSourceFactory: TescoProductDataSourceFactory,
-    private val addProductToCartUseCase: AddProductToCartUseCase
+    private val tescoProductDataSourceFactory: TescoProductDataSourceFactory
 ) : BaseViewModel() {
 
     private var query = ""
     private var sortType = SortType.TARGET
 
-    var auchanPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    var biedronkaPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    var kauflandPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
-    var tescoPagedSearchProductViewModelsLiveData: LiveData<PagedList<SearchProductItemViewModel>>
+    var auchanPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
+    var biedronkaPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
+    var kauflandPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
+    var tescoPagedSearchProductViewModelsLiveData: LiveData<PagedList<Product>>
 
     val isNextAuchanPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     val isNextBiedronkaPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
@@ -50,38 +48,6 @@ class HomeViewModel(
         tescoPagedSearchProductViewModelsLiveData = setupTescoProductViewModelsLiveData()
     }
 
-    private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
-        return auchanProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData
-        )
-    }
-
-    private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
-        return biedronkaProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData
-        )
-    }
-
-    private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
-        return kauflandProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData
-        )
-    }
-
-    private fun setupTescoProductViewModelsLiveData(): LiveData<PagedList<SearchProductItemViewModel>> {
-        return tescoProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData
-        )
-    }
-
     fun onSearchClicked(query: String) {
         this.query = query
         searchInAuchan(query)
@@ -96,6 +62,47 @@ class HomeViewModel(
         searchInBiedronka(query)
         searchInKaufland(query)
         searchInTesco(query)
+    }
+
+    fun onMarketFilterSelected(market: Market, isSelected: Boolean) {
+        when (market) {
+            Market.AUCHAN -> isAuchanVisible = isSelected
+            Market.BIEDRONKA -> isBiedronkaVisible = isSelected
+            Market.KAUFLAND -> isKauflandVisible = isSelected
+            Market.TESCO -> isTescoVisible = isSelected
+        }
+    }
+
+    private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<Product>> {
+        return auchanProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData
+        )
+    }
+
+    private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<Product>> {
+        return biedronkaProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData
+        )
+    }
+
+    private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<Product>> {
+        return kauflandProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData
+        )
+    }
+
+    private fun setupTescoProductViewModelsLiveData(): LiveData<PagedList<Product>> {
+        return tescoProductDataSourceFactory.initialize(
+            query = query,
+            isNextPageLoaderVisibleLiveData = isNextTescoPageLoaderVisibleLiveData,
+            loadingLiveData = loadingLiveData
+        )
     }
 
     private fun searchInAuchan(query: String) {
@@ -136,14 +143,5 @@ class HomeViewModel(
             sortType = sortType,
             isReset = !isTescoVisible
         )
-    }
-
-    fun onMarketFilterSelected(market: Market, isSelected: Boolean) {
-        when (market) {
-            Market.AUCHAN -> isAuchanVisible = isSelected
-            Market.BIEDRONKA -> isBiedronkaVisible = isSelected
-            Market.KAUFLAND -> isKauflandVisible = isSelected
-            Market.TESCO -> isTescoVisible = isSelected
-        }
     }
 }

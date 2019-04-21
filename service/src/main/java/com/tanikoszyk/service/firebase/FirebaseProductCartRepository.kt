@@ -11,14 +11,28 @@ private const val PRODUCTS_DB_REFERENCE = "products"
 
 interface FirebaseProductCartRepository {
     suspend fun addProductToCart(uid: String, product: ProductService): Boolean
+    suspend fun removeProductFromCart(uid: String, product: ProductService): Boolean
     suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit)
     suspend fun checkIfProductExists(uid: String, productId: String): Boolean
 }
 
-class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseReference) : FirebaseProductCartRepository {
+class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseReference) :
+    FirebaseProductCartRepository {
 
     override suspend fun addProductToCart(uid: String, product: ProductService): Boolean {
-        return databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).child(product.id.toString()).setValue(product).isSuccessful
+        return databaseReference.child(PRODUCTS_DB_REFERENCE)
+            .child(uid)
+            .child(product.id)
+            .setValue(product)
+            .isSuccessful
+    }
+
+    override suspend fun removeProductFromCart(uid: String, product: ProductService): Boolean {
+        return databaseReference.child(PRODUCTS_DB_REFERENCE)
+            .child(uid)
+            .child(product.id)
+            .removeValue()
+            .isSuccessful
     }
 
     override suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit) {

@@ -3,8 +3,7 @@ package com.tanikoszyk.ui.base
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.tanikoszyk.common.extensions.Ignored
-import com.tanikoszyk.ui.home.list.SearchProductItemViewModel
-import com.tanikoszyk.common.mappers.toSearchProductViewModel
+import com.tanikoszyk.usecases.model.market.common.Product
 import com.tanikoszyk.usecases.model.market.common.ProductPage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,7 +12,7 @@ abstract class BaseProductDataSource(
     private val query: String,
     private val isReset: Boolean,
     private val isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
-) : PageKeyedDataSource<Int, SearchProductItemViewModel>() {
+) : PageKeyedDataSource<Int, Product>() {
 
     private var pageCount = 0
 
@@ -23,7 +22,7 @@ abstract class BaseProductDataSource(
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, SearchProductItemViewModel>
+        callback: LoadInitialCallback<Int, Product>
     ) {
         when {
             isReset -> callback.onResult(emptyList(), null, null)
@@ -31,13 +30,13 @@ abstract class BaseProductDataSource(
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, SearchProductItemViewModel>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Product>) {
         loadNextPage(params, callback)
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, SearchProductItemViewModel>) = Ignored
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Product>) = Ignored
 
-    private fun loadFirstPage(callback: LoadInitialCallback<Int, SearchProductItemViewModel>) {
+    private fun loadFirstPage(callback: LoadInitialCallback<Int, Product>) {
         GlobalScope.launch {
             onFirstProductPageLoaded(false)
             val productPage = loadProductPage(1)
@@ -46,9 +45,7 @@ abstract class BaseProductDataSource(
                 val nextPage = if (pageCount == 1) null else 2
                 val previousPageKey = null
                 callback.onResult(
-                    productPage.products.map {
-                        it.toSearchProductViewModel()
-                    },
+                    productPage.products,
                     previousPageKey,
                     nextPage
                 )
@@ -57,7 +54,7 @@ abstract class BaseProductDataSource(
         }
     }
 
-    private fun loadNextPage(params: LoadParams<Int>, callback: LoadCallback<Int, SearchProductItemViewModel>) {
+    private fun loadNextPage(params: LoadParams<Int>, callback: LoadCallback<Int, Product>) {
         GlobalScope.launch {
             isNextPageLoaderVisibleLiveData.postValue(true)
             val productPage = loadProductPage(page = params.key)
@@ -65,9 +62,7 @@ abstract class BaseProductDataSource(
                 pageCount = productPage.pageCount
                 val nextPage = if (pageCount == params.key) null else params.key + 1
                 callback.onResult(
-                    productPage.products.map {
-                        it.toSearchProductViewModel()
-                    },
+                    productPage.products,
                     nextPage
                 )
             }

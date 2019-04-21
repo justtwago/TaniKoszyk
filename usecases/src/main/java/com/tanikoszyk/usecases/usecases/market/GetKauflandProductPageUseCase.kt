@@ -8,9 +8,14 @@ import com.tanikoszyk.usecases.model.market.common.ProductPage
 import com.tanikoszyk.usecases.model.market.common.SortType
 import com.tanikoszyk.usecases.model.market.common.mapToDomain
 import com.tanikoszyk.usecases.usecases.base.AsyncUseCase
+import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
+class GetKauflandProductPageUseCase(
+    private val kauflandRepository: KauflandRepository,
+    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
+) :
+    AsyncUseCase<MarketPageRequest, Result<ProductPage>> {
 
-class GetKauflandProductPageUseCase(private val kauflandRepository: KauflandRepository) : AsyncUseCase<MarketPageRequest, Result<ProductPage>> {
     override suspend fun execute(request: MarketPageRequest): Result<ProductPage> {
         val response = kauflandRepository.getProducts(request.searchQuery, request.page)
         return when (response) {
@@ -21,8 +26,14 @@ class GetKauflandProductPageUseCase(private val kauflandRepository: KauflandRepo
                     SortType.TARGET -> productPage.products
                     SortType.ALPHABETICAL_ASCEND -> productPage.products.sortedBy { it.title }
                     SortType.ALPHABETICAL_DESCEND -> productPage.products.sortedByDescending { it.title }
-                    SortType.PRICE_ASCEND -> productPage.products.sortedBy { it.price.substringBefore(" ").replace(',', '.').toDouble() }
-                    SortType.PRICE_DESCEND -> productPage.products.sortedByDescending { it.price.substringBefore(" ").replace(',', '.').toDouble() }
+                    SortType.PRICE_ASCEND -> productPage.products.sortedBy {
+                        it.price.substringBefore(" ").replace(',', '.').toDouble()
+                    }
+                    SortType.PRICE_DESCEND -> productPage.products.sortedByDescending {
+                        it.price.substringBefore(" ").replace(',', '.').toDouble()
+                    }
+                }.map {
+                    it.copy(isSelected = checkIfProductExistsUseCase.execute(it))
                 }
                 Result.Success(productPage.copy(products = sortedProducts))
             }
