@@ -1,5 +1,7 @@
+apply plugin: 'com.github.ben-manes.versions'
+
 buildscript {
-    apply from: "versions.gradle"
+    apply from: "dependencies.gradle"
 
     repositories {
         google()
@@ -7,9 +9,10 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.androidPlugin"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "com.google.gms:google-services:$versions.googleServices"
+        classpath gradlePlugins.android
+        classpath gradlePlugins.googleServices
+        classpath gradlePlugins.kotlin
+        classpath gradlePlugins.versions
     }
 }
 
@@ -18,6 +21,14 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+    }
+
+    pluginManager.withPlugin('com.android.application') {
+        apply from: "$project.rootDir/common-android.gradle"
+    }
+
+    pluginManager.withPlugin('com.android.library') {
+        apply from: "$project.rootDir/common-android.gradle"
     }
 }
 

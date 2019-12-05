@@ -1,0 +1,109 @@
+ext.buildConfig = [
+    compileSdkVersion        : 29,
+    minSdkVersion            : 23,
+    targetSdkVersion         : 29,
+    versionCode              : 1,
+    versionName              : "1.0",
+    testInstrumentationRunner: "android.support.test.runner.AndroidJUnitRunner"
+]
+
+ext.versions = [
+    androidPlugin      : '3.4.0',
+    androidx           : '1.1.0',
+    assertj            : '3.8.0',
+    bindingCollections : '3.0.0',
+    constraintLayout   : '1.1.3',
+    coroutines         : '1.1.0',
+    espresso           : '3.0.2',
+    firebaseAuth       : '19.2.0',
+    firebaseCore       : '17.2.1',
+    firebaseDatabase   : '19.2.0',
+    glide              : '4.10.0',
+    googleServices     : '4.2.0',
+    jspoon             : '1.3.2',
+    junit              : '4.12',
+    koin               : '1.0.2',
+    kotlin             : '1.3.61',
+    ktx                : '1.1.0',
+    ktxFragment        : '1.1.0',
+    legacySupport      : '1.0.0',
+    lifecycle          : '2.1.0',
+    lifecycleExtensions: '1.1.1',
+    material           : '1.0.0',
+    mockitocore        : '2.22.0',
+    mockitokotlin      : '2.0.0-RC1',
+    navigation         : '1.0.0',
+    paging             : '2.1.0',
+    persistentCookie   : '1.0.1',
+    retrofit           : '2.5.0',
+    testRunner         : '1.0.2',
+    versionsPlugin     : '0.27.0',
+]
+
+ext.gradlePlugins = [
+    android       : "com.android.tools.build:gradle:$versions.androidPlugin",
+    googleServices: "com.google.gms:google-services:$versions.googleServices",
+    kotlin        : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
+    versions      : "com.github.ben-manes:gradle-versions-plugin:$versions.versionsPlugin"
+]
+
+ext.deps = [
+    androidX          : [
+        appCompat       : "androidx.appcompat:appcompat:$versions.androidx",
+        constraintLayout: "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
+        ktxCore         : "androidx.core:core-ktx:$versions.ktx",
+        ktxFragment     : "androidx.fragment:fragment-ktx:$versions.ktxFragment",
+        lifecycle       : "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle",
+        paging          : "androidx.paging:paging-runtime:$versions.paging"
+    ],
+    bindingCollections: [
+        core        : "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.bindingCollections",
+        recyclerView: "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.bindingCollections"
+    ],
+    firebase          : [
+        core    : "com.google.firebase:firebase-core:$versions.firebaseCore",
+        auth    : "com.google.firebase:firebase-auth:$versions.firebaseAuth",
+        database: "com.google.firebase:firebase-database:$versions.firebaseDatabase"
+    ],
+    glide             : [
+        compiller: "com.github.bumptech.glide:compiler:$versions.glide",
+        core     : "com.github.bumptech.glide:glide:$versions.glide"
+    ],
+    jspoon            : [
+        core     : "pl.droidsonroids:jspoon:$versions.jspoon",
+        converter: "pl.droidsonroids.retrofit2:converter-jspoon:$versions.jspoon"
+    ],
+    koin              : [
+        core     : "org.koin:koin-android:$versions.koin",
+        viewModel: "org.koin:koin-androidx-viewmodel:$versions.koin"
+    ],
+    kotlin            : [
+        coroutines: [
+            android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines",
+            core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
+            test   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines",
+        ],
+        jdk7      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    ],
+    material          : "com.google.android.material:material:$versions.material",
+    navigation        : [
+        fragment: [
+            ktx : "android.arch.navigation:navigation-fragment-ktx:$versions.navigation",
+            core: "android.arch.navigation:navigation-fragment:$versions.navigation"
+        ],
+        ui      : "android.arch.navigation:navigation-ui:$versions.navigation"
+    ],
+    persistentCookie  : "com.github.franmontiel:PersistentCookieJar:$versions.persistentCookie",
+    retrofit          : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+    test              : [
+        assertJ            : "org.assertj:assertj-core:$versions.assertj",
+        espresso           : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+        junit              : "junit:junit:$versions.junit",
+        lifecycleExtensions: "android.arch.core:core-testing:$versions.lifecycleExtensions",
+        mockito            : [
+            core  : "org.mockito:mockito-core:$versions.mockitocore",
+            kotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitokotlin",
+        ],
+        testRunner         : "com.android.support.test:runner:$versions.testRunner",
+    ],
+]

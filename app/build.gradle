@@ -1,21 +1,8 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
-
-
 android {
-    compileSdkVersion 28
     defaultConfig {
         applicationId "com.tanikoszyk"
-        minSdkVersion 23
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -48,50 +35,36 @@ android {
     }
 }
 
-androidExtensions {
-    experimental = true
-}
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':usecases')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    implementation "androidx.core:core-ktx:$versions.ktx"
-    implementation "androidx.fragment:fragment-ktx:$versions.ktxFragment"
-    implementation "androidx.appcompat:appcompat:$versions.androidx"
-    implementation "com.google.android.material:material:$versions.material"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
-    implementation "androidx.paging:paging-runtime:$versions.paging"
-    implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
-    implementation "android.arch.navigation:navigation-fragment:$versions.navigation"
-    implementation "android.arch.navigation:navigation-ui:$versions.navigation"
+    implementation deps.navigation.ui
+    implementation deps.navigation.fragment.core
+    implementation deps.navigation.fragment.ktx
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+    implementation deps.androidX.appCompat
+    implementation deps.androidX.constraintLayout
+    implementation deps.androidX.ktxCore
+    implementation deps.androidX.ktxFragment
+    implementation deps.androidX.lifecycle
+    implementation deps.androidX.paging
 
-    implementation "org.koin:koin-android:$versions.koin"
-    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
+    implementation deps.glide.core
+    kapt deps.glide.compiller
 
-    implementation "com.github.bumptech.glide:glide:$versions.glide"
-    implementation "androidx.legacy:legacy-support-v4:$versions.legacySupport"
-    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    implementation deps.material
+    implementation deps.bindingCollections.core
+    implementation deps.bindingCollections.recyclerView
 
-    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$versions.bindingCollections"
-    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$versions.bindingCollections"
+    implementation deps.koin.viewModel
 
-    testImplementation "junit:junit:$versions.junit"
-    testImplementation "org.assertj:assertj-core:$versions.assertj"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitokotlin"
-    testImplementation "org.mockito:mockito-core:$versions.mockitocore"
-    testImplementation("android.arch.core:core-testing:$versions.lifecycleExtensions", {
+    testImplementation(deps.test.lifecycleExtensions, {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-    androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation deps.test.testRunner
+    androidTestImplementation deps.test.espresso
 }
 
 apply plugin: 'com.google.gms.google-services'
