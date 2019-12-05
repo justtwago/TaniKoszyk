@@ -22,7 +22,7 @@ ext.versions = [
     googleServices     : '4.2.0',
     jspoon             : '1.3.2',
     junit              : '4.12',
-    koin               : '1.0.2',
+    koin               : '2.0.1',
     kotlin             : '1.3.61',
     ktx                : '1.1.0',
     ktxFragment        : '1.1.0',
