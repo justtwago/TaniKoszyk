@@ -1,0 +1,47 @@
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion buildConfig.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdkVersion
+        targetSdkVersion buildConfig.targetSdkVersion
+        versionCode buildConfig.versionCode
+        versionName buildConfig.versionName
+
+        testInstrumentationRunner buildConfig.testInstrumentationRunner
+
+    }
+
+    buildTypes {
+        debug {}
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.kotlin.jdk7
+    implementation deps.kotlin.coroutines.android
+    implementation deps.kotlin.coroutines.core
+    implementation deps.kotlin.coroutines.test
+
+    implementation deps.koin.core
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.assertJ
+    testImplementation deps.test.mockito.kotlin
+    testImplementation deps.test.mockito.core
+}
