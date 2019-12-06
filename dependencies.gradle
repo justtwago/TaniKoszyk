@@ -8,7 +8,7 @@ ext.buildConfig = [
 ]
 
 ext.versions = [
-    androidPlugin      : '3.4.0',
+    androidPlugin      : '3.5.3',
     androidx           : '1.1.0',
     assertj            : '3.8.0',
     bindingCollections : '3.0.0',
