@@ -35,7 +35,7 @@ ext.versions = [
     navigation         : '1.0.0',
     paging             : '2.1.0',
     persistentCookie   : '1.0.1',
-    retrofit           : '2.5.0',
+    retrofit           : '2.6.2',
     testRunner         : '1.0.2',
     versionsPlugin     : '0.27.0',
 ]
