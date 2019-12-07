@@ -31,7 +31,7 @@ ext.versions = [
     lifecycleExtensions: '1.1.1',
     material           : '1.0.0',
     mockitocore        : '3.2.0',
-    mockitokotlin      : '2.0.0-RC1',
+    mockitokotlin      : '2.1.0',
     navigation         : '1.0.0',
     paging             : '2.1.0',
     persistentCookie   : '1.0.1',
