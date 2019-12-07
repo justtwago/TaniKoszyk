@@ -1,6 +1,6 @@
 package com.tanikoszyk.usecases.sample
 
-import com.tanikoszyk.usecases.model.auth.AuthenticationRequest
+import com.tanikoszyk.usecases.requests.AuthenticationRequest
 
 
 val authenticationRequest = AuthenticationRequest(

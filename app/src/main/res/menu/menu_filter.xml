@@ -20,10 +20,4 @@
         android:checked="true"
         android:title="@string/kaufland"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/tescoItem"
-        android:checkable="true"
-        android:checked="true"
-        android:title="@string/tesco"
-        app:showAsAction="ifRoom" />
 </menu>

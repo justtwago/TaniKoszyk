@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "608034751201",
-    "firebase_url": "https://tani-koszyk.firebaseio.com",
-    "project_id": "tani-koszyk",
-    "storage_bucket": "tani-koszyk.appspot.com"
+    "project_number": "729068538157",
+    "firebase_url": "https://tanikoszyk-7ca4c.firebaseio.com",
+    "project_id": "tanikoszyk-7ca4c",
+    "storage_bucket": "tanikoszyk-7ca4c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:608034751201:android:9a26e318085d992e",
+        "mobilesdk_app_id": "1:729068538157:android:8484ca0dc6a123f9d1aba4",
         "android_client_info": {
           "package_name": "com.tanikoszyk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "608034751201-s9eb998nsk4qfd0f2dapi25vrh1nnvjl.apps.googleusercontent.com",
+          "client_id": "729068538157-m90bnhu488hlimnqac820t86aa90iedj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBRr3Ls3zqu9wi6BopLxjA6ulOLfSJBCsA"
+          "current_key": "AIzaSyDhqC9jCkOsxC-5guaeGf2lXQVDGc8sZjA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "608034751201-s9eb998nsk4qfd0f2dapi25vrh1nnvjl.apps.googleusercontent.com",
+              "client_id": "729068538157-m90bnhu488hlimnqac820t86aa90iedj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

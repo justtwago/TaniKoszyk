@@ -1,20 +1,22 @@
 package com.tanikoszyk.ui.auth.signin
 
 import androidx.lifecycle.MutableLiveData
-import com.tanikoszyk.usecases.model.Result
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tanikoszyk.common.SingleLiveEvent
 import com.tanikoszyk.navigation.NavigationRequest
 import com.tanikoszyk.ui.auth.CredentialsListener
-import com.tanikoszyk.ui.base.BaseViewModel
-import com.tanikoszyk.usecases.model.auth.AuthenticationRequest
+import com.tanikoszyk.usecases.requests.AuthenticationRequest
+import com.tanikoszyk.usecases.requests.Result
 import com.tanikoszyk.usecases.usecases.auth.CheckIsUserSignInUseCase
 import com.tanikoszyk.usecases.usecases.auth.SignInUseCase
-
+import kotlinx.coroutines.launch
 
 class SignInViewModel(
-        private val signInUseCase: SignInUseCase,
-        private val checkIsUserSignInUseCase: CheckIsUserSignInUseCase
-) : BaseViewModel(), CredentialsListener {
+    private val signInUseCase: SignInUseCase,
+    private val checkIsUserSignInUseCase: CheckIsUserSignInUseCase
+) : ViewModel(), CredentialsListener {
+
     private val emailLiveData = MutableLiveData<String>()
     private val passwordLiveData = MutableLiveData<String>()
 
@@ -26,10 +28,10 @@ class SignInViewModel(
 
     fun onSignInClicked() {
         if (emailLiveData.value.isNullOrEmpty().not() && passwordLiveData.value.isNullOrEmpty().not()) {
-            launch {
+            viewModelScope.launch {
                 val isUserSignIn = signIn(emailLiveData.value!!, passwordLiveData.value!!)
                 if (isUserSignIn) {
-                    navigationEvent.postValue(NavigationRequest.HOME_SCREEN)
+                    navigationEvent.value = NavigationRequest.HOME_SCREEN
                 }
             }
         }
@@ -48,16 +50,21 @@ class SignInViewModel(
     }
 
     private fun skipAuthenticationIfNeeded() {
-        launch {
+        viewModelScope.launch {
             val isUserSignIn = checkIsUserSignInUseCase.execute()
             if (isUserSignIn) {
-                navigationEvent.postValue(NavigationRequest.HOME_SCREEN)
+                navigationEvent.value = NavigationRequest.HOME_SCREEN
             }
         }
     }
 
     private suspend fun signIn(email: String, password: String): Boolean {
-        val result = signInUseCase.execute(AuthenticationRequest(email, password))
+        val result = signInUseCase.execute(
+            AuthenticationRequest(
+                email,
+                password
+            )
+        )
         return result is Result.Success
     }
 }

@@ -1,53 +1,53 @@
 package com.tanikoszyk.service.firebase
 
+import com.fanmountain.domain.MarketProduct
+import com.google.firebase.database.DatabaseReference
 import com.tanikoszyk.service.common.addListenerForSingleValueEvent
 import com.tanikoszyk.service.common.addValueEventListener
-import com.tanikoszyk.service.model.service.ProductService
-import com.google.firebase.database.DatabaseReference
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 private const val PRODUCTS_DB_REFERENCE = "products"
 
 interface FirebaseProductCartRepository {
-    suspend fun addProductToCart(uid: String, product: ProductService): Boolean
-    suspend fun removeProductFromCart(uid: String, product: ProductService): Boolean
-    suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit)
-    suspend fun checkIfProductExists(uid: String, productId: String): Boolean
+    suspend fun addProductToCart(uid: String, marketProduct: MarketProduct): Boolean
+    suspend fun removeProductFromCart(uid: String, marketProduct: MarketProduct): Boolean
+    suspend fun observeCartProducts(uid: String, cartProductObserver: (List<MarketProduct>) -> Unit)
+    suspend fun checkIfProductExists(uid: String, productUrl: String): Boolean
 }
 
 class FirebaseProductCartRepositoryImpl(private val databaseReference: DatabaseReference) :
     FirebaseProductCartRepository {
 
-    override suspend fun addProductToCart(uid: String, product: ProductService): Boolean {
+    override suspend fun addProductToCart(uid: String, marketProduct: MarketProduct): Boolean {
         return databaseReference.child(PRODUCTS_DB_REFERENCE)
             .child(uid)
-            .child(product.id)
-            .setValue(product)
+            .child(marketProduct.product.url)
+            .setValue(marketProduct)
             .isSuccessful
     }
 
-    override suspend fun removeProductFromCart(uid: String, product: ProductService): Boolean {
+    override suspend fun removeProductFromCart(uid: String, marketProduct: MarketProduct): Boolean {
         return databaseReference.child(PRODUCTS_DB_REFERENCE)
             .child(uid)
-            .child(product.id)
+            .child(marketProduct.product.url)
             .removeValue()
             .isSuccessful
     }
 
-    override suspend fun observeCartProducts(uid: String, cartProductObserver: (List<ProductService>) -> Unit) {
+    override suspend fun observeCartProducts(uid: String, cartProductObserver: (List<MarketProduct>) -> Unit) {
         databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).addValueEventListener {
             val products = it.children.asSequence()
-                .map { productSnapshot -> productSnapshot.getValue(ProductService::class.java)!! }
+                .map { productSnapshot -> productSnapshot.getValue(MarketProduct::class.java)!! }
                 .toList()
             cartProductObserver.invoke(products)
         }
     }
 
-    override suspend fun checkIfProductExists(uid: String, productId: String): Boolean {
+    override suspend fun checkIfProductExists(uid: String, productUrl: String): Boolean {
         return suspendCoroutine { continuation ->
             databaseReference.child(PRODUCTS_DB_REFERENCE).child(uid).addListenerForSingleValueEvent {
-                continuation.resume(it.hasChild(productId))
+                continuation.resume(it.hasChild(productUrl))
             }
         }
     }

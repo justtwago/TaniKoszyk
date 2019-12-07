@@ -4,7 +4,7 @@ import android.content.Context
 import com.tanikoszyk.service.common.Response
 import com.tanikoszyk.service.common.createRetrofit
 import com.tanikoszyk.service.common.executeSafely
-import com.tanikoszyk.service.model.kaufland.KauflandProductPage
+import com.tanikoszyk.service.model.data.kaufland.KauflandProductPage
 import com.tanikoszyk.service.services.KauflandService
 
 const val KAUFLAND_BASE_URL = "https://www.kaufland.pl/"

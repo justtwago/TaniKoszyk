@@ -5,30 +5,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.transition.doOnEnd
 import androidx.core.util.Pair
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.transition.*
 import com.tanikoszyk.R
 import com.tanikoszyk.databinding.ActivityProductDetailsBinding
+import com.tanikoszyk.model.MarketProductDto
+import com.tanikoszyk.model.toDomain
 import com.tanikoszyk.ui.base.BaseActivity
-import com.tanikoszyk.usecases.model.market.common.Product
-import kotlinx.android.synthetic.main.activity_product_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val PRODUCT_KEY = "product_key"
-fun Activity.launchProductDetailsActivity(product: Product, vararg sourceView: Pair<View, String>) {
+fun Activity.launchProductDetailsActivity(marketProduct: MarketProductDto, vararg sourceView: Pair<View, String>) {
     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *sourceView).toBundle()
     Intent(this, ProductDetailsActivity::class.java)
-        .putExtra(PRODUCT_KEY, product)
+        .putExtra(PRODUCT_KEY, marketProduct)
         .let { startActivity(it, options) }
 }
 
 class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
 
     override val layoutId = R.layout.activity_product_details
-    override val viewModel by viewModel<ProductDetailsViewModel>()
+    private val viewModel by viewModel<ProductDetailsViewModel>()
 
     override fun setupBindingVariables(binding: ActivityProductDetailsBinding) {
         binding.viewModel = viewModel
@@ -37,25 +34,13 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportPostponeEnterTransition()
         super.onCreate(savedInstanceState)
-        initButtonVisibilityAfterTransition()
         initViewModel()
         registerObservers()
     }
 
-    private fun initButtonVisibilityAfterTransition() {
-        window.sharedElementEnterTransition.apply {
-            duration = 250
-            doOnEnd {
-                TransitionManager.beginDelayedTransition(rootLayout)
-                setSelectionButton.isVisible = true
-            }
-        }
-    }
-
-    private fun initViewModel(): Product {
-        val product = intent.getParcelableExtra<Product>(PRODUCT_KEY)
-        viewModel.initialize(product)
-        return product
+    private fun initViewModel() {
+        val marketProduct = intent.getParcelableExtra<MarketProductDto>(PRODUCT_KEY)
+        viewModel.initialize(marketProduct.toDomain())
     }
 
     private fun registerObservers() {
@@ -65,10 +50,5 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
         viewModel.onDismissEvent.observe(this, Observer {
             onBackPressed()
         })
-    }
-
-    override fun onBackPressed() {
-        setSelectionButton.isVisible = false
-        super.onBackPressed()
     }
 }

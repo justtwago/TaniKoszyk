@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 
 dependencies {
+    implementation project(':domain')
+
     implementation deps.firebase.auth
     implementation deps.firebase.core
     implementation deps.firebase.database

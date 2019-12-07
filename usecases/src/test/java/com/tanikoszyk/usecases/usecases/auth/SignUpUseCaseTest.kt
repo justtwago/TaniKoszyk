@@ -1,13 +1,14 @@
 package com.tanikoszyk.usecases.usecases.auth
 
+import com.nhaarman.mockitokotlin2.whenever
 import com.tanikoszyk.service.common.Response
 import com.tanikoszyk.service.firebase.FirebaseAuthenticator
-import com.tanikoszyk.usecases.model.Result
+import com.tanikoszyk.usecases.requests.Result
 import com.tanikoszyk.usecases.sample.authenticationRequest
 import com.tanikoszyk.usecases.sample.userUuid
-import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
@@ -16,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class SignUpUseCaseTest {
+
     @Mock lateinit var authenticator: FirebaseAuthenticator
     @InjectMocks lateinit var useCase: SignUpUseCase
 

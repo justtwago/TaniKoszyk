@@ -6,13 +6,13 @@ import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
+import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
 import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
-import androidx.recyclerview.widget.ItemTouchHelper
-import com.tanikoszyk.usecases.model.market.common.Product
 
 @BindingAdapter("android:visibility")
 fun View.setVisibility(isVisible: Boolean) {
@@ -26,7 +26,7 @@ fun View.setAnimatedVisibility(isVisible: Boolean) {
 }
 
 @BindingAdapter("pagedProducts")
-fun RecyclerView.setPagedProducts(searchProducts: PagedList<Product>?) {
+fun RecyclerView.setPagedProducts(searchProducts: PagedList<MarketProduct>?) {
     (adapter as? SearchProductAdapter)?.submitList(searchProducts)
 }
 

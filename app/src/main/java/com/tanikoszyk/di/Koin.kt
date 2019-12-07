@@ -8,7 +8,6 @@ import com.tanikoszyk.ui.home.details.ProductDetailsViewModel
 import com.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
-import com.tanikoszyk.ui.home.list.paging.tesco.TescoProductDataSourceFactory
 import com.tanikoszyk.ui.profile.ProfileViewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -18,14 +17,12 @@ val appModule = module {
     single { AuchanProductDataSourceFactory(getAuchanProductPageUseCase = get()) }
     single { BiedronkaProductDataSourceFactory(getBiedronkaProductPageUseCase = get()) }
     single { KauflandProductDataSourceFactory(getKauflandProductPageUseCase = get()) }
-    single { TescoProductDataSourceFactory(getTescoProductPageUseCase = get()) }
 
     viewModel {
         HomeViewModel(
             auchanProductDataSourceFactory = get(),
             biedronkaProductDataSourceFactory = get(),
-            kauflandProductDataSourceFactory = get(),
-            tescoProductDataSourceFactory = get()
+            kauflandProductDataSourceFactory = get()
         )
     }
     viewModel { SignInViewModel(signInUseCase = get(), checkIsUserSignInUseCase = get()) }

@@ -107,17 +107,6 @@
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
                     app:pagedProducts="@{viewModel.kauflandPagedSearchProductViewModelsLiveData}"
                     tools:listitem="@layout/item_product_grid" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/tescoProductsRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="8dp"
-                    app:loadingItemVisibility="@{viewModel.isNextTescoPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.tescoPagedSearchProductViewModelsLiveData}"
-                    tools:listitem="@layout/item_product_grid" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
