@@ -1,7 +1,7 @@
 package com.tanikoszyk.service.services
 
-import com.tanikoszyk.service.model.biedronka.BiedronkaProduct
-import com.tanikoszyk.service.model.biedronka.BiedronkaProductIdPage
+import com.tanikoszyk.service.model.data.biedronka.BiedronkaProduct
+import com.tanikoszyk.service.model.data.biedronka.BiedronkaProductIdPage
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

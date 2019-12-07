@@ -6,18 +6,18 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
+import com.fanmountain.domain.MarketProduct
+import com.fanmountain.domain.SortType
 import com.tanikoszyk.common.MarketsLoadingStatus
-import com.tanikoszyk.usecases.model.market.common.Product
-import com.tanikoszyk.usecases.model.market.common.SortType
 
-abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : DataSource.Factory<Int, Product>() {
+abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : DataSource.Factory<Int, MarketProduct>() {
 
     protected lateinit var isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
     protected lateinit var loadingLiveData: MutableLiveData<MarketsLoadingStatus>
     protected lateinit var query: String
     protected lateinit var sortType: SortType
     protected var isReset: Boolean = false
-    protected var dataSource: PageKeyedDataSource<Int, Product>? = null
+    protected var dataSource: PageKeyedDataSource<Int, MarketProduct>? = null
 
     fun initialize(
         query: String,
@@ -25,7 +25,7 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
         loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
         sortType: SortType = SortType.TARGET,
         isReset: Boolean = false
-    ): LiveData<PagedList<Product>> {
+    ): LiveData<PagedList<MarketProduct>> {
         this.query = query
         this.sortType = sortType
         this.isNextPageLoaderVisibleLiveData = isNextPageLoaderVisibleLiveData
@@ -36,7 +36,7 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
             .setPageSize(basePageSize)
             .setPrefetchDistance(basePageSize - 5)
             .build()
-        return LivePagedListBuilder<Int, Product>(this, config).build()
+        return LivePagedListBuilder<Int, MarketProduct>(this, config).build()
     }
 
     fun invalidate(

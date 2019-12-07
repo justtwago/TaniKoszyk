@@ -1,12 +1,13 @@
 package com.tanikoszyk.usecases.usecases.market
 
+import com.nhaarman.mockitokotlin2.whenever
 import com.tanikoszyk.service.common.Response
 import com.tanikoszyk.service.repositories.BiedronkaRepository
-import com.tanikoszyk.usecases.model.Result
+import com.tanikoszyk.usecases.requests.Result
 import com.tanikoszyk.usecases.sample.*
-import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
@@ -15,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class GetBiedronkaProductPageUseCaseTest {
+
     @Mock lateinit var biedronkaRepository: BiedronkaRepository
     @InjectMocks lateinit var useCase: GetBiedronkaProductPageUseCase
 
@@ -28,7 +30,10 @@ class GetBiedronkaProductPageUseCaseTest {
 
         val result = useCase.execute(marketPageRequest)
 
-        assertEquals((result as Result.Success).result.products.first().toString(), productPageBiedronka.products.first().toString())
+        assertEquals(
+            (result as Result.Success).result.marketProducts.first().toString(),
+            productPageBiedronka.marketProducts.first().toString()
+        )
         assertEquals(result.result.pageCount, productPageBiedronka.pageCount)
     }
 

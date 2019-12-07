@@ -11,8 +11,8 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.fanmountain.domain.Market
 import com.tanikoszyk.R
-import com.tanikoszyk.usecases.model.market.common.Market
 
 @BindingAdapter("android:src", "market", "loadingFinishedListener", requireAll = false)
 fun ImageView.setImage(imageUrl: String?, market: Market?, onLoadingFinished: (() -> Unit)?) {
@@ -49,7 +49,6 @@ fun ImageView.setLogo(market: Market?) {
 
 private fun Market.getLogoRes(): Int? {
     return when (this) {
-        Market.TESCO -> R.drawable.logo_tesco_big
         Market.KAUFLAND -> R.drawable.logo_kaufland_big
         Market.AUCHAN -> R.drawable.logo_auchan_big
         Market.BIEDRONKA -> R.drawable.logo_biedronka_big

@@ -30,7 +30,7 @@ ext.versions = [
     lifecycle          : '2.1.0',
     lifecycleExtensions: '1.1.1',
     material           : '1.0.0',
-    mockitocore        : '2.22.0',
+    mockitocore        : '3.2.0',
     mockitokotlin      : '2.0.0-RC1',
     navigation         : '1.0.0',
     paging             : '2.1.0',
@@ -83,7 +83,8 @@ ext.deps = [
             core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
             test   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines",
         ],
-        jdk7      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+        jdk7      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
+        jdk8      : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
     ],
     material          : "com.google.android.material:material:$versions.material",
     navigation        : [

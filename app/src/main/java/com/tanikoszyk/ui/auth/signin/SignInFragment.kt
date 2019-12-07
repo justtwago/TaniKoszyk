@@ -2,20 +2,19 @@ package com.tanikoszyk.ui.auth.signin
 
 import android.os.Bundle
 import android.view.View
-import com.tanikoszyk.R
-import com.tanikoszyk.databinding.FragmentSignInBinding
-import com.tanikoszyk.ui.base.BaseFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.findNavController
+import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.Ignored
 import com.tanikoszyk.common.extensions.observe
+import com.tanikoszyk.databinding.FragmentSignInBinding
 import com.tanikoszyk.navigation.NavigationRequest
 import com.tanikoszyk.ui.auth.AuthenticationActivity
-
+import com.tanikoszyk.ui.base.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment : BaseFragment<FragmentSignInBinding>() {
     override val layoutId = R.layout.fragment_sign_in
-    override val viewModel by viewModel<SignInViewModel>()
+    private val viewModel by viewModel<SignInViewModel>()
 
     override fun setupBindingVariables(binding: FragmentSignInBinding) {
         binding.viewModel = viewModel

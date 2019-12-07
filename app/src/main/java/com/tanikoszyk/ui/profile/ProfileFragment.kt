@@ -11,10 +11,9 @@ import com.tanikoszyk.ui.HostActivity
 import com.tanikoszyk.ui.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override val layoutId = R.layout.fragment_profile
-    override val viewModel by viewModel<ProfileViewModel>()
+    private val viewModel by viewModel<ProfileViewModel>()
 
     override fun setupBindingVariables(binding: FragmentProfileBinding) {
         binding.viewModel = viewModel

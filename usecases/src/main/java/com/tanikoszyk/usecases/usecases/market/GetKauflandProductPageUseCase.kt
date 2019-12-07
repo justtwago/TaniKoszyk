@@ -1,18 +1,16 @@
 package com.tanikoszyk.usecases.usecases.market
 
+import com.fanmountain.domain.ProductPage
+import com.fanmountain.domain.SortType
 import com.tanikoszyk.service.common.Response
+import com.tanikoszyk.service.model.mappers.mapToDomain
 import com.tanikoszyk.service.repositories.KauflandRepository
-import com.tanikoszyk.usecases.model.Result
-import com.tanikoszyk.usecases.model.market.MarketPageRequest
-import com.tanikoszyk.usecases.model.market.common.ProductPage
-import com.tanikoszyk.usecases.model.market.common.SortType
-import com.tanikoszyk.usecases.model.market.common.mapToDomain
+import com.tanikoszyk.usecases.requests.MarketPageRequest
+import com.tanikoszyk.usecases.requests.Result
 import com.tanikoszyk.usecases.usecases.base.AsyncUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
 
 class GetKauflandProductPageUseCase(
-    private val kauflandRepository: KauflandRepository,
-    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
+    private val kauflandRepository: KauflandRepository
 ) :
     AsyncUseCase<MarketPageRequest, Result<ProductPage>> {
 
@@ -23,19 +21,17 @@ class GetKauflandProductPageUseCase(
                 val productPage = response.body.mapToDomain()
                 //TODO: Workaround because there is no way to sort products in website. API needed!
                 val sortedProducts = when (request.sortType) {
-                    SortType.TARGET -> productPage.products
-                    SortType.ALPHABETICAL_ASCEND -> productPage.products.sortedBy { it.title }
-                    SortType.ALPHABETICAL_DESCEND -> productPage.products.sortedByDescending { it.title }
-                    SortType.PRICE_ASCEND -> productPage.products.sortedBy {
-                        it.price.substringBefore(" ").replace(',', '.').toDouble()
+                    SortType.TARGET -> productPage.marketProducts
+                    SortType.ALPHABETICAL_ASCEND -> productPage.marketProducts.sortedBy { it.product.title }
+                    SortType.ALPHABETICAL_DESCEND -> productPage.marketProducts.sortedByDescending { it.product.title }
+                    SortType.PRICE_ASCEND -> productPage.marketProducts.sortedBy {
+                        it.product.price.substringBefore(" ").replace(',', '.').toDouble()
                     }
-                    SortType.PRICE_DESCEND -> productPage.products.sortedByDescending {
-                        it.price.substringBefore(" ").replace(',', '.').toDouble()
+                    SortType.PRICE_DESCEND -> productPage.marketProducts.sortedByDescending {
+                        it.product.price.substringBefore(" ").replace(',', '.').toDouble()
                     }
-                }.map {
-                    it.copy(isSelected = checkIfProductExistsUseCase.execute(it))
                 }
-                Result.Success(productPage.copy(products = sortedProducts))
+                Result.Success(productPage.copy(marketProducts = sortedProducts))
             }
             else -> Result.Failure()
         }

@@ -1,8 +1,8 @@
 package com.tanikoszyk.ui.home.list
 
 import android.view.View
-import com.tanikoszyk.usecases.model.market.common.Product
+import com.fanmountain.domain.MarketProduct
 
 interface OnProductClickListener {
-    fun onProductClicked(product: Product, rootView: View)
+    fun onProductClicked(product: MarketProduct, rootView: View)
 }
