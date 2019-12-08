@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.inflateChild
 import com.tanikoszyk.databinding.ItemProductGridBinding
+import com.tanikoszyk.domain.MarketProduct
 import com.tanikoszyk.ui.base.BaseProductViewHolder
 
 private const val PRODUCT_TYPE = 0

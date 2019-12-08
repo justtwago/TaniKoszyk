@@ -1,16 +1,21 @@
 package com.tanikoszyk
 
 import android.app.Application
-import com.tanikoszyk.di.appModule
-import com.tanikoszyk.service.di.serviceModule
-import com.tanikoszyk.usecases.di.usecaseModule
-import org.koin.android.ext.android.startKoin
+import com.tanikoszyk.di.application.AppComponentProvider
+import com.tanikoszyk.di.application.DaggerAppComponent
 
+class TaniKoszykApplication : Application(), AppComponentProvider {
 
-class TaniKoszykApplication: Application() {
+    override val appComponent by lazy {
+        DaggerAppComponent.factory().create(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(appModule, usecaseModule, serviceModule))
+        initAppComponent()
+    }
+
+    private fun initAppComponent() {
+        appComponent.inject(this)
     }
 }

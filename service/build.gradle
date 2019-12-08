@@ -2,13 +2,17 @@ apply plugin: 'com.android.library'
 
 dependencies {
     implementation project(':domain')
+    implementation project(':authentication')
 
-    implementation deps.firebase.auth
-    implementation deps.firebase.core
     implementation deps.firebase.database
+    compileOnly deps.firebase.auth
+    compileOnly deps.firebase.core
 
     implementation deps.jspoon.core
     implementation deps.jspoon.converter
     implementation deps.retrofit
     implementation deps.persistentCookie
+
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
 }

@@ -2,9 +2,9 @@ package com.tanikoszyk.ui.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.fanmountain.domain.MarketProduct
-import com.fanmountain.domain.ProductPage
 import com.tanikoszyk.common.extensions.Ignored
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.domain.ProductPage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

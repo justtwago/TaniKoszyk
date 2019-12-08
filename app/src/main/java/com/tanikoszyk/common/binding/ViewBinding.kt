@@ -9,8 +9,8 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
-import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
+import com.tanikoszyk.domain.MarketProduct
 import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 

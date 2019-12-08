@@ -1,30 +1,26 @@
 package com.tanikoszyk.service.repositories
 
-import android.content.Context
-import com.fanmountain.domain.SortType
-import com.tanikoszyk.service.common.Response
-import com.tanikoszyk.service.common.createRetrofit
-import com.tanikoszyk.service.common.executeSafely
-import com.tanikoszyk.service.model.data.auchan.AuchanProductPage
+import com.tanikoszyk.domain.ProductPage
+import com.tanikoszyk.domain.Result
+import com.tanikoszyk.domain.SortType
+import com.tanikoszyk.service.common.execute
+import com.tanikoszyk.service.model.mappers.mapToDomain
 import com.tanikoszyk.service.services.AuchanService
 
 const val AUCHAN_BASE_URL = "https://www.auchandirect.pl/"
 
 interface AuchanRepository {
-    suspend fun getProducts(
-        searchQuery: String,
-        page: Int,
-        sortType: SortType = SortType.TARGET
-    ): Response<AuchanProductPage>
+    suspend fun getProducts(searchQuery: String, page: Int, sortType: SortType = SortType.TARGET): Result<ProductPage>
 }
 
-class AuchanRepositoryImpl(private val context: Context) : AuchanRepository {
+internal class AuchanRepositoryImpl(private val service: AuchanService) : AuchanRepository {
 
-    override suspend fun getProducts(searchQuery: String, page: Int, sortType: SortType): Response<AuchanProductPage> {
-        return createRetrofit(context, AUCHAN_BASE_URL)
-            .create(AuchanService::class.java)
-            .getProducts(searchQuery = searchQuery, page = page - 1, sortType = sortType.toAuchanQuery())
-            .executeSafely()
+    override suspend fun getProducts(searchQuery: String, page: Int, sortType: SortType): Result<ProductPage> {
+        return service.getProducts(
+            searchQuery = searchQuery,
+            page = page - 1,
+            sortType = sortType.toAuchanQuery()
+        ).execute { it.mapToDomain() }
     }
 
     private fun SortType.toAuchanQuery(): String {

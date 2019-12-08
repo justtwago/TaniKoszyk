@@ -11,8 +11,8 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.fanmountain.domain.Market
 import com.tanikoszyk.R
+import com.tanikoszyk.domain.Market
 
 @BindingAdapter("android:src", "market", "loadingFinishedListener", requireAll = false)
 fun ImageView.setImage(imageUrl: String?, market: Market?, onLoadingFinished: (() -> Unit)?) {
@@ -25,9 +25,10 @@ fun ImageView.setImage(imageUrl: String?, market: Market?, onLoadingFinished: ((
 }
 
 private fun buildUrl(imageUrl: String?, market: Market?): GlideUrl? {
-    return imageUrl?.let {
+    return if (!imageUrl.isNullOrBlank()) {
         GlideUrl(
-            it, LazyHeaders.Builder()
+            imageUrl,
+            LazyHeaders.Builder()
                 .addHeader(
                     "Referer", when (market) {
                         Market.BIEDRONKA -> "http://www.biedronka.pl/pl/searchhub"
@@ -36,7 +37,7 @@ private fun buildUrl(imageUrl: String?, market: Market?): GlideUrl? {
                 )
                 .build()
         )
-    }
+    } else null
 }
 
 @BindingAdapter("android:src")

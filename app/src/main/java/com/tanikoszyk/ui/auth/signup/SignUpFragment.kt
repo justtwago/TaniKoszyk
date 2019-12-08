@@ -2,15 +2,15 @@ package com.tanikoszyk.ui.auth.signup
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.Ignored
-import com.tanikoszyk.common.extensions.observe
+import com.tanikoszyk.common.extensions.viewModel
 import com.tanikoszyk.databinding.FragmentSignUpBinding
 import com.tanikoszyk.navigation.NavigationRequest
 import com.tanikoszyk.ui.auth.AuthenticationActivity
 import com.tanikoszyk.ui.base.BaseFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override val layoutId = R.layout.fragment_sign_up

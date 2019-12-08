@@ -1,9 +1,9 @@
 package com.tanikoszyk.model
 
 import android.os.Parcelable
-import com.fanmountain.domain.Market
-import com.fanmountain.domain.MarketProduct
-import com.fanmountain.domain.Product
+import com.tanikoszyk.domain.Market
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.domain.Product
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
