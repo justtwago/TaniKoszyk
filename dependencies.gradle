@@ -13,7 +13,7 @@ ext.versions = [
     assertj            : '3.8.0',
     bindingCollections : '3.2.0',
     constraintLayout   : '1.1.3',
-    coroutines         : '1.1.0',
+    coroutines         : '1.3.2-1.3.60',
     espresso           : '3.0.2',
     firebaseAuth       : '19.2.0',
     firebaseCore       : '17.2.1',
