@@ -1,7 +1,7 @@
 package com.tanikoszyk.ui.home.list
 
-import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.databinding.ItemProductGridBinding
+import com.tanikoszyk.domain.MarketProduct
 import com.tanikoszyk.ui.base.BaseProductViewHolder
 
 class SearchProductViewHolder(private val binding: ItemProductGridBinding) : BaseProductViewHolder(binding.root) {

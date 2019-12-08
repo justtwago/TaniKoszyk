@@ -3,17 +3,16 @@ package com.tanikoszyk.ui.cart
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.createDiffObservableList
-import com.tanikoszyk.usecases.usecases.realtimedb.ObserveCartProductsUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.RemoveProductFromCartUseCase
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.service.repositories.CartRepository
 import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.ItemBinding
+import javax.inject.Inject
 
-class CartViewModel(
-    val observeCartProductsUseCase: ObserveCartProductsUseCase,
-    val removeProductFromCartUseCase: RemoveProductFromCartUseCase
+class CartViewModel @Inject constructor(
+    private val cartRepository: CartRepository
 ) : ViewModel() {
 
     val products = createDiffObservableList<MarketProduct>(
@@ -29,14 +28,14 @@ class CartViewModel(
 
     init {
         viewModelScope.launch {
-            observeCartProductsUseCase.execute(products::update)
+            cartRepository.observeCartProducts(products::update)
         }
     }
 
     private fun removeProduct(position: Int) {
         viewModelScope.launch {
             val product = products[position]
-            removeProductFromCartUseCase.execute(product)
+            cartRepository.removeProductFromCart(product)
             products.update(products.filterNot { it == product })
         }
     }

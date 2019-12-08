@@ -7,7 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 const val BIEDRONKA_SINGLE_PRODUCT_REQUEST = "pl/product,id,"
-interface BiedronkaService {
+
+internal interface BiedronkaService {
 
     @GET("pl/search,type,1,query,{query},page,{page}")
     fun getProducts(@Path("query") searchQuery: String, @Path("page") page: Int = 1): Call<BiedronkaProductIdPage>

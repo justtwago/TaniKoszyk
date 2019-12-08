@@ -6,9 +6,9 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import com.fanmountain.domain.MarketProduct
-import com.fanmountain.domain.SortType
 import com.tanikoszyk.common.MarketsLoadingStatus
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.domain.SortType
 
 abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : DataSource.Factory<Int, MarketProduct>() {
 

@@ -1,7 +1,0 @@
-apply plugin: 'com.android.library'
-
-dependencies {
-    implementation project(':core')
-    implementation project(':domain')
-    api project(':service')
-}

@@ -8,11 +8,11 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.Observer
 import com.tanikoszyk.R
+import com.tanikoszyk.common.extensions.viewModel
 import com.tanikoszyk.databinding.ActivityProductDetailsBinding
 import com.tanikoszyk.model.MarketProductDto
 import com.tanikoszyk.model.toDomain
 import com.tanikoszyk.ui.base.BaseActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val PRODUCT_KEY = "product_key"
 fun Activity.launchProductDetailsActivity(marketProduct: MarketProductDto, vararg sourceView: Pair<View, String>) {

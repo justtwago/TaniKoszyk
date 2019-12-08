@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.fanmountain.domain.SortType
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.inflateChild
 import com.tanikoszyk.common.extensions.setTintColor
+import com.tanikoszyk.domain.SortType
 import kotlinx.android.synthetic.main.view_sort.view.*
-
 
 class SortView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

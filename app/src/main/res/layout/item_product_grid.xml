@@ -8,7 +8,7 @@
 
         <variable
             name="marketProduct"
-            type="com.fanmountain.domain.MarketProduct"/>
+            type="com.tanikoszyk.domain.MarketProduct"/>
 
         <variable
             name="onClickListener"

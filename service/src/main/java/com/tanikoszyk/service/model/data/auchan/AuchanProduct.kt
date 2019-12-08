@@ -2,7 +2,7 @@ package com.tanikoszyk.service.model.data.auchan
 
 import pl.droidsonroids.jspoon.annotation.Selector
 
-data class AuchanProduct(
+internal data class AuchanProduct(
     @Selector(".display", attr = "href") var url: String? = null,
     @Selector(".about > strong") var subtitle: String? = null,
     @Selector(".about") var title: String? = null,

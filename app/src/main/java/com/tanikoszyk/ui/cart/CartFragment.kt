@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.setupCustomToolbar
+import com.tanikoszyk.common.extensions.viewModel
 import com.tanikoszyk.databinding.FragmentCartBinding
 import com.tanikoszyk.ui.base.BaseFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CartFragment : BaseFragment<FragmentCartBinding>() {
     override val layoutId = R.layout.fragment_cart

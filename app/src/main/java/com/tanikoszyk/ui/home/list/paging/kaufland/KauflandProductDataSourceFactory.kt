@@ -1,18 +1,19 @@
 package com.tanikoszyk.ui.home.list.paging.kaufland
 
 import androidx.paging.DataSource
-import com.fanmountain.domain.Market
-import com.fanmountain.domain.MarketProduct
+import com.tanikoszyk.domain.Market
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.service.repositories.KauflandRepository
 import com.tanikoszyk.ui.base.BaseProductDataSourceFactory
-import com.tanikoszyk.usecases.usecases.market.GetKauflandProductPageUseCase
+import javax.inject.Inject
 
-class KauflandProductDataSourceFactory(
-    private val getKauflandProductPageUseCase: GetKauflandProductPageUseCase
+class KauflandProductDataSourceFactory @Inject constructor(
+    private val kauflandService: KauflandRepository
 ) : BaseProductDataSourceFactory(Market.KAUFLAND.pageSize) {
 
     override fun create(): DataSource<Int, MarketProduct> {
         return KauflandProductDataSource(
-            getKauflandProductPageUseCase,
+            kauflandService,
             query,
             sortType,
             loadingLiveData,

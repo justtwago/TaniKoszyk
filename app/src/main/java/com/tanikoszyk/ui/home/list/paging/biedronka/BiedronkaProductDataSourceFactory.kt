@@ -1,18 +1,19 @@
 package com.tanikoszyk.ui.home.list.paging.biedronka
 
 import androidx.paging.DataSource
-import com.fanmountain.domain.Market
-import com.fanmountain.domain.MarketProduct
+import com.tanikoszyk.domain.Market
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.service.repositories.BiedronkaRepository
 import com.tanikoszyk.ui.base.BaseProductDataSourceFactory
-import com.tanikoszyk.usecases.usecases.market.GetBiedronkaProductPageUseCase
+import javax.inject.Inject
 
-class BiedronkaProductDataSourceFactory(
-    private val getBiedronkaProductPageUseCase: GetBiedronkaProductPageUseCase
+class BiedronkaProductDataSourceFactory @Inject constructor(
+    private val biedronkaRepository: BiedronkaRepository
 ) : BaseProductDataSourceFactory(Market.BIEDRONKA.pageSize) {
 
     override fun create(): DataSource<Int, MarketProduct> {
         return BiedronkaProductDataSource(
-            getBiedronkaProductPageUseCase,
+            biedronkaRepository,
             query,
             sortType,
             loadingLiveData,

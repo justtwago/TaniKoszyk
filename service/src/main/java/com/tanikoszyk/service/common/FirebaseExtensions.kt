@@ -5,7 +5,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-fun DatabaseReference.addValueEventListener(
+internal fun DatabaseReference.addValueEventListener(
     onCancelled: ((DatabaseError) -> Unit)? = null,
     onDataChange: ((DataSnapshot) -> Unit)? = null
 ) {
@@ -20,7 +20,7 @@ fun DatabaseReference.addValueEventListener(
     })
 }
 
-fun DatabaseReference.addListenerForSingleValueEvent(
+internal fun DatabaseReference.addListenerForSingleValueEvent(
     onCancelled: ((DatabaseError) -> Unit)? = null,
     onDataChange: ((DataSnapshot) -> Unit)? = null
 ) {

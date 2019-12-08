@@ -2,17 +2,11 @@ package com.tanikoszyk.ui.home.details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.common.SingleLiveEvent
-import com.tanikoszyk.usecases.usecases.realtimedb.AddProductToCartUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.CheckIfProductExistsUseCase
-import com.tanikoszyk.usecases.usecases.realtimedb.RemoveProductFromCartUseCase
+import com.tanikoszyk.domain.MarketProduct
+import javax.inject.Inject
 
-class ProductDetailsViewModel(
-    private val addProductToCartUseCase: AddProductToCartUseCase,
-    private val removeProductFromCartUseCase: RemoveProductFromCartUseCase,
-    private val checkIfProductExistsUseCase: CheckIfProductExistsUseCase
-) : ViewModel() {
+class ProductDetailsViewModel @Inject constructor() : ViewModel() {
 
     val marketProduct = MutableLiveData<MarketProduct>()
     val onProductLoadingFinishedEvent = SingleLiveEvent<Unit>()

@@ -4,17 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tanikoszyk.common.SingleLiveEvent
+import com.tanikoszyk.domain.Result
 import com.tanikoszyk.navigation.NavigationRequest
 import com.tanikoszyk.ui.auth.CredentialsListener
-import com.tanikoszyk.usecases.requests.AuthenticationRequest
-import com.tanikoszyk.usecases.requests.Result
-import com.tanikoszyk.usecases.usecases.auth.CheckIsUserSignInUseCase
-import com.tanikoszyk.usecases.usecases.auth.SignUpUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpViewModel(
-    private val signUpUseCase: SignUpUseCase,
-    private val checkIsUserSignInUseCase: CheckIsUserSignInUseCase
+class SignUpViewModel @Inject constructor(
+    private val authenticator: com.fanmountain.authentication.Authenticator
 ) : ViewModel(), CredentialsListener {
 
     private val emailLiveData = MutableLiveData<String>()
@@ -30,9 +27,7 @@ class SignUpViewModel(
         if (emailLiveData.value.isNullOrEmpty().not() && passwordLiveData.value.isNullOrEmpty().not()) {
             viewModelScope.launch {
                 val isUserSignUp = signUp(emailLiveData.value!!, passwordLiveData.value!!)
-                if (isUserSignUp) {
-                    navigationEvent.value = NavigationRequest.HOME_SCREEN
-                }
+                if (isUserSignUp) navigationEvent.value = NavigationRequest.HOME_SCREEN
             }
         }
     }
@@ -51,21 +46,13 @@ class SignUpViewModel(
 
     private fun skipAuthenticationIfNeeded() {
         viewModelScope.launch {
-            val isUserSignIn = checkIsUserSignInUseCase.execute()
-            if (isUserSignIn) {
-                navigationEvent.value = NavigationRequest.HOME_SCREEN
-
-            }
+            val isLoggedIn = authenticator.isUserLoggedIn()
+            if (isLoggedIn) navigationEvent.value = NavigationRequest.HOME_SCREEN
         }
     }
 
     private suspend fun signUp(email: String, password: String): Boolean {
-        val result = signUpUseCase.execute(
-            AuthenticationRequest(
-                email,
-                password
-            )
-        )
+        val result = authenticator.signUp(email, password)
         return result is Result.Success
     }
 }

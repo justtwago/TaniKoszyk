@@ -5,16 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
-import com.fanmountain.domain.Market
-import com.fanmountain.domain.MarketProduct
-import com.fanmountain.domain.SortType
 import com.tanikoszyk.common.MarketsLoadingStatus
+import com.tanikoszyk.domain.Market
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.domain.SortType
 import com.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+class HomeViewModel @Inject constructor(
     private val auchanProductDataSourceFactory: AuchanProductDataSourceFactory,
     private val biedronkaProductDataSourceFactory: BiedronkaProductDataSourceFactory,
     private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory

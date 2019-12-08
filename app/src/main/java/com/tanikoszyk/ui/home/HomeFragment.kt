@@ -12,19 +12,19 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
-import com.fanmountain.domain.Market
-import com.fanmountain.domain.MarketProduct
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.blockCollapsing
 import com.tanikoszyk.common.extensions.setupCustomToolbar
+import com.tanikoszyk.common.extensions.viewModel
 import com.tanikoszyk.databinding.FragmentHomeBinding
+import com.tanikoszyk.domain.Market
+import com.tanikoszyk.domain.MarketProduct
 import com.tanikoszyk.model.toDto
 import com.tanikoszyk.ui.base.BaseFragment
 import com.tanikoszyk.ui.home.details.launchProductDetailsActivity
 import com.tanikoszyk.ui.home.list.OnProductClickListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel by viewModel<HomeViewModel>()

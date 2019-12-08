@@ -36,8 +36,9 @@ android {
 }
 
 dependencies {
+    implementation project(':authentication')
     implementation project(':domain')
-    implementation project(':usecases')
+    implementation project(':service')
 
     implementation deps.navigation.ui
     implementation deps.navigation.fragment.core
@@ -47,8 +48,15 @@ dependencies {
     implementation deps.androidX.constraintLayout
     implementation deps.androidX.ktxCore
     implementation deps.androidX.ktxFragment
-    implementation deps.androidX.lifecycle
+    implementation deps.androidX.lifecycle.extensions
+    implementation deps.androidX.lifecycle.viewModel
+    implementation deps.androidX.lifecycle.liveData
     implementation deps.androidX.paging
+
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
+    compileOnly deps.assistedInject.annotations
+    kapt deps.assistedInject.processor
 
     implementation deps.glide.core
     kapt deps.glide.compiller
@@ -57,8 +65,6 @@ dependencies {
     implementation deps.bindingCollections.core
     implementation deps.bindingCollections.recyclerView
 
-    implementation deps.koin.viewModel
-
     testImplementation(deps.test.lifecycleExtensions, {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -66,6 +72,15 @@ dependencies {
     })
     androidTestImplementation deps.test.testRunner
     androidTestImplementation deps.test.espresso
+
+    compileOnly deps.firebase.auth
+    compileOnly deps.firebase.core
+    compileOnly deps.firebase.database
+
+    compileOnly deps.jspoon.core
+    compileOnly deps.jspoon.converter
+    compileOnly deps.retrofit
+    compileOnly deps.persistentCookie
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,18 +1,19 @@
 package com.tanikoszyk.ui.home.list.paging.auchan
 
 import androidx.paging.DataSource
-import com.fanmountain.domain.Market
-import com.fanmountain.domain.MarketProduct
+import com.tanikoszyk.domain.Market
+import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.service.repositories.AuchanRepository
 import com.tanikoszyk.ui.base.BaseProductDataSourceFactory
-import com.tanikoszyk.usecases.usecases.market.GetAuchanProductPageUseCase
+import javax.inject.Inject
 
-class AuchanProductDataSourceFactory(
-    private val getAuchanProductPageUseCase: GetAuchanProductPageUseCase
+class AuchanProductDataSourceFactory @Inject constructor(
+    private val auchanRepository: AuchanRepository
 ) : BaseProductDataSourceFactory(Market.AUCHAN.pageSize) {
 
     override fun create(): DataSource<Int, MarketProduct> {
         return AuchanProductDataSource(
-            getAuchanProductPageUseCase,
+            auchanRepository,
             query,
             sortType,
             loadingLiveData,

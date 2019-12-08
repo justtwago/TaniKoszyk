@@ -38,8 +38,6 @@ dependencies {
     implementation deps.kotlin.coroutines.core
     implementation deps.kotlin.coroutines.test
 
-    implementation deps.koin.core
-
     testImplementation deps.test.junit
     testImplementation deps.test.assertJ
     testImplementation deps.test.mockito.kotlin
