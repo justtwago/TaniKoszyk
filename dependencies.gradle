@@ -1,4 +1,5 @@
 ext.buildConfig = [
+    javaVersion              : 1.8,
     compileSdkVersion        : 29,
     minSdkVersion            : 23,
     targetSdkVersion         : 29,
@@ -38,7 +39,7 @@ ext.versions = [
     navigation         : '1.0.0',
     paging             : '2.1.0',
     persistentCookie   : '1.0.1',
-    retrofit           : '2.6.2',
+    retrofit           : '2.7.0',
     testRunner         : '1.0.2',
     versionsPlugin     : '0.27.0',
 ]

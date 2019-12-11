@@ -17,6 +17,11 @@ android {
 
     }
 
+    compileOptions {
+        sourceCompatibility buildConfig.javaVersion
+        targetCompatibility buildConfig.javaVersion
+    }
+
     buildTypes {
         debug {}
         release {
