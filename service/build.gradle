@@ -5,8 +5,6 @@ dependencies {
     implementation project(':authentication')
 
     implementation deps.firebase.database
-    compileOnly deps.firebase.auth
-    compileOnly deps.firebase.core
 
     implementation deps.jspoon.core
     implementation deps.jspoon.converter
