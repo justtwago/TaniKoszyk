@@ -72,15 +72,6 @@ dependencies {
     })
     androidTestImplementation deps.test.testRunner
     androidTestImplementation deps.test.espresso
-
-    compileOnly deps.firebase.auth
-    compileOnly deps.firebase.core
-    compileOnly deps.firebase.database
-
-    compileOnly deps.jspoon.core
-    compileOnly deps.jspoon.converter
-    compileOnly deps.retrofit
-    compileOnly deps.persistentCookie
 }
 
 apply plugin: 'com.google.gms.google-services'
