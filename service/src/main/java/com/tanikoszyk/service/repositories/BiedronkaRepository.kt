@@ -61,12 +61,8 @@ internal class BiedronkaRepositoryImpl(private val service: BiedronkaService) : 
             SortType.TARGET -> this
             SortType.ALPHABETICAL_ASCEND -> sortedBy { it.product.title }
             SortType.ALPHABETICAL_DESCEND -> sortedByDescending { it.product.title }
-            SortType.PRICE_ASCEND -> sortedBy {
-                it.product.price.substringBefore(" ").replace(',', '.').toDouble()
-            }
-            SortType.PRICE_DESCEND -> sortedByDescending {
-                it.product.price.substringBefore(" ").replace(',', '.').toDouble()
-            }
+            SortType.PRICE_ASCEND -> sortedBy { it.product.price.value }
+            SortType.PRICE_DESCEND -> sortedByDescending { it.product.price.value }
         }
     }
 }

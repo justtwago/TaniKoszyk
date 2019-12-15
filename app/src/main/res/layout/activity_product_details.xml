@@ -103,7 +103,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/gordita_bold"
-                    android:text="@{viewModel.marketProduct.product.price}"
+                    android:text="@{viewModel.marketProduct.product.price.format()}"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"

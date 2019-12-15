@@ -17,7 +17,6 @@ import com.tanikoszyk.common.extensions.blockCollapsing
 import com.tanikoszyk.common.extensions.setupCustomToolbar
 import com.tanikoszyk.common.extensions.viewModel
 import com.tanikoszyk.databinding.FragmentHomeBinding
-import com.tanikoszyk.domain.Market
 import com.tanikoszyk.domain.MarketProduct
 import com.tanikoszyk.model.toDto
 import com.tanikoszyk.ui.base.BaseFragment
@@ -95,22 +94,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             when (item.itemId) {
                 R.id.auchanItem -> item.run {
                     blockCollapsing(requireContext())
-                    checkMarketItem(popupMenu.menu, Market.AUCHAN, auchanProductsRecyclerView)
+                    checkMarketItem(popupMenu.menu, auchanProductsRecyclerView)
                 }
                 R.id.biedronkaItem -> item.run {
                     blockCollapsing(requireContext())
-                    checkMarketItem(popupMenu.menu, Market.BIEDRONKA, biedronkaProductsRecyclerView)
+                    checkMarketItem(popupMenu.menu, biedronkaProductsRecyclerView)
                 }
                 R.id.kauflandItem -> item.run {
                     blockCollapsing(requireContext())
-                    checkMarketItem(popupMenu.menu, Market.KAUFLAND, kauflandProductsRecyclerView)
+                    checkMarketItem(popupMenu.menu, kauflandProductsRecyclerView)
                 }
                 else -> false
             }
         }
     }
 
-    private fun MenuItem.checkMarketItem(menu: Menu, market: Market, recyclerView: RecyclerView): Boolean {
+    private fun MenuItem.checkMarketItem(menu: Menu, recyclerView: RecyclerView): Boolean {
         val auchanItem = menu.findItem(R.id.auchanItem)
         val biedronkaItem = menu.findItem(R.id.biedronkaItem)
         val kauflandItem = menu.findItem(R.id.kauflandItem)
@@ -123,7 +122,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             isChecked = !isChecked
             TransitionManager.beginDelayedTransition(mainLayout)
             recyclerView.isVisible = isChecked
-            viewModel.onMarketFilterSelected(market, isChecked)
         }
         return false
     }

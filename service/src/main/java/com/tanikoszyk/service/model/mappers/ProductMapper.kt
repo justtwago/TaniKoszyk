@@ -1,9 +1,6 @@
 package com.tanikoszyk.service.model.mappers
 
-import com.tanikoszyk.domain.Market
-import com.tanikoszyk.domain.MarketProduct
-import com.tanikoszyk.domain.Product
-import com.tanikoszyk.domain.ProductPage
+import com.tanikoszyk.domain.*
 import com.tanikoszyk.service.model.data.ProductIdPage
 import com.tanikoszyk.service.model.data.auchan.AuchanProduct
 import com.tanikoszyk.service.model.data.auchan.AuchanProductPage
@@ -28,7 +25,10 @@ internal fun AuchanProduct.mapToDomain() = MarketProduct(
         url = url?.let { AUCHAN_BASE_URL + it }.orEmpty(),
         subtitle = subtitle.orEmpty(),
         title = title?.substringAfter("$subtitle - ").orEmpty(),
-        price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
+        price = Money(
+            value = "$priceZloty.$priceCents".toDoubleOrNull() ?: 0.0,
+            currency = "zł"
+        ),
         imageUrl = "$AUCHAN_BASE_URL${imageUrl?.substring(1, imageUrl?.length ?: 0).orEmpty()}",
         quantity = quantity.orEmpty()
     ),
@@ -47,7 +47,10 @@ internal fun KauflandProduct.mapToDomain() = MarketProduct(
         url = url?.let { KAUFLAND_BASE_URL + it }.orEmpty(),
         subtitle = subtitle.orEmpty(),
         title = title.orEmpty(),
-        price = "${price ?: 0} zł".replace('.', ','),
+        price = Money(
+            value = price?.toDoubleOrNull() ?: 0.0,
+            currency = "zł"
+        ),
         imageUrl = imageUrl?.split(", ")?.last()?.substringBefore(" ").orEmpty(),
         quantity = quantity.orEmpty()
     ),
@@ -78,7 +81,10 @@ internal fun BiedronkaProduct.mapToDomain(url: String): MarketProduct {
             url = BIEDRONKA_BASE_URL + BIEDRONKA_SINGLE_PRODUCT_REQUEST + url,
             subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
             title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
-            price = "${priceZloty ?: "0"},${priceCents ?: "0"} zł",
+            price = Money(
+                value = "$priceZloty.$priceCents".toDoubleOrNull() ?: 0.0,
+                currency = "zł"
+            ),
             imageUrl = imageUrl?.replace("4x2", "1x1").orEmpty(),
             quantity = quantity?.substringAfter("/").orEmpty()
         ),

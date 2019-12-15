@@ -20,9 +20,9 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
     protected var dataSource: PageKeyedDataSource<Int, MarketProduct>? = null
 
     fun initialize(
-        query: String,
         isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
         loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+        query: String = "",
         sortType: SortType = SortType.TARGET,
         isReset: Boolean = false
     ): LiveData<PagedList<MarketProduct>> {
@@ -39,14 +39,8 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
         return LivePagedListBuilder<Int, MarketProduct>(this, config).build()
     }
 
-    fun invalidate(
-        query: String,
-        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
-        loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
-        sortType: SortType = SortType.TARGET,
-        isReset: Boolean
-    ) {
-        initialize(query, isNextPageLoaderVisibleLiveData, loadingLiveData, sortType, isReset)
+    fun invalidate(query: String, sortType: SortType) {
+        initialize(isNextPageLoaderVisibleLiveData, loadingLiveData, query, sortType, isReset)
         dataSource?.invalidate()
     }
 }

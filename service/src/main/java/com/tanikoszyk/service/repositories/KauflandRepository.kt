@@ -29,17 +29,14 @@ internal class KauflandRepositoryImpl(private val service: KauflandService) : Ka
         }
     }
 
+    //TODO: Workaround because there is no way to sort products in website. API needed!
     private fun List<MarketProduct>.sort(sortType: SortType): List<MarketProduct> {
         return when (sortType) {
             SortType.TARGET -> this
             SortType.ALPHABETICAL_ASCEND -> sortedBy { it.product.title }
             SortType.ALPHABETICAL_DESCEND -> sortedByDescending { it.product.title }
-            SortType.PRICE_ASCEND -> sortedBy {
-                it.product.price.substringBefore(" ").replace(',', '.').toDouble()
-            }
-            SortType.PRICE_DESCEND -> sortedByDescending {
-                it.product.price.substringBefore(" ").replace(',', '.').toDouble()
-            }
+            SortType.PRICE_ASCEND -> sortedBy { it.product.price.value }
+            SortType.PRICE_DESCEND -> sortedByDescending { it.product.price.value }
         }
     }
 }
