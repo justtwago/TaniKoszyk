@@ -34,7 +34,7 @@ ext.versions = [
     legacySupport      : '1.0.0',
     lifecycleExtensions: '1.1.1',
     material           : '1.0.0',
-    mockitocore        : '3.2.0',
+    mockitocore        : '3.2.4',
     mockitokotlin      : '2.1.0',
     navigation         : '1.0.0',
     paging             : '2.1.0',
