@@ -12,24 +12,24 @@ import com.tanikoszyk.domain.SortType
 
 abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : DataSource.Factory<Int, MarketProduct>() {
 
-    protected lateinit var isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>
-    protected lateinit var loadingLiveData: MutableLiveData<MarketsLoadingStatus>
+    protected lateinit var isPageLoadingLiveData: MutableLiveData<Boolean>
+    protected lateinit var marketsLoadingStatusLiveData: MutableLiveData<MarketsLoadingStatus>
     protected lateinit var query: String
     protected lateinit var sortType: SortType
     protected var isReset: Boolean = false
     protected var dataSource: PageKeyedDataSource<Int, MarketProduct>? = null
 
     fun initialize(
-        query: String,
-        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
+        isPageLoadingLiveData: MutableLiveData<Boolean>,
         loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
+        query: String = "",
         sortType: SortType = SortType.TARGET,
         isReset: Boolean = false
     ): LiveData<PagedList<MarketProduct>> {
         this.query = query
         this.sortType = sortType
-        this.isNextPageLoaderVisibleLiveData = isNextPageLoaderVisibleLiveData
-        this.loadingLiveData = loadingLiveData
+        this.isPageLoadingLiveData = isPageLoadingLiveData
+        this.marketsLoadingStatusLiveData = loadingLiveData
         this.isReset = isReset
 
         val config = PagedList.Config.Builder()
@@ -39,14 +39,8 @@ abstract class BaseProductDataSourceFactory(private val basePageSize: Int) : Dat
         return LivePagedListBuilder<Int, MarketProduct>(this, config).build()
     }
 
-    fun invalidate(
-        query: String,
-        isNextPageLoaderVisibleLiveData: MutableLiveData<Boolean>,
-        loadingLiveData: MutableLiveData<MarketsLoadingStatus>,
-        sortType: SortType = SortType.TARGET,
-        isReset: Boolean
-    ) {
-        initialize(query, isNextPageLoaderVisibleLiveData, loadingLiveData, sortType, isReset)
+    fun invalidate(query: String, sortType: SortType) {
+        initialize(isPageLoadingLiveData, marketsLoadingStatusLiveData, query, sortType, isReset)
         dataSource?.invalidate()
     }
 }

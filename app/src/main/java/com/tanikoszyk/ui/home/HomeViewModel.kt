@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import com.tanikoszyk.common.MarketsLoadingStatus
-import com.tanikoszyk.domain.Market
 import com.tanikoszyk.domain.MarketProduct
 import com.tanikoszyk.domain.SortType
 import com.tanikoszyk.ui.home.list.paging.auchan.AuchanProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.biedronka.BiedronkaProductDataSourceFactory
 import com.tanikoszyk.ui.home.list.paging.kaufland.KauflandProductDataSourceFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,107 +23,94 @@ class HomeViewModel @Inject constructor(
     private val kauflandProductDataSourceFactory: KauflandProductDataSourceFactory
 ) : ViewModel() {
 
-    private var query = ""
-    private var sortType = SortType.TARGET
+    private val searchQueryChannel = Channel<String>(Channel.CONFLATED)
+    private val sortTypeChannel = Channel<SortType>(Channel.CONFLATED)
 
-    var auchanPagedSearchProductViewModelsLiveData: LiveData<PagedList<MarketProduct>>
-    var biedronkaPagedSearchProductViewModelsLiveData: LiveData<PagedList<MarketProduct>>
-    var kauflandPagedSearchProductViewModelsLiveData: LiveData<PagedList<MarketProduct>>
+    val auchanProductsLiveData: LiveData<PagedList<MarketProduct>>
+    val biedronkaProductsLiveData: LiveData<PagedList<MarketProduct>>
+    val kauflandProductsLiveData: LiveData<PagedList<MarketProduct>>
 
-    val isNextAuchanPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
-    val isNextBiedronkaPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
+    val isAuchanPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
+    val isBiedronkaPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
     val isNextKauflandPageLoaderVisibleLiveData = MutableLiveData<Boolean>()
 
     val loadingLiveData = MutableLiveData<MarketsLoadingStatus>()
 
-    private var isAuchanVisible = true
-    private var isBiedronkaVisible = true
-    private var isKauflandVisible = true
-
     init {
         loadingLiveData.value = MarketsLoadingStatus()
-        auchanPagedSearchProductViewModelsLiveData = setupAuchanProductViewModelsLiveData()
-        biedronkaPagedSearchProductViewModelsLiveData = setupBiedronkaProductViewModelsLiveData()
-        kauflandPagedSearchProductViewModelsLiveData = setupKauflandProductViewModelsLiveData()
+        auchanProductsLiveData = setupAuchanProductViewModelsLiveData()
+        biedronkaProductsLiveData = setupBiedronkaProductViewModelsLiveData()
+        kauflandProductsLiveData = setupKauflandProductViewModelsLiveData()
+        observeSearchQueryAndSortTypeChanges()
+    }
+
+    private fun observeSearchQueryAndSortTypeChanges() {
+        searchQueryChannel
+            .consumeAsFlow()
+            .combine(sortTypeChannel.consumeAsFlow()) { query, sortType -> query to sortType }
+            .flowOn(Dispatchers.Default)
+            .onEach { (query, sortType) -> searchProducts(query, sortType) }
+            .launchIn(viewModelScope)
+        onSortTypeSelected(SortType.TARGET)
+    }
+
+    private fun searchProducts(query: String, sortType: SortType) {
+        viewModelScope.launch {
+            searchInAuchan(query, sortType)
+            searchInBiedronka(query, sortType)
+            searchInKaufland(query, sortType)
+        }
     }
 
     fun onSearchClicked(query: String) {
-        this.query = query
+        if (query.trim().length < 2) return
         viewModelScope.launch {
-            searchInAuchan(query)
-            searchInBiedronka(query)
-            searchInKaufland(query)
+            searchQueryChannel.send(query)
         }
     }
 
     fun onSortTypeSelected(sortType: SortType) {
-        this.sortType = sortType
         viewModelScope.launch {
-            searchInAuchan(query)
-            searchInBiedronka(query)
-            searchInKaufland(query)
-        }
-    }
-
-    fun onMarketFilterSelected(market: Market, isSelected: Boolean) {
-        when (market) {
-            Market.AUCHAN -> isAuchanVisible = isSelected
-            Market.BIEDRONKA -> isBiedronkaVisible = isSelected
-            Market.KAUFLAND -> isKauflandVisible = isSelected
+            sortTypeChannel.send(sortType)
         }
     }
 
     private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<MarketProduct>> {
         return auchanProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
+            isPageLoadingLiveData = isAuchanPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
     }
 
     private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<MarketProduct>> {
         return biedronkaProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
+            isPageLoadingLiveData = isBiedronkaPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
     }
 
     private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<MarketProduct>> {
         return kauflandProductDataSourceFactory.initialize(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
+            isPageLoadingLiveData = isNextKauflandPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
     }
 
-    private fun searchInAuchan(query: String) {
-        auchanProductDataSourceFactory.invalidate(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextAuchanPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            sortType = sortType,
-            isReset = !isAuchanVisible
-        )
+    private fun searchInAuchan(query: String, sortType: SortType) {
+        auchanProductDataSourceFactory.invalidate(query, sortType)
     }
 
-    private fun searchInBiedronka(query: String) {
-        biedronkaProductDataSourceFactory.invalidate(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextBiedronkaPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            sortType = sortType,
-            isReset = !isBiedronkaVisible
-        )
+    private fun searchInBiedronka(query: String, sortType: SortType) {
+        biedronkaProductDataSourceFactory.invalidate(query, sortType)
     }
 
-    private fun searchInKaufland(query: String) {
-        kauflandProductDataSourceFactory.invalidate(
-            query = query,
-            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
-            loadingLiveData = loadingLiveData,
-            sortType = sortType,
-            isReset = !isKauflandVisible
-        )
+    private fun searchInKaufland(query: String, sortType: SortType) {
+        kauflandProductDataSourceFactory.invalidate(query, sortType)
+    }
+
+    override fun onCleared() {
+        searchQueryChannel.close()
+        sortTypeChannel.close()
+        super.onCleared()
     }
 }

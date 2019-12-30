@@ -6,11 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 
-fun ViewGroup.inflateChild(@LayoutRes layout: Int, attachToRoot: Boolean = true): View = LayoutInflater.from(
-    context
-).inflate(layout, this, attachToRoot)
+fun ViewGroup.inflateChild(@LayoutRes layout: Int, attachToRoot: Boolean = true): View =
+    LayoutInflater.from(context).inflate(layout, this, attachToRoot)
 
-val Float.dp: Int
-    get() {
-        return (this * Resources.getSystem().displayMetrics.density).toInt()
-    }
+val Float.dpToPx: Float get() = this * Resources.getSystem().displayMetrics.density

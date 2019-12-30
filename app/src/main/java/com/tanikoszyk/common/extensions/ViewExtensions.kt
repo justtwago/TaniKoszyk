@@ -5,9 +5,7 @@ import android.content.ContextWrapper
 import android.graphics.PorterDuff
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -60,15 +58,6 @@ fun TextView.setOnActionDoneListener(listener: () -> Unit) {
         }
         false
     }
-}
-
-fun View.onGlobalLayoutListenerOnce(action: () -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            action()
-            viewTreeObserver.removeOnGlobalLayoutListener(this)
-        }
-    })
 }
 
 fun View.setupCustomToolbar(
@@ -137,16 +126,6 @@ var Toolbar.customTitle: String
 
 fun ImageView.setTintColor(@ColorRes colorRes: Int) {
     setColorFilter(ContextCompat.getColor(context, colorRes), PorterDuff.Mode.SRC_IN)
-}
-
-fun MenuItem.blockCollapsing(context: Context): Boolean {
-    setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW)
-    actionView = View(context)
-    setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-        override fun onMenuItemActionExpand(item: MenuItem) = false
-        override fun onMenuItemActionCollapse(item: MenuItem) = false
-    })
-    return false
 }
 
 fun TextView.addSimpleTextChangedListener(listener: (string: String) -> Unit) = this.addTextChangedListener(object : TextWatcher {

@@ -16,9 +16,9 @@ class BiedronkaProductDataSourceFactory @Inject constructor(
             biedronkaRepository,
             query,
             sortType,
-            loadingLiveData,
+            marketsLoadingStatusLiveData,
             isReset,
-            isNextPageLoaderVisibleLiveData
+            isPageLoadingLiveData
         ).apply {
             dataSource = this
         }

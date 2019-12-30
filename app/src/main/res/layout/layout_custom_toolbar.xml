@@ -11,6 +11,6 @@
         android:fontFamily="@font/gordita_medium"
         android:textColor="@color/white"
         tools:text="Title"
-        android:textSize="25sp" />
+        android:textSize="24sp" />
 
 </merge>

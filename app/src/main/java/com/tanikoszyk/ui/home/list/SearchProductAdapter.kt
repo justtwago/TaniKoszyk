@@ -1,6 +1,7 @@
 package com.tanikoszyk.ui.home.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -13,8 +14,9 @@ import com.tanikoszyk.ui.base.BaseProductViewHolder
 private const val PRODUCT_TYPE = 0
 private const val LOADER_TYPE = 1
 
-class SearchProductAdapter(private val onClickListener: OnProductClickListener) :
-    PagedListAdapter<MarketProduct, BaseProductViewHolder>(DIFF_CALLBACK) {
+class SearchProductAdapter(
+    private val onClickListener: (product: MarketProduct, rootView: View) -> Unit
+) : PagedListAdapter<MarketProduct, BaseProductViewHolder>(DiffCallback) {
 
     private var isProductsLoading: Boolean? = null
 
@@ -41,11 +43,7 @@ class SearchProductAdapter(private val onClickListener: OnProductClickListener) 
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (hasExtraRow() && position == itemCount - 1) {
-            LOADER_TYPE
-        } else {
-            PRODUCT_TYPE
-        }
+        return if (hasExtraRow() && position == itemCount - 1) LOADER_TYPE else PRODUCT_TYPE
     }
 
     override fun getItemCount(): Int {
@@ -66,19 +64,9 @@ class SearchProductAdapter(private val onClickListener: OnProductClickListener) 
     }
 
     private fun hasExtraRow() = isProductsLoading != null && isProductsLoading == true
+}
 
-    companion object {
-        private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<MarketProduct>() {
-            override fun areItemsTheSame(
-                oldConcert: MarketProduct,
-                newConcert: MarketProduct
-            ): Boolean = oldConcert.product.url == newConcert.product.url
-
-            override fun areContentsTheSame(
-                oldConcert: MarketProduct,
-                newConcert: MarketProduct
-            ): Boolean = oldConcert == newConcert
-        }
-    }
+private val DiffCallback = object : DiffUtil.ItemCallback<MarketProduct>() {
+    override fun areItemsTheSame(old: MarketProduct, new: MarketProduct): Boolean = old.product.url == new.product.url
+    override fun areContentsTheSame(old: MarketProduct, new: MarketProduct): Boolean = old == new
 }

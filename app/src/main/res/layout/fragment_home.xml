@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -7,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tanikoszyk.ui.home.HomeViewModel" />
+            type="com.tanikoszyk.ui.home.HomeViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,38 +22,39 @@
             android:id="@+id/customToolbar"
             style="@style/CustomToolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageButton
-                android:id="@+id/filterMenuItem"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="end"
-                android:background="?attr/actionBarItemBackground"
-                android:paddingBottom="16dp"
-                android:paddingEnd="20dp"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:src="@drawable/ic_filter" />
-        </com.tanikoszyk.ui.views.CustomToolbar>
-
-        <View
+        <FrameLayout
+            android:id="@+id/searchBackground"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/searchDivider"
+            android:paddingTop="23dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customToolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/customToolbar">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/marketFilters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_filter_market"
+                tools:visibility="visible"/>
+        </FrameLayout>
 
         <View
             android:id="@+id/searchDivider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            app:layout_constraintBottom_toBottomOf="@+id/searchView"
+            app:layout_constraintBottom_toBottomOf="@+id/searchBackground"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchView" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/searchContentLayout"
@@ -73,40 +75,41 @@
                 <com.tanikoszyk.ui.views.SortView
                     android:id="@+id/sortView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/auchanProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingEnd="16dp"
                     android:paddingStart="8dp"
-                    app:loadingItemVisibility="@{viewModel.isNextAuchanPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.auchanPagedSearchProductViewModelsLiveData}"
-                    tools:listitem="@layout/item_product_grid" />
+                    android:paddingEnd="16dp"
+                    app:loadingItemVisibility="@{viewModel.isAuchanPageLoaderVisibleLiveData}"
+                    app:pagedProducts="@{viewModel.auchanProductsLiveData}"
+                    tools:listitem="@layout/item_product_grid"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/biedronkaProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingEnd="16dp"
                     android:paddingStart="8dp"
-                    app:loadingItemVisibility="@{viewModel.isNextBiedronkaPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.biedronkaPagedSearchProductViewModelsLiveData}"
-                    tools:listitem="@layout/item_product_grid" />
+                    android:paddingEnd="16dp"
+                    app:loadingItemVisibility="@{viewModel.isBiedronkaPageLoaderVisibleLiveData}"
+                    app:pagedProducts="@{viewModel.biedronkaProductsLiveData}"
+                    tools:listitem="@layout/item_product_grid"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/kauflandProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingEnd="16dp"
                     android:paddingStart="8dp"
+                    android:paddingEnd="16dp"
                     app:loadingItemVisibility="@{viewModel.isNextKauflandPageLoaderVisibleLiveData}"
-                    app:pagedProducts="@{viewModel.kauflandPagedSearchProductViewModelsLiveData}"
-                    tools:listitem="@layout/item_product_grid" />
+                    app:pagedProducts="@{viewModel.kauflandProductsLiveData}"
+                    tools:listitem="@layout/item_product_grid"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -128,7 +131,7 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"/>
 
         </FrameLayout>
 
@@ -136,9 +139,49 @@
             android:id="@+id/searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/searchSettingsSpace"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customToolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/customToolbar"/>
+
+        <Space
+            android:id="@+id/searchSettingsSpace"
+            android:layout_width="45dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/searchView"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/filterLayout"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="@dimen/app_corner_radius"
+            app:cardElevation="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/searchDivider"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/searchDivider">
+
+            <ImageView
+                android:id="@+id/filterMenuItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_filter"
+                android:tint="@color/grey"/>
+
+            <ImageView
+                android:id="@+id/doneMenuItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:src="@drawable/ic_done"
+                android:tint="@color/green"
+                android:visibility="gone"/>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

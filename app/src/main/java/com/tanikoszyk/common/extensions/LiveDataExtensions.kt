@@ -16,7 +16,3 @@ fun MutableLiveData<MarketsLoadingStatus>.postKauflandReady(isReady: Boolean) {
     value!!.isKauflandProductsReady = isReady
     postValue(value)
 }
-fun MutableLiveData<MarketsLoadingStatus>.postTescoReady(isReady: Boolean) {
-    value!!.isTescoProductsReady = isReady
-    postValue(value)
-}

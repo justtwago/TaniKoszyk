@@ -3,6 +3,7 @@ package com.tanikoszyk.model
 import android.os.Parcelable
 import com.tanikoszyk.domain.Market
 import com.tanikoszyk.domain.MarketProduct
+import com.tanikoszyk.domain.Money
 import com.tanikoszyk.domain.Product
 import kotlinx.android.parcel.Parcelize
 
@@ -17,9 +18,15 @@ data class ProductDto(
     val url: String,
     val subtitle: String,
     val title: String,
-    val price: String,
+    val price: MoneyDto,
     val imageUrl: String,
     val quantity: String
+) : Parcelable
+
+@Parcelize
+data class MoneyDto(
+    val value: Double,
+    val currency: String
 ) : Parcelable
 
 fun MarketProduct.toDto() = MarketProductDto(
@@ -31,9 +38,14 @@ fun Product.toDto() = ProductDto(
     url = url,
     subtitle = subtitle,
     title = title,
-    price = price,
+    price = price.toDto(),
     imageUrl = imageUrl,
     quantity = quantity
+)
+
+fun Money.toDto() = MoneyDto(
+    value = value,
+    currency = currency
 )
 
 fun MarketProductDto.toDomain() = MarketProduct(
@@ -45,7 +57,12 @@ fun ProductDto.toDomain() = Product(
     url = url,
     subtitle = subtitle,
     title = title,
-    price = price,
+    price = price.toDomain(),
     imageUrl = imageUrl,
     quantity = quantity
+)
+
+fun MoneyDto.toDomain() = Money(
+    value = value,
+    currency = currency
 )
