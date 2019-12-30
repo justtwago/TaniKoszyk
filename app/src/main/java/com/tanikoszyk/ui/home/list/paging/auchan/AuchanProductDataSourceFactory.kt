@@ -16,9 +16,9 @@ class AuchanProductDataSourceFactory @Inject constructor(
             auchanRepository,
             query,
             sortType,
-            loadingLiveData,
+            marketsLoadingStatusLiveData,
             isReset,
-            isNextPageLoaderVisibleLiveData
+            isPageLoadingLiveData
         ).apply {
             dataSource = this
         }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.Toolbar
 import com.tanikoszyk.R
-import com.tanikoszyk.common.extensions.dp
+import com.tanikoszyk.common.extensions.dpToPx
 import com.tanikoszyk.common.extensions.inflateChild
 
 class CustomToolbar @JvmOverloads constructor(
@@ -20,7 +20,7 @@ class CustomToolbar @JvmOverloads constructor(
 
     public override fun onMeasure(widthSpec: Int, heightSpec: Int) {
         super.onMeasure(widthSpec, heightSpec)
-        setMeasuredDimension(measuredWidth, toolbarHeight.dp)
+        setMeasuredDimension(measuredWidth, toolbarHeight.dpToPx.toInt())
         setPadding(0, 0, extraMenuPadding, 0)
     }
 

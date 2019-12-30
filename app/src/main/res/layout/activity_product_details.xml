@@ -23,6 +23,7 @@
             android:clickable="true"
             android:focusable="true"
             android:transitionName="productCard"
+            app:cardCornerRadius="@dimen/app_corner_radius"
             app:rippleColor="@color/transparent">
 
             <androidx.constraintlayout.widget.ConstraintLayout

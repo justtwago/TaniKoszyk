@@ -16,11 +16,21 @@ interface AuchanRepository {
 internal class AuchanRepositoryImpl(private val service: AuchanService) : AuchanRepository {
 
     override suspend fun getProducts(searchQuery: String, page: Int, sortType: SortType): Result<ProductPage> {
-        return service.getProducts(
+        val result = service.getProducts(
             searchQuery = searchQuery,
             page = page - 1,
             sortType = sortType.toAuchanQuery()
         ).execute { it.mapToDomain() }
+
+        return when (result) {
+            is Result.Success.WithBody -> {
+                val sortedProducts = result.body.marketProducts
+                    .filter { it.product.isAvailable }
+                Result.Success.WithBody(result.body.copy(marketProducts = sortedProducts))
+            }
+            is Result.Success.Empty -> Result.Failure(IllegalStateException("Page shouldn't be empty"))
+            is Result.Failure -> Result.Failure(result.throwable)
+        }
     }
 
     private fun SortType.toAuchanQuery(): String {

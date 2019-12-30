@@ -7,4 +7,7 @@ data class Product(
     val price: Money,
     val imageUrl: String,
     val quantity: String
-)
+) {
+
+    val isAvailable get() = price.value > 0
+}

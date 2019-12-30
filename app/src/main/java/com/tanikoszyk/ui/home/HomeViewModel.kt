@@ -63,6 +63,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onSearchClicked(query: String) {
+        if (query.trim().length < 2) return
         viewModelScope.launch {
             searchQueryChannel.send(query)
         }
@@ -76,21 +77,21 @@ class HomeViewModel @Inject constructor(
 
     private fun setupAuchanProductViewModelsLiveData(): LiveData<PagedList<MarketProduct>> {
         return auchanProductDataSourceFactory.initialize(
-            isNextPageLoaderVisibleLiveData = isAuchanPageLoaderVisibleLiveData,
+            isPageLoadingLiveData = isAuchanPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
     }
 
     private fun setupBiedronkaProductViewModelsLiveData(): LiveData<PagedList<MarketProduct>> {
         return biedronkaProductDataSourceFactory.initialize(
-            isNextPageLoaderVisibleLiveData = isBiedronkaPageLoaderVisibleLiveData,
+            isPageLoadingLiveData = isBiedronkaPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
     }
 
     private fun setupKauflandProductViewModelsLiveData(): LiveData<PagedList<MarketProduct>> {
         return kauflandProductDataSourceFactory.initialize(
-            isNextPageLoaderVisibleLiveData = isNextKauflandPageLoaderVisibleLiveData,
+            isPageLoadingLiveData = isNextKauflandPageLoaderVisibleLiveData,
             loadingLiveData = loadingLiveData
         )
     }

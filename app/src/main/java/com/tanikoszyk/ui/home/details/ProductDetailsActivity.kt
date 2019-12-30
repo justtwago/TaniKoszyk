@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.tanikoszyk.R
 import com.tanikoszyk.common.extensions.viewModel
 import com.tanikoszyk.databinding.ActivityProductDetailsBinding
@@ -34,6 +34,8 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportPostponeEnterTransition()
         super.onCreate(savedInstanceState)
+        window.sharedElementEnterTransition.duration = 200
+        window.sharedElementReturnTransition.duration = 200
         initViewModel()
         registerObservers()
     }
@@ -44,11 +46,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>() {
     }
 
     private fun registerObservers() {
-        viewModel.onProductLoadingFinishedEvent.observe(this, Observer {
-            supportStartPostponedEnterTransition()
-        })
-        viewModel.onDismissEvent.observe(this, Observer {
-            onBackPressed()
-        })
+        viewModel.onProductLoadingFinishedEvent.observe(this) { supportStartPostponedEnterTransition() }
+        viewModel.onDismissEvent.observe(this) { onBackPressed() }
     }
 }

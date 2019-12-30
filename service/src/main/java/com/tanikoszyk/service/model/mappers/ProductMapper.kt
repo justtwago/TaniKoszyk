@@ -48,7 +48,7 @@ internal fun KauflandProduct.mapToDomain() = MarketProduct(
         subtitle = subtitle.orEmpty(),
         title = title.orEmpty(),
         price = Money(
-            value = price?.toDoubleOrNull() ?: 0.0,
+            value = price?.replace(',', '.')?.toDoubleOrNull() ?: 0.0,
             currency = "zł"
         ),
         imageUrl = imageUrl?.split(", ")?.last()?.substringBefore(" ").orEmpty(),
@@ -82,7 +82,7 @@ internal fun BiedronkaProduct.mapToDomain(url: String): MarketProduct {
             subtitle = title?.subList(0, title.size / 2)?.joinToString(separator = " ").orEmpty(),
             title = title?.subList(title.size / 2, title.size)?.joinToString(separator = " ").orEmpty(),
             price = Money(
-                value = "$priceZloty.$priceCents".toDoubleOrNull() ?: 0.0,
+                value = "${priceZloty ?: "0"}.${priceCents ?: "0"}".toDoubleOrNull() ?: 0.0,
                 currency = "zł"
             ),
             imageUrl = imageUrl?.replace("4x2", "1x1").orEmpty(),

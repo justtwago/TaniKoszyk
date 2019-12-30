@@ -21,7 +21,10 @@ internal class KauflandRepositoryImpl(private val service: KauflandService) : Ka
         }
         return when (productsResult) {
             is Result.Success.WithBody -> {
-                val sortedProducts = productsResult.body.marketProducts.sort(sortType)
+                val sortedProducts = productsResult.body.marketProducts
+                    .sort(sortType)
+                    .filter { it.product.isAvailable }
+
                 Result.Success.WithBody(productsResult.body.copy(marketProducts = sortedProducts))
             }
             is Result.Success.Empty -> Result.Failure(IllegalStateException("Page shouldn't be empty"))

@@ -25,7 +25,10 @@ internal class BiedronkaRepositoryImpl(private val service: BiedronkaService) : 
         return when (productIdsResult) {
             is Result.Success.WithBody -> {
                 val productPage = getProductPage(productIdsResult.body, page)
-                val sortedProducts = productPage?.marketProducts?.sort(sortType).orEmpty()
+                val sortedProducts = productPage?.marketProducts
+                    ?.sort(sortType)
+                    ?.filter { it.product.isAvailable }
+                    .orEmpty()
                 productPage?.let {
                     Result.Success.WithBody(it.copy(marketProducts = sortedProducts))
                 } ?: Result.Failure(IllegalStateException("Page shouldn't be null"))

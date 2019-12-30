@@ -16,9 +16,9 @@ class KauflandProductDataSourceFactory @Inject constructor(
             kauflandService,
             query,
             sortType,
-            loadingLiveData,
+            marketsLoadingStatusLiveData,
             isReset,
-            isNextPageLoaderVisibleLiveData
+            isPageLoadingLiveData
         ).apply {
             dataSource = this
         }
