@@ -37,7 +37,7 @@ ext.versions = [
     mockitocore        : '3.2.0',
     mockitokotlin      : '2.1.0',
     navigation         : '1.0.0',
-    paging             : '2.1.0',
+    paging             : '2.1.1',
     persistentCookie   : '1.0.1',
     retrofit           : '2.7.0',
     testRunner         : '1.0.2',
