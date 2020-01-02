@@ -27,7 +27,7 @@ ext.versions = [
     glide              : '4.10.0',
     googleServices     : '4.3.3',
     jspoon             : '1.3.2',
-    junit              : '4.12',
+    junit              : '4.13',
     kotlin             : '1.3.61',
     ktx                : '1.1.0',
     ktxFragment        : '1.1.0',
