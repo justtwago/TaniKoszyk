@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-    implementation project(':authentication')
     implementation project(':domain')
     implementation project(':service')
 

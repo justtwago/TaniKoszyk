@@ -1,7 +1,6 @@
 package com.tanikoszyk.service.di
 
 import android.content.Context
-import com.google.firebase.database.FirebaseDatabase
 import com.tanikoszyk.service.common.createRetrofit
 import com.tanikoszyk.service.repositories.AUCHAN_BASE_URL
 import com.tanikoszyk.service.repositories.BIEDRONKA_BASE_URL
@@ -11,9 +10,6 @@ import dagger.Provides
 
 @Module
 internal class ServiceModule {
-
-    @Provides
-    fun firebaseDatabaseReference() = FirebaseDatabase.getInstance().reference
 
     @Provides
     @Auchan

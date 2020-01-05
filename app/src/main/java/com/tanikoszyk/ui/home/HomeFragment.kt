@@ -83,7 +83,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setupListeners() {
-        sortView.setOnSortItemSelectedListener(viewModel::onSortTypeSelected)
         searchView.setOnActionDoneListener {
             if (searchView.text.trim().length > 2) {
                 viewModel.onSearchClicked(query = searchView.text)

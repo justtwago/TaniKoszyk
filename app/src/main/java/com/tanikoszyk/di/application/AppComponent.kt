@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.fanmountain.authentication.AuthenticatorComponent
 import com.tanikoszyk.TaniKoszykApplication
 import com.tanikoszyk.di.viewmodel.ViewModelModule
 import com.tanikoszyk.service.di.ServiceComponent
@@ -14,14 +13,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [
-        ServiceComponent::class,
-        AuthenticatorComponent::class
-    ],
-    modules = [
-        AppModule::class,
-        ViewModelModule::class
-    ]
+    dependencies = [ServiceComponent::class],
+    modules = [AppModule::class, ViewModelModule::class]
 )
 interface AppComponent {
 
@@ -33,7 +26,6 @@ interface AppComponent {
     interface Factory {
 
         fun create(
-            authenticatorComponent: AuthenticatorComponent,
             serviceComponent: ServiceComponent,
             @BindsInstance application: Application
         ): AppComponent

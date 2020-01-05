@@ -7,22 +7,19 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name=".TaniKoszykApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".TaniKoszykApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
+
         <activity
-            android:name=".ui.home.details.ProductDetailsActivity"
-            android:theme="@style/Translucent">
-        </activity>
-        <activity
-            android:name=".ui.auth.AuthenticationActivity"
+            android:name=".ui.HostActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -30,9 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".ui.HostActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.home.details.ProductDetailsActivity"
+            android:theme="@style/Translucent"/>
     </application>
 
 </manifest>

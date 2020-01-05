@@ -1,15 +1,12 @@
 package com.tanikoszyk.common.binding
 
 import android.view.View
-import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.tanikoszyk.common.extensions.addSimpleTextChangedListener
 import com.tanikoszyk.domain.MarketProduct
-import com.tanikoszyk.ui.auth.CredentialsListener
 import com.tanikoszyk.ui.home.list.SearchProductAdapter
 
 @BindingAdapter("android:visibility")
@@ -43,14 +40,4 @@ fun RecyclerView.setOnItemRemoved(onItemRemoved: (position: Int) -> Unit) {
         }
     }
     ItemTouchHelper(simpleCallback).attachToRecyclerView(this)
-}
-
-@BindingAdapter("emailChangedListener")
-fun EditText.setEmailChangedListener(listener: CredentialsListener) {
-    addSimpleTextChangedListener(listener::onEmailTextChanged)
-}
-
-@BindingAdapter("passwordChangedListener")
-fun EditText.setPasswordChangedListener(listener: CredentialsListener) {
-    addSimpleTextChangedListener(listener::onPasswordTextChanged)
 }

@@ -72,12 +72,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.tanikoszyk.ui.views.SortView
-                    android:id="@+id/sortView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"/>
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/auchanProductsRecyclerView"
                     android:layout_width="match_parent"
