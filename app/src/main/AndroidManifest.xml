@@ -18,6 +18,10 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
 
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${enableCrashReporting}" />
+
         <activity
             android:name=".ui.HostActivity"
             android:screenOrientation="portrait">
