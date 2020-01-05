@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     defaultConfig {
@@ -8,12 +9,25 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [enableCrashReporting: "false"]
         }
         release {
             minifyEnabled true
             shrinkResources true
             debuggable false
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [enableCrashReporting: "true"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../keys/debug.keystore')
+            storePassword 'android-debug'
+            keyAlias 'android-debug'
+            keyPassword 'android-debug'
         }
     }
 
@@ -26,6 +40,7 @@ android {
 
         dev {
             applicationIdSuffix '.dev'
+            manifestPlaceholders = [enableCrashReporting: "false"]
             dimension "variant"
         }
     }
@@ -51,6 +66,8 @@ dependencies {
     implementation deps.androidX.lifecycle.viewModel
     implementation deps.androidX.lifecycle.liveData
     implementation deps.androidX.paging
+
+    implementation deps.crashlytics
 
     implementation deps.dagger.runtime
     kapt deps.dagger.compiler
