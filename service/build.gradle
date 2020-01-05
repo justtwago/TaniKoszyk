@@ -2,9 +2,6 @@ apply plugin: 'com.android.library'
 
 dependencies {
     implementation project(':domain')
-    implementation project(':authentication')
-
-    implementation deps.firebase.database
 
     implementation deps.jspoon.core
     implementation deps.jspoon.converter
