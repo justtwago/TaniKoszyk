@@ -3,11 +3,6 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation project(':domain')
 
-    implementation deps.jspoon.core
-    implementation deps.jspoon.converter
-    implementation deps.retrofit
-    implementation deps.persistentCookie
-
     implementation deps.room.runtime
     implementation deps.room.ktx
     kapt deps.room.compiler

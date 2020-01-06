@@ -15,7 +15,7 @@ class TaniKoszykApplication : Application(), AppComponentProvider {
     override val appComponent by lazy {
         DaggerAppComponent
             .factory()
-            .create(serviceComponent, application = this)
+            .create(serviceComponent, applicationContext = this)
     }
 
     override fun onCreate() {

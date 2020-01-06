@@ -1,12 +1,11 @@
 package com.tanikoszyk.di.application
 
-import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.tanikoszyk.TaniKoszykApplication
 import com.tanikoszyk.di.viewmodel.ViewModelModule
 import com.tanikoszyk.service.di.ServiceComponent
+import com.tanikoszyk.storage.di.StorageModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -14,20 +13,20 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     dependencies = [ServiceComponent::class],
-    modules = [AppModule::class, ViewModelModule::class]
+    modules = [ViewModelModule::class, StorageModule::class]
 )
 interface AppComponent {
 
     val viewModelFactory: ViewModelProvider.Factory
 
-    fun inject(application: TaniKoszykApplication)
+    fun inject(applicationContext: Context)
 
     @Component.Factory
     interface Factory {
 
         fun create(
             serviceComponent: ServiceComponent,
-            @BindsInstance application: Application
+            @BindsInstance applicationContext: Context
         ): AppComponent
     }
 }
