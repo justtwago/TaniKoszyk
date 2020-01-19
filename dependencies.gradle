@@ -42,6 +42,7 @@ ext.versions = [
     paging             : '2.1.1',
     persistentCookie   : '1.0.1',
     retrofit           : '2.7.1',
+    room               : '2.2.3',
     testRunner         : '1.0.2',
     versionsPlugin     : '0.27.0',
 ]
@@ -112,6 +113,12 @@ ext.deps = [
     ],
     persistentCookie  : "com.github.franmontiel:PersistentCookieJar:$versions.persistentCookie",
     retrofit          : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+    room              : [
+        runtime : "androidx.room:room-runtime:$versions.room",
+        compiler: "androidx.room:room-compiler:$versions.room",
+        ktx     : "androidx.room:room-ktx:$versions.room",
+        testing : "androidx.room:room-testing:$versions.room"
+    ],
     test              : [
         assertJ            : "org.assertj:assertj-core:$versions.assertj",
         espresso           : "com.android.support.test.espresso:espresso-core:$versions.espresso",

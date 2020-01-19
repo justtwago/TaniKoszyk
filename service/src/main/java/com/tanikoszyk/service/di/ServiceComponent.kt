@@ -21,8 +21,6 @@ interface ServiceComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(
-            @BindsInstance context: Context
-        ): ServiceComponent
+        fun create(@BindsInstance context: Context): ServiceComponent
     }
 }

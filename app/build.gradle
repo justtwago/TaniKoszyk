@@ -53,6 +53,7 @@ android {
 dependencies {
     implementation project(':domain')
     implementation project(':service')
+    implementation project(':storage')
 
     implementation deps.navigation.ui
     implementation deps.navigation.fragment.core
@@ -80,6 +81,9 @@ dependencies {
     implementation deps.material
     implementation deps.bindingCollections.core
     implementation deps.bindingCollections.recyclerView
+
+    compileOnly deps.room.runtime
+    compileOnly deps.room.ktx
 
     testImplementation(deps.test.lifecycleExtensions, {
         exclude group: 'com.android.support', module: 'support-compat'

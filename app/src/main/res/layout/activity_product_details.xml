@@ -111,6 +111,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="13,99 zł"/>
 
+                <Button
+                    android:onClick="@{() -> viewModel.onProductAddedToCart()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ADD"
+                    app:layout_constraintBottom_toBottomOf="@+id/price"
+                    app:layout_constraintStart_toEndOf="@+id/marketLogo"
+                    app:layout_constraintTop_toTopOf="@+id/price"/>
+
                 <ImageView
                     android:id="@+id/marketLogo"
                     android:layout_width="50dp"
