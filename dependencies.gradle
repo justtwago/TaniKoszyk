@@ -11,7 +11,7 @@ ext.buildConfig = [
 ext.versions = [
     androidPlugin      : '3.5.3',
     androidXAppCompat  : '1.1.0',
-    androidXLifecycle  : '2.1.0',
+    androidXLifecycle  : '2.2.0',
     androidXLiveData   : '2.1.0',
     androidXViewModel  : '2.1.0',
     assertj            : '3.14.0',
