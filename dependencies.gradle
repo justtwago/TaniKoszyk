@@ -12,7 +12,7 @@ ext.versions = [
     androidPlugin      : '3.5.3',
     androidXAppCompat  : '1.1.0',
     androidXLifecycle  : '2.1.0',
-    androidXLiveData   : '2.1.0',
+    androidXLiveData   : '2.3.1',
     androidXViewModel  : '2.1.0',
     assertj            : '3.14.0',
     assistedInject     : '0.5.2',
