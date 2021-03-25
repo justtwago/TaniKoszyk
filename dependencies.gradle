@@ -32,7 +32,7 @@ ext.versions = [
     junit              : '4.13',
     kotlin             : '1.3.61',
     ktx                : '1.1.0',
-    ktxFragment        : '1.1.0',
+    ktxFragment        : '1.3.2',
     legacySupport      : '1.0.0',
     lifecycleExtensions: '1.1.1',
     material           : '1.0.0',
