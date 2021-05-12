@@ -24,7 +24,7 @@ ext.versions = [
     espresso           : '3.0.2',
     fabric             : '1.31.2',
     firebaseAuth       : '19.2.0',
-    firebaseCore       : '17.2.1',
+    firebaseCore       : '19.0.0',
     firebaseDatabase   : '19.2.0',
     glide              : '4.10.0',
     googleServices     : '4.3.3',
